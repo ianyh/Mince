@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		407E994615B1E12800B930EE /* SIReceiptViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 407E994415B1E12800B930EE /* SIReceiptViewController.m */; };
 		40C4655D15B14A860047BB60 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 40C4655C15B14A860047BB60 /* UIKit.framework */; };
 		40C4655F15B14A860047BB60 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 40C4655E15B14A860047BB60 /* Foundation.framework */; };
 		40C4656115B14A860047BB60 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 40C4656015B14A860047BB60 /* CoreGraphics.framework */; };
@@ -14,23 +15,25 @@
 		40C4656915B14A860047BB60 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 40C4656815B14A860047BB60 /* main.m */; };
 		40C4656D15B14A860047BB60 /* SIAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 40C4656C15B14A860047BB60 /* SIAppDelegate.m */; };
 		40C4657015B14A860047BB60 /* MainStoryboard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 40C4656E15B14A860047BB60 /* MainStoryboard.storyboard */; };
-		40C4657315B14A860047BB60 /* SIViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 40C4657215B14A860047BB60 /* SIViewController.m */; };
+		40C4657315B14A860047BB60 /* SIPersonViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 40C4657215B14A860047BB60 /* SIPersonViewController.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		407E994315B1E12800B930EE /* SIReceiptViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SIReceiptViewController.h; sourceTree = "<group>"; };
+		407E994415B1E12800B930EE /* SIReceiptViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SIReceiptViewController.m; sourceTree = "<group>"; };
 		40C4655815B14A860047BB60 /* Stab.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Stab.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		40C4655C15B14A860047BB60 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		40C4655E15B14A860047BB60 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		40C4656015B14A860047BB60 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
-		40C4656415B14A860047BB60 /* Stab-Info.plist */ = {isa = PBXFileReference; path = "Stab-Info.plist"; sourceTree = "<group>"; };
+		40C4656415B14A860047BB60 /* Stab-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "Stab-Info.plist"; sourceTree = "<group>"; };
 		40C4656615B14A860047BB60 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		40C4656815B14A860047BB60 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
-		40C4656A15B14A860047BB60 /* Stab-Prefix.pch */ = {isa = PBXFileReference; path = "Stab-Prefix.pch"; sourceTree = "<group>"; };
-		40C4656B15B14A860047BB60 /* SIAppDelegate.h */ = {isa = PBXFileReference; path = SIAppDelegate.h; sourceTree = "<group>"; };
+		40C4656A15B14A860047BB60 /* Stab-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Stab-Prefix.pch"; sourceTree = "<group>"; };
+		40C4656B15B14A860047BB60 /* SIAppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SIAppDelegate.h; sourceTree = "<group>"; };
 		40C4656C15B14A860047BB60 /* SIAppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SIAppDelegate.m; sourceTree = "<group>"; };
 		40C4656F15B14A860047BB60 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = en; path = en.lproj/MainStoryboard.storyboard; sourceTree = "<group>"; };
-		40C4657115B14A860047BB60 /* SIViewController.h */ = {isa = PBXFileReference; path = SIViewController.h; sourceTree = "<group>"; };
-		40C4657215B14A860047BB60 /* SIViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SIViewController.m; sourceTree = "<group>"; };
+		40C4657115B14A860047BB60 /* SIPersonViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SIPersonViewController.h; sourceTree = "<group>"; };
+		40C4657215B14A860047BB60 /* SIPersonViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SIPersonViewController.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -80,8 +83,10 @@
 				40C4656B15B14A860047BB60 /* SIAppDelegate.h */,
 				40C4656C15B14A860047BB60 /* SIAppDelegate.m */,
 				40C4656E15B14A860047BB60 /* MainStoryboard.storyboard */,
-				40C4657115B14A860047BB60 /* SIViewController.h */,
-				40C4657215B14A860047BB60 /* SIViewController.m */,
+				40C4657115B14A860047BB60 /* SIPersonViewController.h */,
+				40C4657215B14A860047BB60 /* SIPersonViewController.m */,
+				407E994315B1E12800B930EE /* SIReceiptViewController.h */,
+				407E994415B1E12800B930EE /* SIReceiptViewController.m */,
 				40C4656315B14A860047BB60 /* Supporting Files */,
 			);
 			path = Stab;
@@ -163,7 +168,8 @@
 			files = (
 				40C4656915B14A860047BB60 /* main.m in Sources */,
 				40C4656D15B14A860047BB60 /* SIAppDelegate.m in Sources */,
-				40C4657315B14A860047BB60 /* SIViewController.m in Sources */,
+				40C4657315B14A860047BB60 /* SIPersonViewController.m in Sources */,
+				407E994615B1E12800B930EE /* SIReceiptViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -240,6 +246,7 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Stab/Stab-Prefix.pch";
 				INFOPLIST_FILE = "Stab/Stab-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				WRAPPER_EXTENSION = app;
 			};
@@ -251,6 +258,7 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Stab/Stab-Prefix.pch";
 				INFOPLIST_FILE = "Stab/Stab-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				WRAPPER_EXTENSION = app;
 			};
@@ -275,6 +283,7 @@
 				40C4657815B14A860047BB60 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

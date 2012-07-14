@@ -8,6 +8,6 @@
 
 #import <UIKit/UIKit.h>
 
-@interface SIViewController : UIViewController
+@interface SIPersonViewController : UIViewController
 
 @end
