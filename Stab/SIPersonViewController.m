@@ -8,16 +8,22 @@
 
 #import "SIPersonViewController.h"
 
+#import "SIPerson.h"
+
 @interface SIPersonViewController () <UITableViewDataSource, UITableViewDelegate>
 @property (nonatomic, retain) IBOutlet UITableView *tableView;
+
+@property (nonatomic, retain) NSMutableArray *people;
 @end
 
 @implementation SIPersonViewController
 @synthesize tableView = _tableView;
+@synthesize people = _people;
 
 - (void)awakeFromNib {
     [super awakeFromNib];
     self.navigationItem.rightBarButtonItem = [self editButtonItem];
+    self.people = [NSMutableArray array];
 }
 
 - (void)viewDidUnload {
@@ -37,11 +43,16 @@
 #pragma mark - UITableViewDataSource
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return 0;
+    return [self.people count];
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    return nil;
+    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"SIPersonTableViewCell"];
+    SIPerson *person = [self.people objectAtIndex:indexPath.row];
+
+    cell.textLabel.text = person.name;
+
+    return cell;
 }
 
 #pragma mark - UITableViewDelegate
