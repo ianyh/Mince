@@ -12,19 +12,16 @@
 using namespace tesseract;
 
 @interface SITesseractParser ()
-@property (nonatomic, retain) UIImage *image;
 @property (nonatomic, assign) TessBaseAPI *tesseract;
 - (void)setUpTesseract;
 @end
 
 @implementation SITesseractParser
-@synthesize image = _image;
 @synthesize tesseract = _tesseract;
 
 - (id)initWithImage:(UIImage *)image {
     self = [super init];
     if (self) {
-        self.image = image;
         [self setUpTesseract];
     }
     return self;
@@ -58,6 +55,29 @@ using namespace tesseract;
     // init the tesseract engine.
     self.tesseract = new tesseract::TessBaseAPI();
     self.tesseract->Init([dataPath cStringUsingEncoding:NSUTF8StringEncoding], "eng");
+}
+
+#pragma mark - Parse
+
+- (void)parseImage:(UIImage *)image withCompletionHandler:(SITesseractCompletionHandler)completionHandler {
+    CGSize imageSize = [image size];
+    int bytesPerLine  = (int)CGImageGetBytesPerRow([image CGImage]);
+    int bytesPerPixel = (int)CGImageGetBitsPerPixel([image CGImage]) / 8.0;
+    
+    CFDataRef data = CGDataProviderCopyData(CGImageGetDataProvider([image CGImage]));
+    const UInt8 *imageData = CFDataGetBytePtr(data);
+    
+    // this could take a while.
+    char *text = self.tesseract->TesseractRect(imageData,
+                                               bytesPerPixel,
+                                               bytesPerLine,
+                                               0, 0,
+                                               imageSize.width, imageSize.height);
+    
+    NSString *parsedString = [NSString stringWithCString:text encoding:NSUTF8StringEncoding];
+    delete[] text;
+    CFRelease(data);
+    completionHandler(parsedString);
 }
 
 @end
