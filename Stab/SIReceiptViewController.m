@@ -8,11 +8,24 @@
 
 #import "SIReceiptViewController.h"
 
+#import "SIPerson.h"
+#import "SIReceipt.h"
+
+typedef enum {
+    SIReceiptViewControllerSectionAdd,
+    SIReceiptViewControllerSectionReceipt,
+    SIReceiptViewControllerSectionCount,
+} SIReceiptViewControllerSection;
+
 @interface SIReceiptViewController () <UITableViewDataSource, UITableViewDelegate>
+@property (nonatomic, retain) NSMutableSet *selectedReceiptEntries;
+
 @property (nonatomic, retain) IBOutlet UITableView *tableView;
 @end
 
 @implementation SIReceiptViewController
+@synthesize selectedPerson = _selectedPerson;
+@synthesize selectedReceiptEntries = _selectedReceiptEntries;
 @synthesize tableView = _tableView;
 
 - (void)awakeFromNib {
@@ -27,6 +40,11 @@
     self.tableView = nil;
 }
 
+- (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+    [self.selectedReceiptEntries addObjectsFromArray:[[self.selectedPerson selectedReceiptEntries] allObjects]];
+}
+
 #pragma mark - Editing
 
 - (void)setEditing:(BOOL)editing animated:(BOOL)animated {
@@ -36,7 +54,18 @@
 
 #pragma mark - UITableViewDataSource
 
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
+    return SIReceiptViewControllerSectionCount;
+}
+
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
+    switch (section) {
+        case SIReceiptViewControllerSectionAdd:
+            return (self.tableView.editing ? 1 : 0);
+        case SIReceiptViewControllerSectionReceipt:
+            return [[[SIReceipt sharedReceipt] receiptEntries] count];
+    }
+    
     return 0;
 }
 

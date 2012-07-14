@@ -8,6 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
+@class SIPerson;
 @interface SIReceiptViewController : UIViewController
-
+@property (nonatomic, retain) SIPerson *selectedPerson;
 @end

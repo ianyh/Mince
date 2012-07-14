@@ -60,6 +60,9 @@
                                             </subviews>
                                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                         </view>
+                                        <connections>
+                                            <segue destination="uO2-UV-aFK" kind="push" identifier="SIReceiptSegue" id="415-0z-CXX"/>
+                                        </connections>
                                     </tableViewCell>
                                 </prototypes>
                                 <connections>
@@ -75,7 +78,6 @@
                         <outlet property="addPersonCell" destination="647-ix-HSy" id="g1i-o8-rl3"/>
                         <outlet property="tableView" destination="Tzm-RK-P2R" id="iGZ-of-qdM"/>
                         <outlet property="view" destination="5io-NK-Y8j" id="2yd-Yc-WGd"/>
-                        <segue destination="uO2-UV-aFK" kind="push" identifier="SIReceiptSegue" id="crL-NE-Dve"/>
                     </connections>
                 </viewController>
                 <tableViewCell contentMode="scaleToFill" selectionStyle="blue" indentationWidth="0.0" shouldIndentWhileEditing="NO" reuseIdentifier="SIAddPersonTableViewCell" id="647-ix-HSy">

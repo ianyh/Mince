@@ -8,6 +8,11 @@
 
 #import <Foundation/Foundation.h>
 
+@class SIReceipt;
 @interface SIPerson : NSObject
 @property (nonatomic, retain) NSString *name;
+
+- (NSMutableSet *)selectedReceiptEntries;
+- (void)selectReceiptEntry:(SIReceipt *)receiptEntry;
+- (void)unselectReceiptEntry:(SIReceipt *)receiptEntry;
 @end

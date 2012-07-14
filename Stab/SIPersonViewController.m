@@ -11,10 +11,10 @@
 #import "SIPerson.h"
 
 typedef enum {
-    WSPersonViewControllerSectionAdd,
-    WSPersonViewControllerSectionPeople,
-    WSPersonViewControllerSectionCount
-} WSPersonViewControllerSection;
+    SIPersonViewControllerSectionAdd,
+    SIPersonViewControllerSectionPeople,
+    SIPersonViewControllerSectionCount
+} SIPersonViewControllerSection;
 
 @interface SIPersonViewController () <UITableViewDataSource, UITableViewDelegate, UITextFieldDelegate>
 @property (nonatomic, retain) IBOutlet UITableView *tableView;
@@ -47,21 +47,21 @@ typedef enum {
 - (void)setEditing:(BOOL)editing animated:(BOOL)animated {
     [super setEditing:editing animated:animated];
     [self.tableView setEditing:editing animated:animated];
-    [self.tableView reloadSections:[NSIndexSet indexSetWithIndex:WSPersonViewControllerSectionAdd]
+    [self.tableView reloadSections:[NSIndexSet indexSetWithIndex:SIPersonViewControllerSectionAdd]
                   withRowAnimation:UITableViewRowAnimationBottom];
 }
 
 #pragma mark - UITableViewDataSource
                                     
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-    return WSPersonViewControllerSectionCount;
+    return SIPersonViewControllerSectionCount;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     switch (section) {
-        case WSPersonViewControllerSectionAdd:
+        case SIPersonViewControllerSectionAdd:
             return (self.tableView.editing ? 1 : 0);
-        case WSPersonViewControllerSectionPeople:
+        case SIPersonViewControllerSectionPeople:
             return [self.people count];
     }
 
@@ -69,13 +69,14 @@ typedef enum {
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    if (indexPath.section == WSPersonViewControllerSectionAdd)
+    if (indexPath.section == SIPersonViewControllerSectionAdd)
         return self.addPersonCell;
 
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"SIPersonTableViewCell"];
     SIPerson *person = [self.people objectAtIndex:indexPath.row];
 
     cell.textLabel.text = person.name;
+    cell.detailTextLabel.text = nil;
 
     return cell;
 }
@@ -87,7 +88,7 @@ typedef enum {
 }
 
 - (UITableViewCellEditingStyle)tableView:(UITableView *)tableView editingStyleForRowAtIndexPath:(NSIndexPath *)indexPath {
-    if (indexPath.section == WSPersonViewControllerSectionAdd)
+    if (indexPath.section == SIPersonViewControllerSectionAdd)
         return UITableViewCellEditingStyleNone;
 
     return UITableViewCellEditingStyleDelete;
@@ -109,7 +110,7 @@ typedef enum {
 
     // Insert a row in the table for the new person
     NSIndexPath *indexPath = [NSIndexPath indexPathForRow:0
-                                                inSection:WSPersonViewControllerSectionPeople];
+                                                inSection:SIPersonViewControllerSectionPeople];
     [self.tableView insertRowsAtIndexPaths:[NSArray arrayWithObject:indexPath]
                           withRowAnimation:UITableViewRowAnimationTop];
 
