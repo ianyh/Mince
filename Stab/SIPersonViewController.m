@@ -8,20 +8,42 @@
 
 #import "SIPersonViewController.h"
 
-@interface SIPersonViewController ()
-
+@interface SIPersonViewController () <UITableViewDataSource, UITableViewDelegate>
+@property (nonatomic, retain) IBOutlet UITableView *tableView;
 @end
 
 @implementation SIPersonViewController
+@synthesize tableView = _tableView;
 
-- (void)viewDidLoad {
-    [super viewDidLoad];
-	// Do any additional setup after loading the view, typically from a nib.
+- (void)awakeFromNib {
+    [super awakeFromNib];
+    self.navigationItem.rightBarButtonItem = [self editButtonItem];
 }
 
 - (void)viewDidUnload {
     [super viewDidUnload];
-    // Release any retained subviews of the main view.
+    self.tableView.dataSource = nil;
+    self.tableView.delegate = nil;
+    self.tableView = nil;
 }
+
+#pragma mark - Editing
+
+- (void)setEditing:(BOOL)editing animated:(BOOL)animated {
+    [super setEditing:editing animated:animated];
+    [self.tableView setEditing:editing animated:animated];
+}
+
+#pragma mark - UITableViewDataSource
+
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
+    return 0;
+}
+
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
+    return nil;
+}
+
+#pragma mark - UITableViewDelegate
 
 @end
