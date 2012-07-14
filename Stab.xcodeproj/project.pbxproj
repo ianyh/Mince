@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		405AC1F215B202DE001BB625 /* SIReceipt.m in Sources */ = {isa = PBXBuildFile; fileRef = 405AC1F115B202DE001BB625 /* SIReceipt.m */; };
+		405AC1F615B2053F001BB625 /* SIReceiptEntry.m in Sources */ = {isa = PBXBuildFile; fileRef = 405AC1F515B2053F001BB625 /* SIReceiptEntry.m */; };
 		407E994615B1E12800B930EE /* SIReceiptViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 407E994415B1E12800B930EE /* SIReceiptViewController.m */; };
 		407E99D815B1E41B00B930EE /* liblept.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 407E99C615B1E41B00B930EE /* liblept.a */; };
 		407E99D915B1E41C00B930EE /* libtesseract.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 407E99C715B1E41B00B930EE /* libtesseract.a */; };
@@ -39,6 +41,10 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		405AC1F015B202DE001BB625 /* SIReceipt.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SIReceipt.h; sourceTree = "<group>"; };
+		405AC1F115B202DE001BB625 /* SIReceipt.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SIReceipt.m; sourceTree = "<group>"; };
+		405AC1F415B2053F001BB625 /* SIReceiptEntry.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SIReceiptEntry.h; sourceTree = "<group>"; };
+		405AC1F515B2053F001BB625 /* SIReceiptEntry.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SIReceiptEntry.m; sourceTree = "<group>"; };
 		407E994315B1E12800B930EE /* SIReceiptViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SIReceiptViewController.h; sourceTree = "<group>"; };
 		407E994415B1E12800B930EE /* SIReceiptViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SIReceiptViewController.m; sourceTree = "<group>"; };
 		407E999C15B1E41B00B930EE /* allheaders.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = allheaders.h; sourceTree = "<group>"; };
@@ -287,6 +293,10 @@
 				40C4657215B14A860047BB60 /* SIPersonViewController.m */,
 				407E994315B1E12800B930EE /* SIReceiptViewController.h */,
 				407E994415B1E12800B930EE /* SIReceiptViewController.m */,
+				405AC1F015B202DE001BB625 /* SIReceipt.h */,
+				405AC1F115B202DE001BB625 /* SIReceipt.m */,
+				405AC1F415B2053F001BB625 /* SIReceiptEntry.h */,
+				405AC1F515B2053F001BB625 /* SIReceiptEntry.m */,
 				40C4656315B14A860047BB60 /* Supporting Files */,
 			);
 			path = Stab;
@@ -372,6 +382,8 @@
 				40C4657315B14A860047BB60 /* SIPersonViewController.m in Sources */,
 				407E994615B1E12800B930EE /* SIReceiptViewController.m in Sources */,
 				407E99EC15B1E8C000B930EE /* SITesseractParser.mm in Sources */,
+				405AC1F215B202DE001BB625 /* SIReceipt.m in Sources */,
+				405AC1F615B2053F001BB625 /* SIReceiptEntry.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
