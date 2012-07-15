@@ -11,4 +11,14 @@
 @implementation SIReceiptEntry
 @synthesize name = _name;
 @synthesize cost = _cost;
+@synthesize claimCount = _claimCount;
+
+- (id)init {
+    self = [super init];
+    if (self) {
+        self.claimCount = 0;
+    }
+    return self;
+}
+
 @end

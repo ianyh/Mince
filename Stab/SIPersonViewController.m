@@ -8,6 +8,8 @@
 
 #import "SIPersonViewController.h"
 
+#import "SIReceiptViewController.h"
+
 #import "SIPerson.h"
 
 typedef enum {
@@ -17,21 +19,27 @@ typedef enum {
 } SIPersonViewControllerSection;
 
 @interface SIPersonViewController () <UITableViewDataSource, UITableViewDelegate, UITextFieldDelegate>
+@property (nonatomic, retain) NSMutableArray *people;
+@property (nonatomic, retain) NSNumberFormatter *currencyFormatter;
+
 @property (nonatomic, retain) IBOutlet UITableView *tableView;
 @property (nonatomic, retain) IBOutlet UITableViewCell *addPersonCell;
-
-@property (nonatomic, retain) NSMutableArray *people;
 @end
 
 @implementation SIPersonViewController
+@synthesize people = _people;
+@synthesize currencyFormatter = _currencyFormatter;
 @synthesize tableView = _tableView;
 @synthesize addPersonCell = _addPersonCell;
-@synthesize people = _people;
 
 - (void)awakeFromNib {
     [super awakeFromNib];
     self.navigationItem.rightBarButtonItem = [self editButtonItem];
     self.people = [NSMutableArray array];
+
+    self.currencyFormatter = [[NSNumberFormatter alloc] init];
+    [self.currencyFormatter setNumberStyle:NSNumberFormatterCurrencyStyle];
+    [self.currencyFormatter setLocale:[NSLocale currentLocale]];
 }
 
 - (void)viewDidUnload {
@@ -40,6 +48,17 @@ typedef enum {
     self.tableView.delegate = nil;
     self.tableView = nil;
     self.addPersonCell = nil;
+}
+
+- (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+    [self.tableView deselectRowAtIndexPath:[self.tableView indexPathForSelectedRow] animated:NO];
+    [self.tableView reloadData];
+}
+
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+    SIReceiptViewController *receiptViewController = [segue destinationViewController];
+    receiptViewController.selectedPerson = [self.people objectAtIndex:[self.tableView indexPathForSelectedRow].row];
 }
 
 #pragma mark - Editing
@@ -76,7 +95,7 @@ typedef enum {
     SIPerson *person = [self.people objectAtIndex:indexPath.row];
 
     cell.textLabel.text = person.name;
-    cell.detailTextLabel.text = nil;
+    cell.detailTextLabel.text = [self.currencyFormatter stringFromNumber:[person totalOwed]];
 
     return cell;
 }

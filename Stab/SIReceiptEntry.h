@@ -11,4 +11,5 @@
 @interface SIReceiptEntry : NSObject
 @property (nonatomic, retain) NSString *name;
 @property (nonatomic, retain) NSNumber *cost;
+@property (nonatomic, assign) NSInteger claimCount;
 @end

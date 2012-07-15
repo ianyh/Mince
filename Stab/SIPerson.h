@@ -12,6 +12,8 @@
 @interface SIPerson : NSObject
 @property (nonatomic, retain) NSString *name;
 
+- (NSNumber *)totalOwed;
+
 - (NSMutableSet *)selectedReceiptEntries;
 - (void)toggleSelectionForReceiptEntry:(SIReceiptEntry *)receiptEntry;
 @end

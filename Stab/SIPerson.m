@@ -8,7 +8,7 @@
 
 #import "SIPerson.h"
 
-#import "SIReceipt.h"
+#import "SIReceiptEntry.h"
 
 @interface SIPerson ()
 @property (nonatomic, retain) NSMutableSet *selectedReceiptEntries;
@@ -26,10 +26,24 @@
     return self;
 }
 
+- (void)dealloc {
+    for (SIReceiptEntry *entry in self.selectedReceiptEntries)
+        entry.claimCount--;
+}
+
+- (NSNumber *)totalOwed {
+    double totalOwed = 0.0;
+    for (SIReceiptEntry *receiptEntry in self.selectedReceiptEntries)
+        totalOwed += [receiptEntry.cost doubleValue] / receiptEntry.claimCount;
+    return [NSNumber numberWithDouble:totalOwed];
+}
+
 - (void)toggleSelectionForReceiptEntry:(SIReceiptEntry *)receiptEntry {
     if ([self.selectedReceiptEntries containsObject:receiptEntry]) {
+        receiptEntry.claimCount--;
         [self.selectedReceiptEntries removeObject:receiptEntry];
     } else {
+        receiptEntry.claimCount++;
         [self.selectedReceiptEntries addObject:receiptEntry];
     }
 }
