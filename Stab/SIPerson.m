@@ -26,12 +26,12 @@
     return self;
 }
 
-- (void)selectReceiptEntry:(SIReceipt *)receiptEntry {
-    [self.selectedReceiptEntries addObject:receiptEntry];
-}
-
-- (void)unselectReceiptEntry:(SIReceipt *)receiptEntry {
-    [self.selectedReceiptEntries removeObject:receiptEntry];
+- (void)toggleSelectionForReceiptEntry:(SIReceiptEntry *)receiptEntry {
+    if ([self.selectedReceiptEntries containsObject:receiptEntry]) {
+        [self.selectedReceiptEntries removeObject:receiptEntry];
+    } else {
+        [self.selectedReceiptEntries addObject:receiptEntry];
+    }
 }
 
 @end

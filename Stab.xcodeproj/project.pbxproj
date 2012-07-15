@@ -39,6 +39,7 @@
 		40C4656D15B14A860047BB60 /* SIAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 40C4656C15B14A860047BB60 /* SIAppDelegate.m */; };
 		40C4657015B14A860047BB60 /* MainStoryboard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 40C4656E15B14A860047BB60 /* MainStoryboard.storyboard */; };
 		40C4657315B14A860047BB60 /* SIPersonViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 40C4657215B14A860047BB60 /* SIPersonViewController.m */; };
+		40D7D93515B24F8D004978C7 /* NSString+SIAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = 40D7D93415B24F8D004978C7 /* NSString+SIAdditions.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -124,6 +125,8 @@
 		40C4656F15B14A860047BB60 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = en; path = en.lproj/MainStoryboard.storyboard; sourceTree = "<group>"; };
 		40C4657115B14A860047BB60 /* SIPersonViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SIPersonViewController.h; sourceTree = "<group>"; };
 		40C4657215B14A860047BB60 /* SIPersonViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SIPersonViewController.m; sourceTree = "<group>"; };
+		40D7D93315B24F8D004978C7 /* NSString+SIAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+SIAdditions.h"; sourceTree = "<group>"; };
+		40D7D93415B24F8D004978C7 /* NSString+SIAdditions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+SIAdditions.m"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -303,6 +306,8 @@
 				405AC1F415B2053F001BB625 /* SIReceiptEntry.h */,
 				405AC1F515B2053F001BB625 /* SIReceiptEntry.m */,
 				40C4656315B14A860047BB60 /* Supporting Files */,
+				40D7D93315B24F8D004978C7 /* NSString+SIAdditions.h */,
+				40D7D93415B24F8D004978C7 /* NSString+SIAdditions.m */,
 			);
 			path = Stab;
 			sourceTree = "<group>";
@@ -390,6 +395,7 @@
 				405AC1F215B202DE001BB625 /* SIReceipt.m in Sources */,
 				405AC1F615B2053F001BB625 /* SIReceiptEntry.m in Sources */,
 				405AC1F915B2072E001BB625 /* SIPerson.m in Sources */,
+				40D7D93515B24F8D004978C7 /* NSString+SIAdditions.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

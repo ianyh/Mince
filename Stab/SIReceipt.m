@@ -42,7 +42,7 @@
     SIReceiptEntry *receiptEntry = [[SIReceiptEntry alloc] init];
     receiptEntry.name = name;
     receiptEntry.cost = cost;
-    [self.internalReceiptEntries addObject:receiptEntry];
+    [self.internalReceiptEntries insertObject:receiptEntry atIndex:0];
 }
 
 - (void)addEntriesFromImageParsedString:(NSString *)imageParsedString {

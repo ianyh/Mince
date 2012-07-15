@@ -12,7 +12,11 @@
 + (SIReceipt *)sharedReceipt;
 
 - (NSArray *)receiptEntries;
+
+// Always inserts at index 0
 - (void)addEntryWithName:(NSString *)name cost:(NSNumber *)cost;
+// Inserts entries at the beginning of the list
 - (void)addEntriesFromImageParsedString:(NSString *)imageParsedString;
+
 - (void)removeAllEntries;
 @end
