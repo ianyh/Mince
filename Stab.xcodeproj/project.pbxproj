@@ -326,9 +326,9 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		40C4655715B14A860047BB60 /* Stab */ = {
+		40C4655715B14A860047BB60 /* Mince */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 40C4657615B14A860047BB60 /* Build configuration list for PBXNativeTarget "Stab" */;
+			buildConfigurationList = 40C4657615B14A860047BB60 /* Build configuration list for PBXNativeTarget "Mince" */;
 			buildPhases = (
 				40C4655415B14A860047BB60 /* Sources */,
 				40C4655515B14A860047BB60 /* Frameworks */,
@@ -338,7 +338,7 @@
 			);
 			dependencies = (
 			);
-			name = Stab;
+			name = Mince;
 			productName = Stab;
 			productReference = 40C4655815B14A860047BB60 /* Stab.app */;
 			productType = "com.apple.product-type.application";
@@ -364,7 +364,7 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				40C4655715B14A860047BB60 /* Stab */,
+				40C4655715B14A860047BB60 /* Mince */,
 			);
 		};
 /* End PBXProject section */
@@ -510,7 +510,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		40C4657615B14A860047BB60 /* Build configuration list for PBXNativeTarget "Stab" */ = {
+		40C4657615B14A860047BB60 /* Build configuration list for PBXNativeTarget "Mince" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				40C4657715B14A860047BB60 /* Debug */,
