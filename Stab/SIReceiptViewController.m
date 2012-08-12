@@ -12,6 +12,7 @@
 #import "SIPerson.h"
 #import "SIReceipt.h"
 #import "SIReceiptEntry.h"
+#import "SITesseractParser.h"
 
 typedef enum {
     SIReceiptViewControllerSectionAdd,
@@ -19,13 +20,16 @@ typedef enum {
     SIReceiptViewControllerSectionCount,
 } SIReceiptViewControllerSection;
 
-@interface SIReceiptViewController () <UITableViewDataSource, UITableViewDelegate, UITextFieldDelegate>
+@interface SIReceiptViewController () <UITableViewDataSource, UITableViewDelegate, UITextFieldDelegate, UINavigationControllerDelegate, UIImagePickerControllerDelegate>
 @property (nonatomic, retain) NSNumberFormatter *currencyFormatter;
+@property (nonatomic, retain) SITesseractParser *tesseractParser;
 
 @property (nonatomic, retain) IBOutlet UITableView *tableView;
 @property (nonatomic, retain) IBOutlet UITableViewCell *addReceiptEntryCell;
 @property (nonatomic, retain) IBOutlet UITextField *nameTextField;
 @property (nonatomic, retain) IBOutlet UITextField *costTextField;
+
+- (IBAction)didTapCameraButton:(id)sender;
 
 - (void)configureCell:(UITableViewCell *)cell forIndexPath:(NSIndexPath *)indexPath;
 @end
@@ -33,6 +37,7 @@ typedef enum {
 @implementation SIReceiptViewController
 @synthesize selectedPerson = _selectedPerson;
 @synthesize currencyFormatter = _currencyFormatter;
+@synthesize tesseractParser = _tesseractParser;
 @synthesize tableView = _tableView;
 @synthesize addReceiptEntryCell = _addReceiptEntryCell;
 @synthesize nameTextField = _nameTextField;
@@ -44,6 +49,8 @@ typedef enum {
 
     self.currencyFormatter = [[NSNumberFormatter alloc] init];
     [self.currencyFormatter setNumberStyle:NSNumberFormatterCurrencyStyle];
+
+    self.tesseractParser = [[SITesseractParser alloc] init];
 }
 
 - (void)viewDidUnload {
@@ -70,6 +77,21 @@ typedef enum {
     [self.tableView setEditing:editing animated:animated];
     [self.tableView reloadSections:[NSIndexSet indexSetWithIndex:SIReceiptViewControllerSectionAdd]
                   withRowAnimation:UITableViewRowAnimationBottom];
+}
+
+#pragma mark - Actions
+
+- (IBAction)didTapCameraButton:(id)sender {
+//    if (![UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypeCamera]) {
+//        return;
+//    }
+
+    UIImagePickerController *imagePickerController = [[UIImagePickerController alloc] init];
+    imagePickerController.sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
+    imagePickerController.allowsEditing = YES;
+    imagePickerController.delegate = self;
+
+    [self presentModalViewController:imagePickerController animated:YES];
 }
 
 #pragma mark - UITableViewDataSource
@@ -183,6 +205,21 @@ typedef enum {
         [self.nameTextField becomeFirstResponder];
     }
     return NO;
+}
+
+#pragma mark - UIImagePickerControllerDelegate
+
+- (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info {
+    UIImage *image = [info objectForKey:UIImagePickerControllerEditedImage];
+    [self.tesseractParser parseImage:image withCompletionHandler:^(NSString *parsedString) {
+        [[SIReceipt sharedReceipt] addEntriesFromImageParsedString:parsedString];
+        [self.tableView reloadData];
+    }];
+    [self dismissModalViewControllerAnimated:YES];
+}
+
+- (void)imagePickerControllerDidCancel:(UIImagePickerController *)picker {
+    [self dismissModalViewControllerAnimated:YES];
 }
 
 @end

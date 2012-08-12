@@ -8,6 +8,8 @@
 
 #import "SITesseractParser.h"
 
+#import "SIReceiptEntry.h"
+
 #import "baseapi.h"
 using namespace tesseract;
 
@@ -19,7 +21,7 @@ using namespace tesseract;
 @implementation SITesseractParser
 @synthesize tesseract = _tesseract;
 
-- (id)initWithImage:(UIImage *)image {
+- (id)init {
     self = [super init];
     if (self) {
         [self setUpTesseract];
@@ -63,10 +65,10 @@ using namespace tesseract;
     CGSize imageSize = [image size];
     int bytesPerLine  = (int)CGImageGetBytesPerRow([image CGImage]);
     int bytesPerPixel = (int)CGImageGetBitsPerPixel([image CGImage]) / 8.0;
-    
+
     CFDataRef data = CGDataProviderCopyData(CGImageGetDataProvider([image CGImage]));
     const UInt8 *imageData = CFDataGetBytePtr(data);
-    
+
     // this could take a while.
     char *text = self.tesseract->TesseractRect(imageData,
                                                bytesPerPixel,
@@ -77,6 +79,7 @@ using namespace tesseract;
     NSString *parsedString = [NSString stringWithCString:text encoding:NSUTF8StringEncoding];
     delete[] text;
     CFRelease(data);
+
     completionHandler(parsedString);
 }
 

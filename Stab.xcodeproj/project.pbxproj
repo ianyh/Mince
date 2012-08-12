@@ -112,7 +112,7 @@
 		407E99EA15B1E8C000B930EE /* SITesseractParser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SITesseractParser.h; sourceTree = "<group>"; };
 		407E99EB15B1E8C000B930EE /* SITesseractParser.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = SITesseractParser.mm; sourceTree = "<group>"; };
 		407E99ED15B1E9D300B930EE /* tessdata */ = {isa = PBXFileReference; lastKnownFileType = folder; path = tessdata; sourceTree = "<group>"; };
-		40C4655815B14A860047BB60 /* Stab.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Stab.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		40C4655815B14A860047BB60 /* Mince.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Mince.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		40C4655C15B14A860047BB60 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		40C4655E15B14A860047BB60 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		40C4656015B14A860047BB60 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -274,7 +274,7 @@
 		40C4655915B14A860047BB60 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				40C4655815B14A860047BB60 /* Stab.app */,
+				40C4655815B14A860047BB60 /* Mince.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -340,7 +340,7 @@
 			);
 			name = Mince;
 			productName = Stab;
-			productReference = 40C4655815B14A860047BB60 /* Stab.app */;
+			productReference = 40C4655815B14A860047BB60 /* Mince.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */

@@ -8,7 +8,7 @@
 
 #import <Foundation/Foundation.h>
 
-typedef void (^SITesseractCompletionHandler)(NSString *string);
+typedef void (^SITesseractCompletionHandler)(NSString *parsedString);
 
 @interface SITesseractParser : NSObject
 - (void)parseImage:(UIImage *)image withCompletionHandler:(SITesseractCompletionHandler)completionHandler;
