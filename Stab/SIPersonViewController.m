@@ -15,8 +15,9 @@
 typedef enum {
     SIPersonViewControllerSectionAdd,
     SIPersonViewControllerSectionPeople,
-    SIPersonViewControllerSectionCount
 } SIPersonViewControllerSection;
+
+static NSInteger SIPersonViewControllerSectionCount = SIPersonViewControllerSectionPeople + 1;
 
 @interface SIPersonViewController () <UITableViewDataSource, UITableViewDelegate, UITextFieldDelegate>
 @property (nonatomic, retain) NSMutableArray *people;
@@ -57,8 +58,8 @@ typedef enum {
 }
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    SIReceiptViewController *receiptViewController = [segue destinationViewController];
-    receiptViewController.selectedPerson = [self.people objectAtIndex:[self.tableView indexPathForSelectedRow].row];
+//    SIReceiptViewController *receiptViewController = [segue destinationViewController];
+//    receiptViewController.selectedPerson = [self.people objectAtIndex:[self.tableView indexPathForSelectedRow].row];
 }
 
 #pragma mark - Editing

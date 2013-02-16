@@ -8,41 +8,18 @@
 
 #import "SIReceipt.h"
 
-#import "SIReceiptEntry.h"
+#import "SIReceiptItem.h"
 
 @interface SIReceipt ()
-@property (nonatomic, retain) NSMutableArray *internalReceiptEntries;
 @end
 
 @implementation SIReceipt
-@synthesize internalReceiptEntries = _internalReceiptEntries;
-
-+ (SIReceipt *)sharedReceipt {
-    static dispatch_once_t onceToken;
-    __strong static SIReceipt *sharedReceipt = nil;
-    dispatch_once(&onceToken, ^{
-        sharedReceipt = [[self alloc] init];
-    });
-    return sharedReceipt;
-}
-
-- (id)init {
-    self = [super init];
-    if (self) {
-        self.internalReceiptEntries = [NSMutableArray array];
-    }
-    return self;
-}
-
-- (NSArray *)receiptEntries {
-    return [NSArray arrayWithArray:self.internalReceiptEntries];
-}
 
 - (void)addEntryWithName:(NSString *)name cost:(NSNumber *)cost {
-    SIReceiptEntry *receiptEntry = [[SIReceiptEntry alloc] init];
+    SIReceiptItem *receiptEntry = [SIReceiptItem createEntity];
     receiptEntry.name = name;
     receiptEntry.cost = cost;
-    [self.internalReceiptEntries insertObject:receiptEntry atIndex:0];
+    [self addItemsObject:receiptEntry];
 }
 
 - (void)addEntriesFromImageParsedString:(NSString *)imageParsedString {
@@ -65,7 +42,7 @@
 }
 
 - (void)removeAllEntries {
-    [self.internalReceiptEntries removeAllObjects];
+    self.items = [NSSet set];
 }
 
 @end

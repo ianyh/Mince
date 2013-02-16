@@ -11,16 +11,17 @@
 #import "NSString+SIAdditions.h"
 #import "SIPerson.h"
 #import "SIReceipt.h"
-#import "SIReceiptEntry.h"
+#import "SIReceiptItem.h"
 #import "SITesseractParser.h"
 
 typedef enum {
     SIReceiptViewControllerSectionAdd,
     SIReceiptViewControllerSectionReceipt,
-    SIReceiptViewControllerSectionCount,
 } SIReceiptViewControllerSection;
 
-@interface SIReceiptViewController () <UITableViewDataSource, UITableViewDelegate, UITextFieldDelegate, UINavigationControllerDelegate, UIImagePickerControllerDelegate>
+static NSInteger SIReceiptViewControllerSectionCount = SIReceiptViewControllerSectionReceipt + 1;
+
+@interface SIReceiptViewController () <NSFetchedResultsControllerDelegate, UITableViewDataSource, UITableViewDelegate, UITextFieldDelegate, UINavigationControllerDelegate, UIImagePickerControllerDelegate>
 @property (nonatomic, retain) NSNumberFormatter *currencyFormatter;
 @property (nonatomic, retain) SITesseractParser *tesseractParser;
 
@@ -35,13 +36,6 @@ typedef enum {
 @end
 
 @implementation SIReceiptViewController
-@synthesize selectedPerson = _selectedPerson;
-@synthesize currencyFormatter = _currencyFormatter;
-@synthesize tesseractParser = _tesseractParser;
-@synthesize tableView = _tableView;
-@synthesize addReceiptEntryCell = _addReceiptEntryCell;
-@synthesize nameTextField = _nameTextField;
-@synthesize costTextField = _costTextField;
 
 - (void)awakeFromNib {
     [super awakeFromNib];
@@ -53,17 +47,7 @@ typedef enum {
     self.tesseractParser = [[SITesseractParser alloc] init];
 }
 
-- (void)viewDidUnload {
-    [super viewDidUnload];
-    self.tableView.dataSource = nil;
-    self.tableView.delegate = nil;
-    self.tableView = nil;
-    self.addReceiptEntryCell = nil;
-    self.nameTextField.delegate = nil;
-    self.nameTextField = nil;
-    self.costTextField.delegate = nil;
-    self.costTextField = nil;
-}
+#pragma mark - UIViewController
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
@@ -79,9 +63,11 @@ typedef enum {
                   withRowAnimation:UITableViewRowAnimationBottom];
 }
 
-#pragma mark - Actions
+#pragma mark - IBAction
 
 - (IBAction)didTapCameraButton:(id)sender {
+    return;
+
 //    if (![UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypeCamera]) {
 //        return;
 //    }
@@ -96,19 +82,21 @@ typedef enum {
 
 #pragma mark - UITableViewDataSource
 
+- (SIReceiptItem *)receiptItemForIndexPath:(NSIndexPath *)indexPath {
+    return [[self.receipt.items sortedArrayUsingDescriptors:@[[NSSortDescriptor sortDescriptorWithKey:@"name" ascending:YES]]] objectAtIndex:indexPath.row];
+}
+
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
     return SIReceiptViewControllerSectionCount;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    switch (section) {
+    switch ((SIReceiptViewControllerSection)section) {
         case SIReceiptViewControllerSectionAdd:
             return (self.tableView.editing ? 1 : 0);
         case SIReceiptViewControllerSectionReceipt:
-            return [[[SIReceipt sharedReceipt] receiptEntries] count];
+            return [self.receipt.items count];
     }
-    
-    return 0;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -123,15 +111,10 @@ typedef enum {
 }
 
 - (void)configureCell:(UITableViewCell *)cell forIndexPath:(NSIndexPath *)indexPath {
-    SIReceiptEntry *receiptEntry = [[[SIReceipt sharedReceipt] receiptEntries] objectAtIndex:indexPath.row];
-    cell.textLabel.text = receiptEntry.name;
-    cell.detailTextLabel.text = [NSString stringWithFormat:@"$%.2f", [receiptEntry.cost doubleValue]];
+    SIReceiptItem *receiptItem = [self receiptItemForIndexPath:indexPath];
 
-    if ([self.selectedPerson.selectedReceiptEntries containsObject:receiptEntry]) {
-        cell.accessoryType = UITableViewCellAccessoryCheckmark;
-    } else {
-        cell.accessoryType = UITableViewCellAccessoryNone;
-    }
+    cell.textLabel.text = receiptItem.name;
+    cell.detailTextLabel.text = [NSString stringWithFormat:@"$%.2f", [receiptItem.cost doubleValue]];
 }
 
 #pragma mark - UITableViewDelegate
@@ -148,19 +131,21 @@ typedef enum {
 }
 
 - (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
-    
+    SIReceiptItem *receiptItem = [self receiptItemForIndexPath:indexPath];
+
+    [receiptItem deleteEntity];
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
-
-    // Toggle the selection of the receipt entry
-    SIReceiptEntry *receiptEntry = [[[SIReceipt sharedReceipt] receiptEntries] objectAtIndex:indexPath.row];
-    [self.selectedPerson toggleSelectionForReceiptEntry:receiptEntry];
-
-    // Reconfigure the cell to display the selection
-    UITableViewCell *cell = [tableView cellForRowAtIndexPath:indexPath];
-    [self configureCell:cell forIndexPath:indexPath];
+//
+//    // Toggle the selection of the receipt entry
+//    SIReceiptEntry *receiptEntry = [[[SIReceipt sharedReceipt] receiptEntries] objectAtIndex:indexPath.row];
+//    [self.selectedPerson toggleSelectionForReceiptEntry:receiptEntry];
+//
+//    // Reconfigure the cell to display the selection
+//    UITableViewCell *cell = [tableView cellForRowAtIndexPath:indexPath];
+//    [self configureCell:cell forIndexPath:indexPath];
 }
 
 #pragma mark - UITextFieldDelegate
@@ -188,8 +173,8 @@ typedef enum {
         [self.costTextField becomeFirstResponder];
     } else {
         // Create and insert a receipt entry with the appropriate name
-        [[SIReceipt sharedReceipt] addEntryWithName:self.nameTextField.text
-                                               cost:[self.currencyFormatter numberFromString:self.costTextField.text]];
+        [self.receipt addEntryWithName:self.nameTextField.text
+                                  cost:[self.currencyFormatter numberFromString:self.costTextField.text]];
         
         // Insert a row in the table for the new receipt entry
         NSIndexPath *indexPath = [NSIndexPath indexPathForRow:0
@@ -212,7 +197,7 @@ typedef enum {
 - (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info {
     UIImage *image = [info objectForKey:UIImagePickerControllerEditedImage];
     [self.tesseractParser parseImage:image withCompletionHandler:^(NSString *parsedString) {
-        [[SIReceipt sharedReceipt] addEntriesFromImageParsedString:parsedString];
+        [self.receipt addEntriesFromImageParsedString:parsedString];
         [self.tableView reloadData];
     }];
     [self dismissModalViewControllerAnimated:YES];

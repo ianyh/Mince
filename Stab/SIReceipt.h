@@ -6,13 +6,9 @@
 //  Copyright (c) 2012 __MyCompanyName__. All rights reserved.
 //
 
-#import <Foundation/Foundation.h>
+#import "_SIReceipt.h"
 
-@interface SIReceipt : NSObject
-+ (SIReceipt *)sharedReceipt;
-
-- (NSArray *)receiptEntries;
-
+@interface SIReceipt : _SIReceipt
 // Always inserts at index 0
 - (void)addEntryWithName:(NSString *)name cost:(NSNumber *)cost;
 // Inserts entries at the beginning of the list

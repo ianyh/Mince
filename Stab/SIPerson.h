@@ -6,14 +6,11 @@
 //  Copyright (c) 2012 __MyCompanyName__. All rights reserved.
 //
 
-#import <Foundation/Foundation.h>
+#import "_SIPerson.h"
 
-@class SIReceiptEntry;
-@interface SIPerson : NSObject
-@property (nonatomic, retain) NSString *name;
-
+@class SIReceiptItem;
+@interface SIPerson : _SIPerson
 - (NSNumber *)totalOwed;
 
-- (NSMutableSet *)selectedReceiptEntries;
-- (void)toggleSelectionForReceiptEntry:(SIReceiptEntry *)receiptEntry;
+- (void)toggleSelectionForReceiptEntry:(SIReceiptItem *)item;
 @end

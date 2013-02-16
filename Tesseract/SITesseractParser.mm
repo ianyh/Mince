@@ -8,8 +8,6 @@
 
 #import "SITesseractParser.h"
 
-#import "SIReceiptEntry.h"
-
 #import "baseapi.h"
 using namespace tesseract;
 

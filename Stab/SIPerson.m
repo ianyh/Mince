@@ -8,43 +8,25 @@
 
 #import "SIPerson.h"
 
-#import "SIReceiptEntry.h"
+#import "SIReceiptItem.h"
 
 @interface SIPerson ()
-@property (nonatomic, retain) NSMutableSet *selectedReceiptEntries;
 @end
 
 @implementation SIPerson
-@synthesize name = _name;
-@synthesize selectedReceiptEntries = _selectedReceiptEntries;
-
-- (id)init {
-    self = [super init];
-    if (self) {
-        self.selectedReceiptEntries = [NSMutableSet set];
-    }
-    return self;
-}
-
-- (void)dealloc {
-    for (SIReceiptEntry *entry in self.selectedReceiptEntries)
-        entry.claimCount--;
-}
 
 - (NSNumber *)totalOwed {
     double totalOwed = 0.0;
-    for (SIReceiptEntry *receiptEntry in self.selectedReceiptEntries)
-        totalOwed += [receiptEntry.cost doubleValue] / receiptEntry.claimCount;
-    return [NSNumber numberWithDouble:totalOwed];
+    for (SIReceiptItem *item in self.items)
+        totalOwed += [item.cost doubleValue] / [item.people count];
+    return @(totalOwed);
 }
 
-- (void)toggleSelectionForReceiptEntry:(SIReceiptEntry *)receiptEntry {
-    if ([self.selectedReceiptEntries containsObject:receiptEntry]) {
-        receiptEntry.claimCount--;
-        [self.selectedReceiptEntries removeObject:receiptEntry];
+- (void)toggleSelectionForReceiptEntry:(SIReceiptItem *)item {
+    if ([self.items containsObject:item]) {
+        [item removePeopleObject:self];
     } else {
-        receiptEntry.claimCount++;
-        [self.selectedReceiptEntries addObject:receiptEntry];
+        [item addPeopleObject:self];
     }
 }
 
