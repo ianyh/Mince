@@ -6,17 +6,17 @@
 //
 //
 
-#import "SIReceiptsViewController.h"
+#import "SIReceiptListViewController.h"
 
 #import "SIReceiptViewController.h"
 
 #import "SIReceipt.h"
 
-@interface SIReceiptsViewController () <NSFetchedResultsControllerDelegate>
+@interface SIReceiptListViewController () <NSFetchedResultsControllerDelegate>
 @property (nonatomic, retain) NSFetchedResultsController *receiptsFetchedResultsController;
 @end
 
-@implementation SIReceiptsViewController
+@implementation SIReceiptListViewController
 
 - (void)dealloc {
     self.receiptsFetchedResultsController.delegate = nil;
@@ -29,8 +29,10 @@
 }
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    SIReceiptViewController *receiptViewController = [segue destinationViewController];
-    receiptViewController.receipt = [self.receiptsFetchedResultsController.fetchedObjects objectAtIndex:[self.tableView indexPathForSelectedRow].row];
+    if ([[segue destinationViewController] isKindOfClass:[SIReceiptViewController class]]) {
+        SIReceiptViewController *receiptViewController = [segue destinationViewController];
+        receiptViewController.receipt = [self.receiptsFetchedResultsController.fetchedObjects objectAtIndex:[self.tableView indexPathForSelectedRow].row];
+    }
 }
 
 #pragma mark - NSFetchedResultsControllerDelegate

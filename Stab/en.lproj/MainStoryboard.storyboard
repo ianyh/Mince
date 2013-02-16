@@ -23,12 +23,50 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="b6W-rE-fEx" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-605" y="176"/>
+            <point key="canvasLocation" x="-616" y="280"/>
         </scene>
-        <!--Receipts View Controller-->
+        <!--Navigation Controller-->
+        <scene sceneID="mjj-dg-Wp5">
+            <objects>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="RW2-og-iZl" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <exit id="JCN-gN-b3s" userLabel="Exit" sceneMemberID="exit"/>
+                <navigationController definesPresentationContext="YES" id="kLh-6e-bSL" sceneMemberID="viewController">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="LJC-t8-bDv">
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <connections>
+                        <segue destination="rRv-oO-0by" kind="relationship" relationship="rootViewController" id="uLg-9G-3j7"/>
+                    </connections>
+                </navigationController>
+            </objects>
+            <point key="canvasLocation" x="363" y="-318"/>
+        </scene>
+        <!--Receipt Create View Controller - Create Receipt-->
+        <scene sceneID="9KL-2q-oNf">
+            <objects>
+                <viewController id="rRv-oO-0by" customClass="SIReceiptCreateViewController" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="xPf-FM-ruA">
+                        <rect key="frame" x="0.0" y="64" width="320" height="416"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                    </view>
+                    <navigationItem key="navigationItem" title="Create Receipt" id="ZyD-00-j3l">
+                        <barButtonItem key="leftBarButtonItem" title="Cancel" id="BpH-Jf-4yb">
+                            <connections>
+                                <segue destination="JCN-gN-b3s" kind="unwind" unwindAction="cancelSegue:" id="vh0-nS-ihA"/>
+                            </connections>
+                        </barButtonItem>
+                        <barButtonItem key="rightBarButtonItem" title="Create" style="done" id="gjz-nK-H9D"/>
+                    </navigationItem>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="fDJ-qK-6EY" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="799" y="-318"/>
+        </scene>
+        <!--Receipt List View Controller - Receipts-->
         <scene sceneID="e7Z-jk-Qo9">
             <objects>
-                <tableViewController id="AMt-Ew-sei" customClass="SIReceiptsViewController" sceneMemberID="viewController">
+                <tableViewController id="AMt-Ew-sei" customClass="SIReceiptListViewController" sceneMemberID="viewController">
                     <tableView key="view" opaque="NO" clipsSubviews="YES" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="gIt-yy-lMe">
                         <rect key="frame" x="0.0" y="64" width="320" height="372"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -61,7 +99,13 @@
                             <outlet property="delegate" destination="AMt-Ew-sei" id="d0t-RR-uCv"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" id="C2b-0c-D4e"/>
+                    <navigationItem key="navigationItem" title="Receipts" id="C2b-0c-D4e">
+                        <barButtonItem key="rightBarButtonItem" systemItem="add" id="rGQ-rN-S6V">
+                            <connections>
+                                <segue destination="kLh-6e-bSL" kind="modal" id="03V-lT-IIf"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="1gZ-oI-OHB" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -164,7 +208,7 @@
                     </view>
                 </tableViewCell>
             </objects>
-            <point key="canvasLocation" x="379" y="176"/>
+            <point key="canvasLocation" x="363" y="280"/>
         </scene>
     </scenes>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">

@@ -62,8 +62,9 @@
 		40A6D50C16D025330019AC60 /* _SIReceipt.m in Sources */ = {isa = PBXBuildFile; fileRef = 40A6D50816D025330019AC60 /* _SIReceipt.m */; };
 		40A6D50D16D025330019AC60 /* _SIReceiptItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 40A6D50A16D025330019AC60 /* _SIReceiptItem.m */; };
 		40A6D51016D025520019AC60 /* SIReceiptItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 40A6D50F16D025520019AC60 /* SIReceiptItem.m */; };
-		40A6D51316D026C40019AC60 /* SIReceiptsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 40A6D51216D026C40019AC60 /* SIReceiptsViewController.m */; };
+		40A6D51316D026C40019AC60 /* SIReceiptListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 40A6D51216D026C40019AC60 /* SIReceiptListViewController.m */; };
 		40A6D51616D02BD90019AC60 /* SIReceiptViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 40A6D51516D02BD90019AC60 /* SIReceiptViewController.m */; };
+		40A6D51916D0387C0019AC60 /* SIReceiptCreateViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 40A6D51816D0387C0019AC60 /* SIReceiptCreateViewController.m */; };
 		40C4655D15B14A860047BB60 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 40C4655C15B14A860047BB60 /* UIKit.framework */; };
 		40C4655F15B14A860047BB60 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 40C4655E15B14A860047BB60 /* Foundation.framework */; };
 		40C4656115B14A860047BB60 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 40C4656015B14A860047BB60 /* CoreGraphics.framework */; };
@@ -206,10 +207,12 @@
 		40A6D50A16D025330019AC60 /* _SIReceiptItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = _SIReceiptItem.m; sourceTree = "<group>"; };
 		40A6D50E16D025520019AC60 /* SIReceiptItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SIReceiptItem.h; sourceTree = "<group>"; };
 		40A6D50F16D025520019AC60 /* SIReceiptItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SIReceiptItem.m; sourceTree = "<group>"; };
-		40A6D51116D026C40019AC60 /* SIReceiptsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SIReceiptsViewController.h; sourceTree = "<group>"; };
-		40A6D51216D026C40019AC60 /* SIReceiptsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SIReceiptsViewController.m; sourceTree = "<group>"; };
+		40A6D51116D026C40019AC60 /* SIReceiptListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SIReceiptListViewController.h; sourceTree = "<group>"; };
+		40A6D51216D026C40019AC60 /* SIReceiptListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SIReceiptListViewController.m; sourceTree = "<group>"; };
 		40A6D51416D02BD90019AC60 /* SIReceiptViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SIReceiptViewController.h; sourceTree = "<group>"; };
 		40A6D51516D02BD90019AC60 /* SIReceiptViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SIReceiptViewController.m; sourceTree = "<group>"; };
+		40A6D51716D0387C0019AC60 /* SIReceiptCreateViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SIReceiptCreateViewController.h; sourceTree = "<group>"; };
+		40A6D51816D0387C0019AC60 /* SIReceiptCreateViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SIReceiptCreateViewController.m; sourceTree = "<group>"; };
 		40C4655815B14A860047BB60 /* Mince.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Mince.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		40C4655C15B14A860047BB60 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		40C4655E15B14A860047BB60 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -491,8 +494,10 @@
 				40A6D51516D02BD90019AC60 /* SIReceiptViewController.m */,
 				40C4657115B14A860047BB60 /* SIPersonViewController.h */,
 				40C4657215B14A860047BB60 /* SIPersonViewController.m */,
-				40A6D51116D026C40019AC60 /* SIReceiptsViewController.h */,
-				40A6D51216D026C40019AC60 /* SIReceiptsViewController.m */,
+				40A6D51116D026C40019AC60 /* SIReceiptListViewController.h */,
+				40A6D51216D026C40019AC60 /* SIReceiptListViewController.m */,
+				40A6D51716D0387C0019AC60 /* SIReceiptCreateViewController.h */,
+				40A6D51816D0387C0019AC60 /* SIReceiptCreateViewController.m */,
 			);
 			name = Controller;
 			sourceTree = "<group>";
@@ -671,8 +676,9 @@
 				40A6D50C16D025330019AC60 /* _SIReceipt.m in Sources */,
 				40A6D50D16D025330019AC60 /* _SIReceiptItem.m in Sources */,
 				40A6D51016D025520019AC60 /* SIReceiptItem.m in Sources */,
-				40A6D51316D026C40019AC60 /* SIReceiptsViewController.m in Sources */,
+				40A6D51316D026C40019AC60 /* SIReceiptListViewController.m in Sources */,
 				40A6D51616D02BD90019AC60 /* SIReceiptViewController.m in Sources */,
+				40A6D51916D0387C0019AC60 /* SIReceiptCreateViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

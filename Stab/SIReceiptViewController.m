@@ -77,7 +77,7 @@ static NSInteger SIReceiptViewControllerSectionCount = SIReceiptViewControllerSe
     imagePickerController.allowsEditing = YES;
     imagePickerController.delegate = self;
 
-    [self presentModalViewController:imagePickerController animated:YES];
+    [self presentViewController:imagePickerController animated:YES completion:NULL];
 }
 
 #pragma mark - UITableViewDataSource
@@ -200,11 +200,11 @@ static NSInteger SIReceiptViewControllerSectionCount = SIReceiptViewControllerSe
         [self.receipt addEntriesFromImageParsedString:parsedString];
         [self.tableView reloadData];
     }];
-    [self dismissModalViewControllerAnimated:YES];
+    [self dismissViewControllerAnimated:YES completion:NULL];
 }
 
 - (void)imagePickerControllerDidCancel:(UIImagePickerController *)picker {
-    [self dismissModalViewControllerAnimated:YES];
+    [self dismissViewControllerAnimated:YES completion:NULL];
 }
 
 @end
