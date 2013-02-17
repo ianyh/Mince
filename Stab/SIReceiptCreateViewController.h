@@ -8,6 +8,11 @@
 
 #import <UIKit/UIKit.h>
 
-@interface SIReceiptCreateViewController : UIViewController
+@class SIReceiptCreateViewController;
+@protocol SIReceiptCreateViewControllerDelegate <NSObject>
+- (void)receiptCreateViewControllerDidFinish:(SIReceiptCreateViewController *)controller;
+@end
 
+@interface SIReceiptCreateViewController : UIViewController
+@property (nonatomic, assign) id <SIReceiptCreateViewControllerDelegate> delegate;
 @end

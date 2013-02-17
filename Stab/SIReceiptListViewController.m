@@ -9,11 +9,15 @@
 #import "SIReceiptListViewController.h"
 
 #import "SIReceiptViewController.h"
+#import "SIReceiptCreateViewController.h"
 
 #import "SIReceipt.h"
 
-@interface SIReceiptListViewController () <NSFetchedResultsControllerDelegate>
+@interface SIReceiptListViewController () <NSFetchedResultsControllerDelegate, SIReceiptCreateViewControllerDelegate>
 @property (nonatomic, retain) NSFetchedResultsController *receiptsFetchedResultsController;
+
+- (IBAction)cancelCreate:(UIStoryboardSegue *)segue;
+- (IBAction)commitCreate:(UIStoryboardSegue *)segue;
 @end
 
 @implementation SIReceiptListViewController
@@ -32,13 +36,32 @@
     if ([[segue destinationViewController] isKindOfClass:[SIReceiptViewController class]]) {
         SIReceiptViewController *receiptViewController = [segue destinationViewController];
         receiptViewController.receipt = [self.receiptsFetchedResultsController.fetchedObjects objectAtIndex:[self.tableView indexPathForSelectedRow].row];
+    } else if ([[segue destinationViewController] isKindOfClass:[SIReceiptCreateViewController class]]) {
+        SIReceiptCreateViewController *createViewController = [segue destinationViewController];
+        createViewController.delegate = self;
     }
+}
+
+#pragma mark - IBAction
+
+- (IBAction)cancelCreate:(UIStoryboardSegue *)segue {
+    [self dismissViewControllerAnimated:YES completion:NULL];
+}
+
+- (IBAction)commitCreate:(UIStoryboardSegue *)segue {
+    [self dismissViewControllerAnimated:YES completion:NULL];
 }
 
 #pragma mark - NSFetchedResultsControllerDelegate
 
 - (void)controllerDidChangeContent:(NSFetchedResultsController *)controller {
     [self.tableView reloadData];
+}
+
+#pragma mark - SIReceiptCreateViewControllerDelegate
+
+- (void)receiptCreateViewControllerDidFinish:(SIReceiptCreateViewController *)controller {
+    [self dismissViewControllerAnimated:YES completion:NULL];
 }
 
 #pragma mark - UITableViewDataSource
