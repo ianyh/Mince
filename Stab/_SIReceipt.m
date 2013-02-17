@@ -10,6 +10,7 @@ const struct SIReceiptAttributes SIReceiptAttributes = {
 
 const struct SIReceiptRelationships SIReceiptRelationships = {
 	.items = @"items",
+	.people = @"people",
 };
 
 const struct SIReceiptFetchedProperties SIReceiptFetchedProperties = {
@@ -71,6 +72,19 @@ const struct SIReceiptFetchedProperties SIReceiptFetchedProperties = {
 	NSMutableSet *result = (NSMutableSet*)[self mutableSetValueForKey:@"items"];
   
 	[self didAccessValueForKey:@"items"];
+	return result;
+}
+	
+
+@dynamic people;
+
+	
+- (NSMutableSet*)peopleSet {
+	[self willAccessValueForKey:@"people"];
+  
+	NSMutableSet *result = (NSMutableSet*)[self mutableSetValueForKey:@"people"];
+  
+	[self didAccessValueForKey:@"people"];
 	return result;
 }
 	

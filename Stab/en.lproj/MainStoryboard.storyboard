@@ -8,8 +8,9 @@
         <!--Navigation Controller-->
         <scene sceneID="mfM-1s-NTz">
             <objects>
-                <navigationController definesPresentationContext="YES" toolbarHidden="NO" id="iGU-Tn-g2K" sceneMemberID="viewController">
+                <navigationController definesPresentationContext="YES" id="iGU-Tn-g2K" sceneMemberID="viewController">
                     <simulatedStatusBarMetrics key="simulatedStatusBarMetrics" statusBarStyle="blackTranslucent"/>
+                    <nil key="simulatedBottomBarMetrics"/>
                     <navigationBar key="navigationBar" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" barStyle="blackOpaque" id="00M-Nu-3bM">
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
@@ -29,6 +30,7 @@
         <scene sceneID="mjj-dg-Wp5">
             <objects>
                 <navigationController definesPresentationContext="YES" id="kLh-6e-bSL" sceneMemberID="viewController">
+                    <nil key="simulatedBottomBarMetrics"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="LJC-t8-bDv">
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
@@ -127,7 +129,7 @@
             <objects>
                 <tableViewController id="AMt-Ew-sei" customClass="SIReceiptListViewController" sceneMemberID="viewController">
                     <tableView key="view" opaque="NO" clipsSubviews="YES" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="gIt-yy-lMe">
-                        <rect key="frame" x="0.0" y="64" width="320" height="372"/>
+                        <rect key="frame" x="0.0" y="64" width="320" height="416"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <prototypes>
@@ -182,16 +184,53 @@
             <objects>
                 <viewController id="uO2-UV-aFK" customClass="SIReceiptViewController" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="bQ3-sN-b6V">
-                        <rect key="frame" x="0.0" y="64" width="320" height="372"/>
+                        <rect key="frame" x="0.0" y="64" width="320" height="416"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="h5Q-qT-8l7">
-                                <rect key="frame" x="0.0" y="0.0" width="320" height="372"/>
+                                <rect key="frame" x="0.0" y="0.0" width="320" height="416"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <collectionView key="tableHeaderView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" pagingEnabled="YES" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" minimumZoomScale="0.0" maximumZoomScale="0.0" dataMode="prototypes" id="Dcz-QO-4ak">
+                                    <rect key="frame" x="0.0" y="0.0" width="320" height="88"/>
+                                    <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                    <collectionViewFlowLayout key="collectionViewLayout" scrollDirection="horizontal" minimumLineSpacing="10" minimumInteritemSpacing="0.0" id="zUT-r3-J8N">
+                                        <size key="itemSize" width="320" height="50"/>
+                                        <size key="headerReferenceSize" width="0.0" height="0.0"/>
+                                        <size key="footerReferenceSize" width="0.0" height="0.0"/>
+                                        <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
+                                    </collectionViewFlowLayout>
+                                    <cells>
+                                        <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="SIReceiptCollectionViewCell" id="Vli-hc-VaG" customClass="SIReceiptPersonCollectionViewCell">
+                                            <rect key="frame" x="0.0" y="19" width="320" height="50"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
+                                                <rect key="frame" x="0.0" y="0.0" width="320" height="50"/>
+                                                <autoresizingMask key="autoresizingMask"/>
+                                                <subviews>
+                                                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="HqE-eP-i4e">
+                                                        <rect key="frame" x="79" y="14" width="42" height="21"/>
+                                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                        <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                                        <nil key="highlightedColor"/>
+                                                    </label>
+                                                </subviews>
+                                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                            </view>
+                                            <connections>
+                                                <outlet property="nameLabel" destination="HqE-eP-i4e" id="p56-e3-nQu"/>
+                                            </connections>
+                                        </collectionViewCell>
+                                    </cells>
+                                    <connections>
+                                        <outlet property="dataSource" destination="uO2-UV-aFK" id="zt5-vW-N2G"/>
+                                        <outlet property="delegate" destination="uO2-UV-aFK" id="vtj-LG-XLS"/>
+                                    </connections>
+                                </collectionView>
                                 <prototypes>
                                     <tableViewCell contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="SIReceiptTableViewCell" textLabel="ci2-4f-Tvw" detailTextLabel="qVu-BY-70n" style="IBUITableViewCellStyleValue1" id="vw5-Yp-EWT">
-                                        <rect key="frame" x="0.0" y="22" width="320" height="44"/>
+                                        <rect key="frame" x="0.0" y="110" width="320" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
                                             <rect key="frame" x="0.0" y="0.0" width="320" height="43"/>
@@ -224,22 +263,15 @@
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                     </view>
-                    <toolbarItems>
-                        <barButtonItem style="plain" systemItem="flexibleSpace" id="p9P-P0-Dp5"/>
-                        <barButtonItem systemItem="camera" id="UX5-lE-YjZ">
-                            <connections>
-                                <action selector="didTapCameraButton:" destination="uO2-UV-aFK" id="bse-i3-QX1"/>
-                            </connections>
-                        </barButtonItem>
-                        <barButtonItem style="plain" systemItem="flexibleSpace" id="Vhj-Fx-6dN"/>
-                    </toolbarItems>
+                    <toolbarItems/>
                     <navigationItem key="navigationItem" id="u6o-oN-7OS"/>
-                    <simulatedToolbarMetrics key="simulatedBottomBarMetrics" barStyle="blackOpaque"/>
+                    <nil key="simulatedBottomBarMetrics"/>
                     <connections>
                         <outlet property="addReceiptEntryCell" destination="1tR-pX-l5f" id="XaX-df-Dbs"/>
                         <outlet property="costTextField" destination="C9K-RX-Cfo" id="nvR-TB-kRS"/>
+                        <outlet property="itemsTableView" destination="h5Q-qT-8l7" id="Gdv-ar-aAb"/>
                         <outlet property="nameTextField" destination="Bam-Ul-P7U" id="yE9-2Y-WXm"/>
-                        <outlet property="tableView" destination="h5Q-qT-8l7" id="qmM-XD-we5"/>
+                        <outlet property="peopleCollectionView" destination="Dcz-QO-4ak" id="tQD-Ww-uNb"/>
                         <outlet property="view" destination="bQ3-sN-b6V" id="5BT-r7-Igd"/>
                     </connections>
                 </viewController>
@@ -277,6 +309,53 @@
             <point key="canvasLocation" x="363" y="280"/>
         </scene>
     </scenes>
+    <classes>
+        <class className="SIReceiptCreateViewController" superclassName="UIViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/SIReceiptCreateViewController.h"/>
+            <relationships>
+                <relationship kind="outlet" name="addPersonCell" candidateClass="UITableViewCell"/>
+                <relationship kind="outlet" name="tableView" candidateClass="UITableView"/>
+            </relationships>
+        </class>
+        <class className="SIReceiptListViewController" superclassName="UITableViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/SIReceiptListViewController.h"/>
+            <relationships>
+                <relationship kind="action" name="cancelCreate:" candidateClass="UIStoryboardSegue"/>
+                <relationship kind="action" name="commitCreate:" candidateClass="UIStoryboardSegue"/>
+            </relationships>
+        </class>
+        <class className="SIReceiptPersonCollectionViewCell" superclassName="UICollectionViewCell">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/SIReceiptPersonCollectionViewCell.h"/>
+            <relationships>
+                <relationship kind="outlet" name="nameLabel" candidateClass="UILabel"/>
+            </relationships>
+        </class>
+        <class className="SIReceiptViewController" superclassName="UIViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/SIReceiptViewController.h"/>
+            <relationships>
+                <relationship kind="outlet" name="addReceiptEntryCell" candidateClass="UITableViewCell"/>
+                <relationship kind="outlet" name="costTextField" candidateClass="UITextField"/>
+                <relationship kind="outlet" name="itemsTableView" candidateClass="UITableView"/>
+                <relationship kind="outlet" name="nameTextField" candidateClass="UITextField"/>
+                <relationship kind="outlet" name="peopleCollectionView" candidateClass="UICollectionView"/>
+            </relationships>
+        </class>
+        <class className="UICollectionReusableView" superclassName="UIView">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/UICollectionReusableView.h"/>
+        </class>
+        <class className="UICollectionViewCell" superclassName="UICollectionReusableView">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/UICollectionViewCell.h"/>
+        </class>
+        <class className="UICollectionViewFlowLayout" superclassName="UICollectionViewLayout">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/UICollectionViewFlowLayout.h"/>
+        </class>
+        <class className="UICollectionViewLayout" superclassName="NSObject">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/UICollectionViewLayout.h"/>
+        </class>
+        <class className="UIStoryboardSegue" superclassName="NSObject">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/UIStoryboardSegue.h"/>
+        </class>
+    </classes>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">
         <simulatedStatusBarMetrics key="statusBar"/>
         <simulatedOrientationMetrics key="orientation"/>

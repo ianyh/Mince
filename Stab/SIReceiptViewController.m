@@ -8,11 +8,12 @@
 
 #import "SIReceiptViewController.h"
 
+#import "SIReceiptPersonCollectionViewCell.h"
+
 #import "NSString+SIAdditions.h"
 #import "SIPerson.h"
 #import "SIReceipt.h"
 #import "SIReceiptItem.h"
-#import "SITesseractParser.h"
 
 typedef enum {
     SIReceiptViewControllerSectionAdd,
@@ -21,16 +22,14 @@ typedef enum {
 
 static NSInteger SIReceiptViewControllerSectionCount = SIReceiptViewControllerSectionReceipt + 1;
 
-@interface SIReceiptViewController () <NSFetchedResultsControllerDelegate, UITableViewDataSource, UITableViewDelegate, UITextFieldDelegate, UINavigationControllerDelegate, UIImagePickerControllerDelegate>
-@property (nonatomic, retain) NSNumberFormatter *currencyFormatter;
-@property (nonatomic, retain) SITesseractParser *tesseractParser;
+@interface SIReceiptViewController () <UICollectionViewDataSource, UICollectionViewDelegate, UITableViewDataSource, UITableViewDelegate, UITextFieldDelegate>
+@property (strong, nonatomic) NSNumberFormatter *currencyFormatter;
 
-@property (nonatomic, retain) IBOutlet UITableView *tableView;
-@property (nonatomic, retain) IBOutlet UITableViewCell *addReceiptEntryCell;
-@property (nonatomic, retain) IBOutlet UITextField *nameTextField;
-@property (nonatomic, retain) IBOutlet UITextField *costTextField;
-
-- (IBAction)didTapCameraButton:(id)sender;
+@property (strong, nonatomic) IBOutlet UICollectionView *peopleCollectionView;
+@property (strong, nonatomic) IBOutlet UITableView *itemsTableView;
+@property (strong, nonatomic) IBOutlet UITableViewCell *addReceiptEntryCell;
+@property (strong, nonatomic) IBOutlet UITextField *nameTextField;
+@property (strong, nonatomic) IBOutlet UITextField *costTextField;
 
 - (void)configureCell:(UITableViewCell *)cell forIndexPath:(NSIndexPath *)indexPath;
 @end
@@ -43,41 +42,38 @@ static NSInteger SIReceiptViewControllerSectionCount = SIReceiptViewControllerSe
 
     self.currencyFormatter = [[NSNumberFormatter alloc] init];
     [self.currencyFormatter setNumberStyle:NSNumberFormatterCurrencyStyle];
-
-    self.tesseractParser = [[SITesseractParser alloc] init];
 }
 
 #pragma mark - UIViewController
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
-    [self.tableView reloadData];
+    [self.itemsTableView reloadData];
 }
 
 #pragma mark - Editing
 
 - (void)setEditing:(BOOL)editing animated:(BOOL)animated {
     [super setEditing:editing animated:animated];
-    [self.tableView setEditing:editing animated:animated];
-    [self.tableView reloadSections:[NSIndexSet indexSetWithIndex:SIReceiptViewControllerSectionAdd]
-                  withRowAnimation:UITableViewRowAnimationBottom];
+    [self.itemsTableView setEditing:editing animated:animated];
+    [self.itemsTableView reloadSections:[NSIndexSet indexSetWithIndex:SIReceiptViewControllerSectionAdd]
+                       withRowAnimation:UITableViewRowAnimationBottom];
 }
 
-#pragma mark - IBAction
+#pragma mark - UICollectionViewDataSource
 
-- (IBAction)didTapCameraButton:(id)sender {
-    return;
+- (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section {
+    return [self.receipt.people count];
+}
 
-//    if (![UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypeCamera]) {
-//        return;
-//    }
+- (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
+    SIReceiptPersonCollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"SIReceiptCollectionViewCell" forIndexPath:indexPath];
+    NSArray *nameSortDescriptor = [NSSortDescriptor sortDescriptorWithKey:@"name" ascending:YES];
+    SIPerson *person = [self.receipt.people sortedArrayUsingDescriptors:@[ nameSortDescriptor ]][indexPath.row];
 
-    UIImagePickerController *imagePickerController = [[UIImagePickerController alloc] init];
-    imagePickerController.sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
-    imagePickerController.allowsEditing = YES;
-    imagePickerController.delegate = self;
+    cell.nameLabel.text = person.name;
 
-    [self presentViewController:imagePickerController animated:YES completion:NULL];
+    return cell;
 }
 
 #pragma mark - UITableViewDataSource
@@ -86,14 +82,14 @@ static NSInteger SIReceiptViewControllerSectionCount = SIReceiptViewControllerSe
     return [[self.receipt.items sortedArrayUsingDescriptors:@[[NSSortDescriptor sortDescriptorWithKey:@"name" ascending:YES]]] objectAtIndex:indexPath.row];
 }
 
-- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
+- (NSInteger)numberOfSectionsInitemsTableView:(UITableView *)itemsTableView {
     return SIReceiptViewControllerSectionCount;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     switch ((SIReceiptViewControllerSection)section) {
         case SIReceiptViewControllerSectionAdd:
-            return (self.tableView.editing ? 1 : 0);
+            return (self.itemsTableView.editing ? 1 : 0);
         case SIReceiptViewControllerSectionReceipt:
             return [self.receipt.items count];
     }
@@ -103,7 +99,7 @@ static NSInteger SIReceiptViewControllerSectionCount = SIReceiptViewControllerSe
     if (indexPath.section == SIReceiptViewControllerSectionAdd)
         return self.addReceiptEntryCell;
 
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"SIReceiptTableViewCell"];
+    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"SIReceiptitemsTableViewCell"];
 
     [self configureCell:cell forIndexPath:indexPath];
 
@@ -123,14 +119,14 @@ static NSInteger SIReceiptViewControllerSectionCount = SIReceiptViewControllerSe
     return NO;
 }
 
-- (UITableViewCellEditingStyle)tableView:(UITableView *)tableView editingStyleForRowAtIndexPath:(NSIndexPath *)indexPath {
+- (UITableViewCellEditingStyle)itemsTableView:(UITableView *)itemsTableView editingStyleForRowAtIndexPath:(NSIndexPath *)indexPath {
     if (indexPath.section == SIReceiptViewControllerSectionAdd)
         return UITableViewCellEditingStyleNone;
 
     return UITableViewCellEditingStyleDelete;
 }
 
-- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
+- (void)itemsTableView:(UITableView *)itemsTableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
     SIReceiptItem *receiptItem = [self receiptItemForIndexPath:indexPath];
 
     [receiptItem deleteEntity];
@@ -144,7 +140,7 @@ static NSInteger SIReceiptViewControllerSectionCount = SIReceiptViewControllerSe
 //    [self.selectedPerson toggleSelectionForReceiptEntry:receiptEntry];
 //
 //    // Reconfigure the cell to display the selection
-//    UITableViewCell *cell = [tableView cellForRowAtIndexPath:indexPath];
+//    UITableViewCell *cell = [itemsTableView cellForRowAtIndexPath:indexPath];
 //    [self configureCell:cell forIndexPath:indexPath];
 }
 
@@ -179,7 +175,7 @@ static NSInteger SIReceiptViewControllerSectionCount = SIReceiptViewControllerSe
         // Insert a row in the table for the new receipt entry
         NSIndexPath *indexPath = [NSIndexPath indexPathForRow:0
                                                     inSection:SIReceiptViewControllerSectionReceipt];
-        [self.tableView insertRowsAtIndexPaths:[NSArray arrayWithObject:indexPath]
+        [self.itemsTableView insertRowsAtIndexPaths:[NSArray arrayWithObject:indexPath]
                               withRowAnimation:UITableViewRowAnimationTop];
         
         // Clear the text in both text fields
@@ -190,21 +186,6 @@ static NSInteger SIReceiptViewControllerSectionCount = SIReceiptViewControllerSe
         [self.nameTextField becomeFirstResponder];
     }
     return NO;
-}
-
-#pragma mark - UIImagePickerControllerDelegate
-
-- (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info {
-    UIImage *image = [info objectForKey:UIImagePickerControllerEditedImage];
-    [self.tesseractParser parseImage:image withCompletionHandler:^(NSString *parsedString) {
-        [self.receipt addEntriesFromImageParsedString:parsedString];
-        [self.tableView reloadData];
-    }];
-    [self dismissViewControllerAnimated:YES completion:NULL];
-}
-
-- (void)imagePickerControllerDidCancel:(UIImagePickerController *)picker {
-    [self dismissViewControllerAnimated:YES completion:NULL];
 }
 
 @end

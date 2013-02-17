@@ -10,12 +10,14 @@ extern const struct SIPersonAttributes {
 
 extern const struct SIPersonRelationships {
 	__unsafe_unretained NSString *items;
+	__unsafe_unretained NSString *receipts;
 } SIPersonRelationships;
 
 extern const struct SIPersonFetchedProperties {
 } SIPersonFetchedProperties;
 
 @class SIReceiptItem;
+@class SIReceipt;
 
 
 
@@ -49,6 +51,13 @@ extern const struct SIPersonFetchedProperties {
 
 
 
+@property (nonatomic, strong) NSSet *receipts;
+
+- (NSMutableSet*)receiptsSet;
+
+
+
+
 
 @end
 
@@ -58,6 +67,11 @@ extern const struct SIPersonFetchedProperties {
 - (void)removeItems:(NSSet*)value_;
 - (void)addItemsObject:(SIReceiptItem*)value_;
 - (void)removeItemsObject:(SIReceiptItem*)value_;
+
+- (void)addReceipts:(NSSet*)value_;
+- (void)removeReceipts:(NSSet*)value_;
+- (void)addReceiptsObject:(SIReceipt*)value_;
+- (void)removeReceiptsObject:(SIReceipt*)value_;
 
 @end
 
@@ -73,6 +87,11 @@ extern const struct SIPersonFetchedProperties {
 
 - (NSMutableSet*)primitiveItems;
 - (void)setPrimitiveItems:(NSMutableSet*)value;
+
+
+
+- (NSMutableSet*)primitiveReceipts;
+- (void)setPrimitiveReceipts:(NSMutableSet*)value;
 
 
 @end

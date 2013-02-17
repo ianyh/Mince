@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		405AC1F215B202DE001BB625 /* SIReceipt.m in Sources */ = {isa = PBXBuildFile; fileRef = 405AC1F115B202DE001BB625 /* SIReceipt.m */; };
 		405AC1F915B2072E001BB625 /* SIPerson.m in Sources */ = {isa = PBXBuildFile; fileRef = 405AC1F815B2072E001BB625 /* SIPerson.m */; };
+		4066B90B16D190BA0082E878 /* SIReceiptPersonCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4066B90A16D190BA0082E878 /* SIReceiptPersonCollectionViewCell.m */; };
 		407E99D815B1E41B00B930EE /* liblept.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 407E99C615B1E41B00B930EE /* liblept.a */; };
 		407E99D915B1E41C00B930EE /* libtesseract.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 407E99C715B1E41B00B930EE /* libtesseract.a */; };
 		407E99DA15B1E41C00B930EE /* libtesseract_all.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 407E99C815B1E41B00B930EE /* libtesseract_all.a */; };
@@ -72,7 +73,6 @@
 		40C4656915B14A860047BB60 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 40C4656815B14A860047BB60 /* main.m */; };
 		40C4656D15B14A860047BB60 /* SIAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 40C4656C15B14A860047BB60 /* SIAppDelegate.m */; };
 		40C4657015B14A860047BB60 /* MainStoryboard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 40C4656E15B14A860047BB60 /* MainStoryboard.storyboard */; };
-		40C4657315B14A860047BB60 /* SIPersonViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 40C4657215B14A860047BB60 /* SIPersonViewController.m */; };
 		40D7D93515B24F8D004978C7 /* NSString+SIAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = 40D7D93415B24F8D004978C7 /* NSString+SIAdditions.m */; };
 /* End PBXBuildFile section */
 
@@ -81,6 +81,8 @@
 		405AC1F115B202DE001BB625 /* SIReceipt.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SIReceipt.m; sourceTree = "<group>"; };
 		405AC1F715B2072E001BB625 /* SIPerson.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SIPerson.h; sourceTree = "<group>"; };
 		405AC1F815B2072E001BB625 /* SIPerson.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SIPerson.m; sourceTree = "<group>"; };
+		4066B90916D190BA0082E878 /* SIReceiptPersonCollectionViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SIReceiptPersonCollectionViewCell.h; sourceTree = "<group>"; };
+		4066B90A16D190BA0082E878 /* SIReceiptPersonCollectionViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SIReceiptPersonCollectionViewCell.m; sourceTree = "<group>"; };
 		407E999C15B1E41B00B930EE /* allheaders.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = allheaders.h; sourceTree = "<group>"; };
 		407E999D15B1E41B00B930EE /* alltypes.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = alltypes.h; sourceTree = "<group>"; };
 		407E999E15B1E41B00B930EE /* array.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = array.h; sourceTree = "<group>"; };
@@ -224,8 +226,6 @@
 		40C4656B15B14A860047BB60 /* SIAppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SIAppDelegate.h; sourceTree = "<group>"; };
 		40C4656C15B14A860047BB60 /* SIAppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SIAppDelegate.m; sourceTree = "<group>"; };
 		40C4656F15B14A860047BB60 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = en; path = en.lproj/MainStoryboard.storyboard; sourceTree = "<group>"; };
-		40C4657115B14A860047BB60 /* SIPersonViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SIPersonViewController.h; sourceTree = "<group>"; };
-		40C4657215B14A860047BB60 /* SIPersonViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SIPersonViewController.m; sourceTree = "<group>"; };
 		40D7D93315B24F8D004978C7 /* NSString+SIAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+SIAdditions.h"; sourceTree = "<group>"; };
 		40D7D93415B24F8D004978C7 /* NSString+SIAdditions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+SIAdditions.m"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -483,6 +483,8 @@
 		40A6D4FF16D021E50019AC60 /* View */ = {
 			isa = PBXGroup;
 			children = (
+				4066B90916D190BA0082E878 /* SIReceiptPersonCollectionViewCell.h */,
+				4066B90A16D190BA0082E878 /* SIReceiptPersonCollectionViewCell.m */,
 			);
 			name = View;
 			sourceTree = "<group>";
@@ -492,8 +494,6 @@
 			children = (
 				40A6D51416D02BD90019AC60 /* SIReceiptViewController.h */,
 				40A6D51516D02BD90019AC60 /* SIReceiptViewController.m */,
-				40C4657115B14A860047BB60 /* SIPersonViewController.h */,
-				40C4657215B14A860047BB60 /* SIPersonViewController.m */,
 				40A6D51116D026C40019AC60 /* SIReceiptListViewController.h */,
 				40A6D51216D026C40019AC60 /* SIReceiptListViewController.m */,
 				40A6D51716D0387C0019AC60 /* SIReceiptCreateViewController.h */,
@@ -640,7 +640,6 @@
 			files = (
 				40C4656915B14A860047BB60 /* main.m in Sources */,
 				40C4656D15B14A860047BB60 /* SIAppDelegate.m in Sources */,
-				40C4657315B14A860047BB60 /* SIPersonViewController.m in Sources */,
 				407E99EC15B1E8C000B930EE /* SITesseractParser.mm in Sources */,
 				405AC1F215B202DE001BB625 /* SIReceipt.m in Sources */,
 				405AC1F915B2072E001BB625 /* SIPerson.m in Sources */,
@@ -679,6 +678,7 @@
 				40A6D51316D026C40019AC60 /* SIReceiptListViewController.m in Sources */,
 				40A6D51616D02BD90019AC60 /* SIReceiptViewController.m in Sources */,
 				40A6D51916D0387C0019AC60 /* SIReceiptCreateViewController.m in Sources */,
+				4066B90B16D190BA0082E878 /* SIReceiptPersonCollectionViewCell.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

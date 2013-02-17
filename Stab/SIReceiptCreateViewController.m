@@ -49,9 +49,7 @@ static NSInteger SIReceiptCreateSectionCount = SIReceiptCreateSectionPeople + 1;
 
 - (void)commitChanges {
     self.receipt.createdDate = [NSDate date];
-    [self.temporaryContext saveOnlySelfWithCompletion:^(BOOL success, NSError *error) {
-        
-    }];
+    [self.temporaryContext saveToPersistentStoreWithCompletion:NULL];
 }
 
 #pragma mark - UITableViewDataSource
@@ -103,6 +101,8 @@ static NSInteger SIReceiptCreateSectionCount = SIReceiptCreateSectionPeople + 1;
     SIPerson *person = [SIPerson createInContext:self.temporaryContext];
 
     person.name = textField.text;
+    [person addReceiptsObject:self.receipt];
+
     [self.people insertObject:person atIndex:0];
 
     // Insert a row in the table for the new person
