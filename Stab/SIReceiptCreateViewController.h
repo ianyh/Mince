@@ -15,4 +15,6 @@
 
 @interface SIReceiptCreateViewController : UIViewController
 @property (nonatomic, assign) id <SIReceiptCreateViewControllerDelegate> delegate;
+
+- (void)commitChanges;
 @end

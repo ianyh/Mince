@@ -14,13 +14,23 @@
 #import "SIReceipt.h"
 
 @interface SIReceiptListViewController () <NSFetchedResultsControllerDelegate, SIReceiptCreateViewControllerDelegate>
-@property (nonatomic, retain) NSFetchedResultsController *receiptsFetchedResultsController;
+@property (strong, nonatomic) NSFetchedResultsController *receiptsFetchedResultsController;
+
+@property (strong, nonatomic) NSDateFormatter *dateFormatter;
 
 - (IBAction)cancelCreate:(UIStoryboardSegue *)segue;
 - (IBAction)commitCreate:(UIStoryboardSegue *)segue;
 @end
 
 @implementation SIReceiptListViewController
+
+- (void)awakeFromNib {
+    [super awakeFromNib];
+    if (!self.dateFormatter) {
+        self.dateFormatter = [[NSDateFormatter alloc] init];
+        [self.dateFormatter setDateFormat:@"MM/dd/YYYY"];
+    }
+}
 
 - (void)dealloc {
     self.receiptsFetchedResultsController.delegate = nil;
@@ -49,6 +59,9 @@
 }
 
 - (IBAction)commitCreate:(UIStoryboardSegue *)segue {
+    SIReceiptCreateViewController *createViewController = [segue sourceViewController];
+    [createViewController commitChanges];
+
     [self dismissViewControllerAnimated:YES completion:NULL];
 }
 
@@ -71,10 +84,11 @@
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"SIReceiptsTableViewCell" forIndexPath:indexPath];
+    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"WSReceiptsViewControllerCell"];
     SIReceipt *receipt = self.receiptsFetchedResultsController.fetchedObjects[indexPath.row];
 
     cell.textLabel.text = receipt.name;
+    cell.detailTextLabel.text = [self.dateFormatter stringFromDate:receipt.createdDate];
     
     return cell;
 }
