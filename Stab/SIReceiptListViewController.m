@@ -11,7 +11,11 @@
 #import "SIReceiptViewController.h"
 #import "SIReceiptCreateViewController.h"
 
+#import "NSDate-Utilities.h"
 #import "SIReceipt.h"
+
+static NSString *SIMonthDayYearDateFormat = @"MM/dd/YYYY";
+static NSString *SIHourMinuteMerdianDateFormat = @"hh:mm a";
 
 @interface SIReceiptListViewController () <NSFetchedResultsControllerDelegate, SIReceiptCreateViewControllerDelegate>
 @property (strong, nonatomic) NSFetchedResultsController *receiptsFetchedResultsController;
@@ -86,6 +90,12 @@
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"WSReceiptsViewControllerCell"];
     SIReceipt *receipt = self.receiptsFetchedResultsController.fetchedObjects[indexPath.row];
+
+    if ([receipt.createdDate isToday]) {
+        [self.dateFormatter setDateFormat:SIHourMinuteMerdianDateFormat];
+    } else {
+        [self.dateFormatter setDateFormat:SIMonthDayYearDateFormat];
+    }
 
     cell.textLabel.text = receipt.name;
     cell.detailTextLabel.text = [self.dateFormatter stringFromDate:receipt.createdDate];

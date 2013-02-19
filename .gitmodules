@@ -1,3 +1,6 @@
 [submodule "MagicalRecord"]
 	path = MagicalRecord
 	url = git://github.com/magicalpanda/MagicalRecord.git
+[submodule "NSDate-Extensions"]
+	path = NSDate-Extensions
+	url = git://github.com/erica/NSDate-Extensions.git

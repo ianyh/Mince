@@ -30,6 +30,7 @@
 		407E99E915B1E41C00B930EE /* libtesseract_wordrec.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 407E99D715B1E41B00B930EE /* libtesseract_wordrec.a */; };
 		407E99EC15B1E8C000B930EE /* SITesseractParser.mm in Sources */ = {isa = PBXBuildFile; fileRef = 407E99EB15B1E8C000B930EE /* SITesseractParser.mm */; };
 		407E99EE15B1E9D300B930EE /* tessdata in Resources */ = {isa = PBXBuildFile; fileRef = 407E99ED15B1E9D300B930EE /* tessdata */; };
+		4094D83816D3137F0088DC7E /* NSDate-Utilities.m in Sources */ = {isa = PBXBuildFile; fileRef = 4094D83716D3137F0088DC7E /* NSDate-Utilities.m */; };
 		40A6D4DF16D01F560019AC60 /* MagicalImportFunctions.m in Sources */ = {isa = PBXBuildFile; fileRef = 40A6D4A716D01F560019AC60 /* MagicalImportFunctions.m */; };
 		40A6D4E016D01F560019AC60 /* NSAttributeDescription+MagicalDataImport.m in Sources */ = {isa = PBXBuildFile; fileRef = 40A6D4A916D01F560019AC60 /* NSAttributeDescription+MagicalDataImport.m */; };
 		40A6D4E116D01F560019AC60 /* NSEntityDescription+MagicalDataImport.m in Sources */ = {isa = PBXBuildFile; fileRef = 40A6D4AB16D01F560019AC60 /* NSEntityDescription+MagicalDataImport.m */; };
@@ -144,6 +145,8 @@
 		407E99EA15B1E8C000B930EE /* SITesseractParser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SITesseractParser.h; sourceTree = "<group>"; };
 		407E99EB15B1E8C000B930EE /* SITesseractParser.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = SITesseractParser.mm; sourceTree = "<group>"; };
 		407E99ED15B1E9D300B930EE /* tessdata */ = {isa = PBXFileReference; lastKnownFileType = folder; path = tessdata; sourceTree = "<group>"; };
+		4094D83616D3137F0088DC7E /* NSDate-Utilities.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSDate-Utilities.h"; path = "NSDate-Extensions/NSDate-Utilities.h"; sourceTree = SOURCE_ROOT; };
+		4094D83716D3137F0088DC7E /* NSDate-Utilities.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSDate-Utilities.m"; path = "NSDate-Extensions/NSDate-Utilities.m"; sourceTree = SOURCE_ROOT; };
 		40A6D4A616D01F560019AC60 /* MagicalImportFunctions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MagicalImportFunctions.h; sourceTree = "<group>"; };
 		40A6D4A716D01F560019AC60 /* MagicalImportFunctions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MagicalImportFunctions.m; sourceTree = "<group>"; };
 		40A6D4A816D01F560019AC60 /* NSAttributeDescription+MagicalDataImport.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSAttributeDescription+MagicalDataImport.h"; sourceTree = "<group>"; };
@@ -554,6 +557,8 @@
 				40A6D50016D021E90019AC60 /* Controller */,
 				40C4656B15B14A860047BB60 /* SIAppDelegate.h */,
 				40C4656C15B14A860047BB60 /* SIAppDelegate.m */,
+				4094D83616D3137F0088DC7E /* NSDate-Utilities.h */,
+				4094D83716D3137F0088DC7E /* NSDate-Utilities.m */,
 				40D7D93315B24F8D004978C7 /* NSString+SIAdditions.h */,
 				40D7D93415B24F8D004978C7 /* NSString+SIAdditions.m */,
 				40C4656E15B14A860047BB60 /* MainStoryboard.storyboard */,
@@ -679,6 +684,7 @@
 				40A6D51616D02BD90019AC60 /* SIReceiptViewController.m in Sources */,
 				40A6D51916D0387C0019AC60 /* SIReceiptCreateViewController.m in Sources */,
 				4066B90B16D190BA0082E878 /* SIReceiptPersonCollectionViewCell.m in Sources */,
+				4094D83816D3137F0088DC7E /* NSDate-Utilities.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
