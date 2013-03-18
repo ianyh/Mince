@@ -79,7 +79,7 @@ static NSInteger SIReceiptViewControllerSectionCount = SIReceiptViewControllerSe
 #pragma mark - UITableViewDataSource
 
 - (SIReceiptItem *)receiptItemForIndexPath:(NSIndexPath *)indexPath {
-    return [[self.receipt.items sortedArrayUsingDescriptors:@[[NSSortDescriptor sortDescriptorWithKey:@"name" ascending:YES]]] objectAtIndex:indexPath.row];
+    return [self.receipt.items sortedArrayUsingDescriptors:@[[NSSortDescriptor sortDescriptorWithKey:@"name" ascending:YES]]][indexPath.row];
 }
 
 - (NSInteger)numberOfSectionsInitemsTableView:(UITableView *)itemsTableView {

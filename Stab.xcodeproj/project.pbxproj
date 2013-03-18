@@ -67,6 +67,7 @@
 		40A6D51316D026C40019AC60 /* SIReceiptListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 40A6D51216D026C40019AC60 /* SIReceiptListViewController.m */; };
 		40A6D51616D02BD90019AC60 /* SIReceiptItemsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 40A6D51516D02BD90019AC60 /* SIReceiptItemsViewController.m */; };
 		40A6D51916D0387C0019AC60 /* SIReceiptCreateViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 40A6D51816D0387C0019AC60 /* SIReceiptCreateViewController.m */; };
+		40A905F416F692460039677F /* SIReceiptViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 40A905F316F692460039677F /* SIReceiptViewController.m */; };
 		40C4655D15B14A860047BB60 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 40C4655C15B14A860047BB60 /* UIKit.framework */; };
 		40C4655F15B14A860047BB60 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 40C4655E15B14A860047BB60 /* Foundation.framework */; };
 		40C4656115B14A860047BB60 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 40C4656015B14A860047BB60 /* CoreGraphics.framework */; };
@@ -218,6 +219,8 @@
 		40A6D51516D02BD90019AC60 /* SIReceiptItemsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SIReceiptItemsViewController.m; sourceTree = "<group>"; };
 		40A6D51716D0387C0019AC60 /* SIReceiptCreateViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SIReceiptCreateViewController.h; sourceTree = "<group>"; };
 		40A6D51816D0387C0019AC60 /* SIReceiptCreateViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SIReceiptCreateViewController.m; sourceTree = "<group>"; };
+		40A905F216F692460039677F /* SIReceiptViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SIReceiptViewController.h; sourceTree = "<group>"; };
+		40A905F316F692460039677F /* SIReceiptViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SIReceiptViewController.m; sourceTree = "<group>"; };
 		40C4655815B14A860047BB60 /* Mince.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Mince.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		40C4655C15B14A860047BB60 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		40C4655E15B14A860047BB60 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -501,6 +504,8 @@
 				40A6D51216D026C40019AC60 /* SIReceiptListViewController.m */,
 				40A6D51716D0387C0019AC60 /* SIReceiptCreateViewController.h */,
 				40A6D51816D0387C0019AC60 /* SIReceiptCreateViewController.m */,
+				40A905F216F692460039677F /* SIReceiptViewController.h */,
+				40A905F316F692460039677F /* SIReceiptViewController.m */,
 			);
 			name = Controller;
 			sourceTree = "<group>";
@@ -685,6 +690,7 @@
 				40A6D51916D0387C0019AC60 /* SIReceiptCreateViewController.m in Sources */,
 				4066B90B16D190BA0082E878 /* SIReceiptPersonCollectionViewCell.m in Sources */,
 				4094D83816D3137F0088DC7E /* NSDate-Utilities.m in Sources */,
+				40A905F416F692460039677F /* SIReceiptViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
