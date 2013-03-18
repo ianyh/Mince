@@ -6,6 +6,7 @@
 
 extern const struct SIReceiptItemAttributes {
 	__unsafe_unretained NSString *cost;
+	__unsafe_unretained NSString *createdDate;
 	__unsafe_unretained NSString *name;
 } SIReceiptItemAttributes;
 
@@ -19,6 +20,7 @@ extern const struct SIReceiptItemFetchedProperties {
 
 @class SIPerson;
 @class SIReceipt;
+
 
 
 
@@ -45,6 +47,16 @@ extern const struct SIReceiptItemFetchedProperties {
 - (void)setCostValue:(double)value_;
 
 //- (BOOL)validateCost:(id*)value_ error:(NSError**)error_;
+
+
+
+
+
+@property (nonatomic, strong) NSDate* createdDate;
+
+
+
+//- (BOOL)validateCreatedDate:(id*)value_ error:(NSError**)error_;
 
 
 
@@ -94,6 +106,12 @@ extern const struct SIReceiptItemFetchedProperties {
 
 - (double)primitiveCostValue;
 - (void)setPrimitiveCostValue:(double)value_;
+
+
+
+
+- (NSDate*)primitiveCreatedDate;
+- (void)setPrimitiveCreatedDate:(NSDate*)value;
 
 
 

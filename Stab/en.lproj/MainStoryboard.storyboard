@@ -184,7 +184,7 @@
             <objects>
                 <tabBarController definesPresentationContext="YES" id="NED-GE-ra7" customClass="SIReceiptViewController" sceneMemberID="viewController">
                     <navigationItem key="navigationItem" id="hul-4s-7PM"/>
-                    <simulatedTabBarMetrics key="simulatedBottomBarMetrics"/>
+                    <nil key="simulatedBottomBarMetrics"/>
                     <tabBar key="tabBar" contentMode="scaleToFill" id="aEP-Um-3vW">
                         <rect key="frame" x="129" y="330" width="163" height="49"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
@@ -326,7 +326,7 @@
                     </view>
                 </tableViewCell>
             </objects>
-            <point key="canvasLocation" x="907" y="280"/>
+            <point key="canvasLocation" x="799" y="280"/>
         </scene>
     </scenes>
     <classes>

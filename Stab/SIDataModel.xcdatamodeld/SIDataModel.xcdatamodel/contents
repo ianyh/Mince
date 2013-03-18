@@ -13,6 +13,7 @@
     </entity>
     <entity name="SIReceiptItem" representedClassName="SIReceiptItem" syncable="YES">
         <attribute name="cost" attributeType="Double" defaultValueString="0.0" syncable="YES"/>
+        <attribute name="createdDate" optional="YES" attributeType="Date" syncable="YES"/>
         <attribute name="name" attributeType="String" syncable="YES"/>
         <relationship name="people" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="SIPerson" inverseName="items" inverseEntity="SIPerson" syncable="YES"/>
         <relationship name="receipt" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="SIReceipt" inverseName="items" inverseEntity="SIReceipt" syncable="YES"/>
@@ -20,6 +21,6 @@
     <elements>
         <element name="SIPerson" positionX="45" positionY="54" width="128" height="90"/>
         <element name="SIReceipt" positionX="54" positionY="251" width="128" height="105"/>
-        <element name="SIReceiptItem" positionX="-189" positionY="153" width="128" height="103"/>
+        <element name="SIReceiptItem" positionX="-189" positionY="153" width="128" height="120"/>
     </elements>
 </model>

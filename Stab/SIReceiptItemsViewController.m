@@ -68,21 +68,26 @@ static NSInteger SIReceiptViewControllerSectionCount = SIReceiptViewControllerSe
 
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
     SIReceiptPersonCollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"SIReceiptCollectionViewCell" forIndexPath:indexPath];
-    NSArray *nameSortDescriptor = [NSSortDescriptor sortDescriptorWithKey:@"name" ascending:YES];
-    SIPerson *person = [self.receipt.people sortedArrayUsingDescriptors:@[ nameSortDescriptor ]][indexPath.row];
+    SIPerson *person = [self personForIndexPath:indexPath];
 
     cell.nameLabel.text = person.name;
 
     return cell;
 }
 
-#pragma mark - UITableViewDataSource
+#pragma mark - UICollectionViewDelegate
 
-- (SIReceiptItem *)receiptItemForIndexPath:(NSIndexPath *)indexPath {
-    return [self.receipt.items sortedArrayUsingDescriptors:@[[NSSortDescriptor sortDescriptorWithKey:@"name" ascending:YES]]][indexPath.row];
+- (void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView {
+    [self updateTableCellCheckmarks];
 }
 
-- (NSInteger)numberOfSectionsInitemsTableView:(UITableView *)itemsTableView {
+- (void)scrollViewDidEndScrollingAnimation:(UIScrollView *)scrollView {
+    [self updateTableCellCheckmarks];
+}
+
+#pragma mark - UITableViewDataSource
+
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
     return SIReceiptViewControllerSectionCount;
 }
 
@@ -99,7 +104,7 @@ static NSInteger SIReceiptViewControllerSectionCount = SIReceiptViewControllerSe
     if (indexPath.section == SIReceiptViewControllerSectionAdd)
         return self.addReceiptEntryCell;
 
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"SIReceiptitemsTableViewCell"];
+    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"SIReceiptTableViewCell"];
 
     [self configureCell:cell forIndexPath:indexPath];
 
@@ -108,9 +113,11 @@ static NSInteger SIReceiptViewControllerSectionCount = SIReceiptViewControllerSe
 
 - (void)configureCell:(UITableViewCell *)cell forIndexPath:(NSIndexPath *)indexPath {
     SIReceiptItem *receiptItem = [self receiptItemForIndexPath:indexPath];
+    BOOL receiptItemIsSelected = [receiptItem.people containsObject:[self highlightedPerson]];
 
     cell.textLabel.text = receiptItem.name;
     cell.detailTextLabel.text = [NSString stringWithFormat:@"$%.2f", [receiptItem.cost doubleValue]];
+    cell.accessoryType = (receiptItemIsSelected ? UITableViewCellAccessoryCheckmark : UITableViewCellAccessoryNone);
 }
 
 #pragma mark - UITableViewDelegate
@@ -119,14 +126,14 @@ static NSInteger SIReceiptViewControllerSectionCount = SIReceiptViewControllerSe
     return NO;
 }
 
-- (UITableViewCellEditingStyle)itemsTableView:(UITableView *)itemsTableView editingStyleForRowAtIndexPath:(NSIndexPath *)indexPath {
+- (UITableViewCellEditingStyle)tableView:(UITableView *)tableView editingStyleForRowAtIndexPath:(NSIndexPath *)indexPath {
     if (indexPath.section == SIReceiptViewControllerSectionAdd)
         return UITableViewCellEditingStyleNone;
 
     return UITableViewCellEditingStyleDelete;
 }
 
-- (void)itemsTableView:(UITableView *)itemsTableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
+- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
     SIReceiptItem *receiptItem = [self receiptItemForIndexPath:indexPath];
     [receiptItem deleteEntity];
     [[NSManagedObjectContext defaultContext] saveToPersistentStoreWithCompletion:NULL];
@@ -134,14 +141,20 @@ static NSInteger SIReceiptViewControllerSectionCount = SIReceiptViewControllerSe
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
-//
-//    // Toggle the selection of the receipt entry
-//    SIReceiptEntry *receiptEntry = [[[SIReceipt sharedReceipt] receiptEntries] objectAtIndex:indexPath.row];
-//    [self.selectedPerson toggleSelectionForReceiptEntry:receiptEntry];
-//
-//    // Reconfigure the cell to display the selection
-//    UITableViewCell *cell = [itemsTableView cellForRowAtIndexPath:indexPath];
-//    [self configureCell:cell forIndexPath:indexPath];
+
+    SIReceiptItem *item = [self receiptItemForIndexPath:indexPath];
+    SIPerson *person = [self highlightedPerson];
+
+    // Toggle the association with the highlighted person.
+    if ([item.people containsObject:person]) {
+        [item removePeopleObject:person];
+    } else {
+        [item addPeopleObject:person];
+    }
+
+    // Reconfigure the cell to display the selection
+    UITableViewCell *cell = [tableView cellForRowAtIndexPath:indexPath];
+    [self configureCell:cell forIndexPath:indexPath];
 }
 
 #pragma mark - UITextFieldDelegate
@@ -171,12 +184,12 @@ static NSInteger SIReceiptViewControllerSectionCount = SIReceiptViewControllerSe
         // Create and insert a receipt entry with the appropriate name
         [self.receipt addEntryWithName:self.nameTextField.text
                                   cost:[self.currencyFormatter numberFromString:self.costTextField.text]];
-        
+
         // Insert a row in the table for the new receipt entry
         NSIndexPath *indexPath = [NSIndexPath indexPathForRow:0
                                                     inSection:SIReceiptViewControllerSectionReceipt];
-        [self.itemsTableView insertRowsAtIndexPaths:[NSArray arrayWithObject:indexPath]
-                              withRowAnimation:UITableViewRowAnimationTop];
+        [self.itemsTableView insertRowsAtIndexPaths:@[ indexPath ]
+                                   withRowAnimation:UITableViewRowAnimationTop];
         
         // Clear the text in both text fields
         self.nameTextField.text = @"";
@@ -186,6 +199,32 @@ static NSInteger SIReceiptViewControllerSectionCount = SIReceiptViewControllerSe
         [self.nameTextField becomeFirstResponder];
     }
     return NO;
+}
+
+#pragma mark - Private Methods
+
+- (SIPerson *)personForIndexPath:(NSIndexPath *)indexPath {
+    NSArray *nameSortDescriptor = [NSSortDescriptor sortDescriptorWithKey:@"name" ascending:YES];
+    return [self.receipt.people sortedArrayUsingDescriptors:@[ nameSortDescriptor ]][indexPath.row];
+}
+
+- (SIPerson *)highlightedPerson {
+    CGPoint centerContentPoint = CGPointMake(self.peopleCollectionView.contentOffset.x + self.peopleCollectionView.center.x,
+                                             self.peopleCollectionView.contentOffset.y + self.peopleCollectionView.center.y);
+    NSIndexPath *indexPath = [self.peopleCollectionView indexPathForItemAtPoint:centerContentPoint];
+    return [self personForIndexPath:indexPath];
+}
+
+- (SIReceiptItem *)receiptItemForIndexPath:(NSIndexPath *)indexPath {
+    NSArray *createdDateSortDescriptor = [NSSortDescriptor sortDescriptorWithKey:@"createdDate" ascending:NO];
+    return [self.receipt.items sortedArrayUsingDescriptors:@[ createdDateSortDescriptor ]][indexPath.row];
+}
+
+- (void)updateTableCellCheckmarks {
+    for (NSIndexPath *indexPath in [self.itemsTableView indexPathsForVisibleRows]) {
+        [self configureCell:[self.itemsTableView cellForRowAtIndexPath:indexPath]
+               forIndexPath:indexPath];
+    }
 }
 
 @end

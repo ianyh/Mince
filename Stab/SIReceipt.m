@@ -19,7 +19,8 @@
     SIReceiptItem *receiptEntry = [SIReceiptItem createEntity];
     receiptEntry.name = name;
     receiptEntry.cost = cost;
-    [self addItemsObject:receiptEntry];
+    receiptEntry.createdDate = [NSDate date];
+    receiptEntry.receipt = self;
     [[NSManagedObjectContext defaultContext] saveToPersistentStoreWithCompletion:NULL];
 }
 

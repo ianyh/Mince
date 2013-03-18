@@ -5,6 +5,7 @@
 
 const struct SIReceiptItemAttributes SIReceiptItemAttributes = {
 	.cost = @"cost",
+	.createdDate = @"createdDate",
 	.name = @"name",
 };
 
@@ -75,6 +76,13 @@ const struct SIReceiptItemFetchedProperties SIReceiptItemFetchedProperties = {
 - (void)setPrimitiveCostValue:(double)value_ {
 	[self setPrimitiveCost:[NSNumber numberWithDouble:value_]];
 }
+
+
+
+
+
+@dynamic createdDate;
+
 
 
 
