@@ -20,6 +20,7 @@
     receiptEntry.name = name;
     receiptEntry.cost = cost;
     [self addItemsObject:receiptEntry];
+    [[NSManagedObjectContext defaultContext] saveToPersistentStoreWithCompletion:NULL];
 }
 
 - (void)addEntriesFromImageParsedString:(NSString *)imageParsedString {

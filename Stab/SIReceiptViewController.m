@@ -128,8 +128,8 @@ static NSInteger SIReceiptViewControllerSectionCount = SIReceiptViewControllerSe
 
 - (void)itemsTableView:(UITableView *)itemsTableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
     SIReceiptItem *receiptItem = [self receiptItemForIndexPath:indexPath];
-
     [receiptItem deleteEntity];
+    [[NSManagedObjectContext defaultContext] saveToPersistentStoreWithCompletion:NULL];
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
