@@ -1,12 +1,12 @@
 //
-//  SIReceiptViewController.m
+//  SIReceiptItemsViewController.m
 //  Stab
 //
 //  Created by Ian Ynda-Hummel on 7/14/12.
 //  Copyright (c) 2012 __MyCompanyName__. All rights reserved.
 //
 
-#import "SIReceiptViewController.h"
+#import "SIReceiptItemsViewController.h"
 
 #import "SIReceiptPersonCollectionViewCell.h"
 
@@ -22,7 +22,7 @@ typedef enum {
 
 static NSInteger SIReceiptViewControllerSectionCount = SIReceiptViewControllerSectionReceipt + 1;
 
-@interface SIReceiptViewController () <UICollectionViewDataSource, UICollectionViewDelegate, UITableViewDataSource, UITableViewDelegate, UITextFieldDelegate>
+@interface SIReceiptItemsViewController () <UICollectionViewDataSource, UICollectionViewDelegate, UITableViewDataSource, UITableViewDelegate, UITextFieldDelegate>
 @property (strong, nonatomic) NSNumberFormatter *currencyFormatter;
 
 @property (strong, nonatomic) IBOutlet UICollectionView *peopleCollectionView;
@@ -34,7 +34,7 @@ static NSInteger SIReceiptViewControllerSectionCount = SIReceiptViewControllerSe
 - (void)configureCell:(UITableViewCell *)cell forIndexPath:(NSIndexPath *)indexPath;
 @end
 
-@implementation SIReceiptViewController
+@implementation SIReceiptItemsViewController
 
 - (void)awakeFromNib {
     [super awakeFromNib];

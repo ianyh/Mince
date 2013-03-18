@@ -8,7 +8,7 @@
 
 #import "SIReceiptListViewController.h"
 
-#import "SIReceiptViewController.h"
+#import "SIReceiptItemsViewController.h"
 #import "SIReceiptCreateViewController.h"
 
 #import "NSDate-Utilities.h"
@@ -47,8 +47,8 @@ static NSString *SIHourMinuteMerdianDateFormat = @"hh:mm a";
 }
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    if ([[segue destinationViewController] isKindOfClass:[SIReceiptViewController class]]) {
-        SIReceiptViewController *receiptViewController = [segue destinationViewController];
+    if ([[segue destinationViewController] isKindOfClass:[SIReceiptItemsViewController class]]) {
+        SIReceiptItemsViewController *receiptViewController = [segue destinationViewController];
         receiptViewController.receipt = [self.receiptsFetchedResultsController.fetchedObjects objectAtIndex:[self.tableView indexPathForSelectedRow].row];
     } else if ([[segue destinationViewController] isKindOfClass:[SIReceiptCreateViewController class]]) {
         SIReceiptCreateViewController *createViewController = [segue destinationViewController];
