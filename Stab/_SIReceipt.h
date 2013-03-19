@@ -8,6 +8,7 @@ extern const struct SIReceiptAttributes {
 	__unsafe_unretained NSString *createdDate;
 	__unsafe_unretained NSString *name;
 	__unsafe_unretained NSString *taxRate;
+	__unsafe_unretained NSString *tipRate;
 } SIReceiptAttributes;
 
 extern const struct SIReceiptRelationships {
@@ -20,6 +21,7 @@ extern const struct SIReceiptFetchedProperties {
 
 @class SIReceiptItem;
 @class SIPerson;
+
 
 
 
@@ -67,6 +69,20 @@ extern const struct SIReceiptFetchedProperties {
 - (void)setTaxRateValue:(double)value_;
 
 //- (BOOL)validateTaxRate:(id*)value_ error:(NSError**)error_;
+
+
+
+
+
+@property (nonatomic, strong) NSNumber* tipRate;
+
+
+
+@property double tipRateValue;
+- (double)tipRateValue;
+- (void)setTipRateValue:(double)value_;
+
+//- (BOOL)validateTipRate:(id*)value_ error:(NSError**)error_;
 
 
 
@@ -123,6 +139,15 @@ extern const struct SIReceiptFetchedProperties {
 
 - (double)primitiveTaxRateValue;
 - (void)setPrimitiveTaxRateValue:(double)value_;
+
+
+
+
+- (NSNumber*)primitiveTipRate;
+- (void)setPrimitiveTipRate:(NSNumber*)value;
+
+- (double)primitiveTipRateValue;
+- (void)setPrimitiveTipRateValue:(double)value_;
 
 
 

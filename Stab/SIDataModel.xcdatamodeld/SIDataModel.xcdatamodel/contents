@@ -8,7 +8,8 @@
     <entity name="SIReceipt" representedClassName="SIReceipt" syncable="YES">
         <attribute name="createdDate" attributeType="Date" syncable="YES"/>
         <attribute name="name" attributeType="String" syncable="YES"/>
-        <attribute name="taxRate" attributeType="Double" defaultValueString="0.15" syncable="YES"/>
+        <attribute name="taxRate" attributeType="Double" defaultValueString="0.07000000000000001" syncable="YES"/>
+        <attribute name="tipRate" attributeType="Double" defaultValueString="0.15" syncable="YES"/>
         <relationship name="items" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="SIReceiptItem" inverseName="receipt" inverseEntity="SIReceiptItem" syncable="YES"/>
         <relationship name="people" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="SIPerson" inverseName="receipts" inverseEntity="SIPerson" syncable="YES"/>
     </entity>
@@ -21,7 +22,7 @@
     </entity>
     <elements>
         <element name="SIPerson" positionX="45" positionY="54" width="128" height="90"/>
-        <element name="SIReceipt" positionX="54" positionY="251" width="128" height="120"/>
+        <element name="SIReceipt" positionX="54" positionY="251" width="128" height="135"/>
         <element name="SIReceiptItem" positionX="-189" positionY="153" width="128" height="120"/>
     </elements>
 </model>

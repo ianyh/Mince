@@ -27,6 +27,7 @@
     }
 
     totalOwed += [[receipt tax] doubleValue] / [receipt.people count];
+    totalOwed += [[receipt tip] doubleValue] / [receipt.people count];
 
     return @(totalOwed);
 }

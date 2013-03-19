@@ -7,6 +7,7 @@ const struct SIReceiptAttributes SIReceiptAttributes = {
 	.createdDate = @"createdDate",
 	.name = @"name",
 	.taxRate = @"taxRate",
+	.tipRate = @"tipRate",
 };
 
 const struct SIReceiptRelationships SIReceiptRelationships = {
@@ -45,6 +46,11 @@ const struct SIReceiptFetchedProperties SIReceiptFetchedProperties = {
 	
 	if ([key isEqualToString:@"taxRateValue"]) {
 		NSSet *affectingKey = [NSSet setWithObject:@"taxRate"];
+		keyPaths = [keyPaths setByAddingObjectsFromSet:affectingKey];
+		return keyPaths;
+	}
+	if ([key isEqualToString:@"tipRateValue"]) {
+		NSSet *affectingKey = [NSSet setWithObject:@"tipRate"];
 		keyPaths = [keyPaths setByAddingObjectsFromSet:affectingKey];
 		return keyPaths;
 	}
@@ -89,6 +95,32 @@ const struct SIReceiptFetchedProperties SIReceiptFetchedProperties = {
 
 - (void)setPrimitiveTaxRateValue:(double)value_ {
 	[self setPrimitiveTaxRate:[NSNumber numberWithDouble:value_]];
+}
+
+
+
+
+
+@dynamic tipRate;
+
+
+
+- (double)tipRateValue {
+	NSNumber *result = [self tipRate];
+	return [result doubleValue];
+}
+
+- (void)setTipRateValue:(double)value_ {
+	[self setTipRate:[NSNumber numberWithDouble:value_]];
+}
+
+- (double)primitiveTipRateValue {
+	NSNumber *result = [self primitiveTipRate];
+	return [result doubleValue];
+}
+
+- (void)setPrimitiveTipRateValue:(double)value_ {
+	[self setPrimitiveTipRate:[NSNumber numberWithDouble:value_]];
 }
 
 

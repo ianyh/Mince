@@ -18,5 +18,6 @@
 
 - (NSNumber *)subtotal;
 - (NSNumber *)tax;
+- (NSNumber *)tip;
 - (NSNumber *)total;
 @end

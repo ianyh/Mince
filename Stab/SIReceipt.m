@@ -55,8 +55,12 @@
     return @([[self subtotal] doubleValue] * [self.taxRate doubleValue]);
 }
 
+- (NSNumber *)tip {
+    return @([[self subtotal] doubleValue] * [self.tipRate doubleValue]);
+}
+
 - (NSNumber *)total {
-    return @([[self subtotal] doubleValue] * (1 + [self.taxRate doubleValue]));
+    return @([[self subtotal] doubleValue] + [[self tax] doubleValue] + [[self tip] doubleValue]);
 }
 
 @end

@@ -20,6 +20,7 @@ typedef enum {
     SIReceiptItemsSectionReceipt,
     SIReceiptItemsSectionSubtotal,
     SIReceiptItemsSectionTax,
+    SIReceiptItemsSectionTip,
     SIReceiptItemsSectionTotal,
 } SIReceiptItemsSection;
 
@@ -101,6 +102,7 @@ static NSInteger SIReceiptItemsSectionCount = SIReceiptItemsSectionTotal + 1;
             return [self.receipt.items count];
         case SIReceiptItemsSectionSubtotal:
         case SIReceiptItemsSectionTax:
+        case SIReceiptItemsSectionTip:
         case SIReceiptItemsSectionTotal:
             return 1;
     }
@@ -128,6 +130,13 @@ static NSInteger SIReceiptItemsSectionCount = SIReceiptItemsSectionTotal + 1;
             UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"SIReceiptOverviewTableViewCell"];
             cell.textLabel.text = [NSString stringWithFormat:@"Tax (%.0f%%)", [self.receipt.taxRate doubleValue] * 100];
             cell.detailTextLabel.text = [NSString stringWithFormat:@"$%.2f", [[self.receipt tax] doubleValue]];
+            return cell;
+        }
+
+        case SIReceiptItemsSectionTip: {
+            UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"SIReceiptOverviewTableViewCell"];
+            cell.textLabel.text = [NSString stringWithFormat:@"Tip (%.0f%%)", [self.receipt.tipRate doubleValue] * 100];
+            cell.detailTextLabel.text = [NSString stringWithFormat:@"$%.2f", [[self.receipt tip] doubleValue]];
             return cell;
         }
 
@@ -160,6 +169,7 @@ static NSInteger SIReceiptItemsSectionCount = SIReceiptItemsSectionTotal + 1;
         case SIReceiptItemsSectionAdd:
         case SIReceiptItemsSectionSubtotal:
         case SIReceiptItemsSectionTax:
+        case SIReceiptItemsSectionTip:
         case SIReceiptItemsSectionTotal:
             return UITableViewCellEditingStyleNone;
         case SIReceiptItemsSectionReceipt:
@@ -172,6 +182,7 @@ static NSInteger SIReceiptItemsSectionCount = SIReceiptItemsSectionTotal + 1;
         case SIReceiptItemsSectionAdd:
         case SIReceiptItemsSectionSubtotal:
         case SIReceiptItemsSectionTax:
+        case SIReceiptItemsSectionTip:
         case SIReceiptItemsSectionTotal:
             break;
         case SIReceiptItemsSectionReceipt: {
@@ -187,6 +198,7 @@ static NSInteger SIReceiptItemsSectionCount = SIReceiptItemsSectionTotal + 1;
         case SIReceiptItemsSectionAdd:
         case SIReceiptItemsSectionSubtotal:
         case SIReceiptItemsSectionTax:
+        case SIReceiptItemsSectionTip:
         case SIReceiptItemsSectionTotal:
             [tableView deselectRowAtIndexPath:indexPath animated:NO]; 
             return;
@@ -234,11 +246,21 @@ static NSInteger SIReceiptItemsSectionCount = SIReceiptItemsSectionTotal + 1;
         [self.receipt addEntryWithName:self.nameTextField.text
                                   cost:[self.currencyFormatter numberFromString:self.costTextField.text]];
 
+        // Start a batch of updates
+        [self.itemsTableView beginUpdates];
+
         // Insert a row in the table for the new receipt entry
         NSIndexPath *indexPath = [NSIndexPath indexPathForRow:0
                                                     inSection:SIReceiptItemsSectionReceipt];
         [self.itemsTableView insertRowsAtIndexPaths:@[ indexPath ]
                                    withRowAnimation:UITableViewRowAnimationTop];
+
+        // Reload all of the overview sections
+        [self.itemsTableView reloadSections:[NSIndexSet indexSetWithIndexesInRange:NSMakeRange(SIReceiptItemsSectionSubtotal,
+                                                                                               SIReceiptItemsSectionTotal - SIReceiptItemsSectionSubtotal)]
+                           withRowAnimation:UITableViewRowAnimationAutomatic];
+
+        [self.itemsTableView endUpdates];
         
         // Clear the text in both text fields
         self.nameTextField.text = @"";
