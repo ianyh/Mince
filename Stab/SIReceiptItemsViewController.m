@@ -28,8 +28,6 @@ static NSInteger SIReceiptItemsSectionCount = SIReceiptItemsSectionTotal + 1;
 @interface SIReceiptItemsViewController () <UICollectionViewDataSource, UICollectionViewDelegate, UITableViewDataSource, UITableViewDelegate, UITextFieldDelegate>
 @property (strong, nonatomic) NSNumberFormatter *currencyFormatter;
 
-@property (strong, nonatomic) NSNumber *taxRate;
-
 @property (strong, nonatomic) IBOutlet UICollectionView *peopleCollectionView;
 @property (strong, nonatomic) IBOutlet UITableView *itemsTableView;
 @property (strong, nonatomic) IBOutlet UITableViewCell *addReceiptEntryCell;
@@ -41,16 +39,14 @@ static NSInteger SIReceiptItemsSectionCount = SIReceiptItemsSectionTotal + 1;
 
 @implementation SIReceiptItemsViewController
 
+#pragma mark - UIViewController
+
 - (void)awakeFromNib {
     [super awakeFromNib];
 
     self.currencyFormatter = [[NSNumberFormatter alloc] init];
     [self.currencyFormatter setNumberStyle:NSNumberFormatterCurrencyStyle];
-
-    self.taxRate = @(0.15);
 }
-
-#pragma mark - UIViewController
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
@@ -122,23 +118,23 @@ static NSInteger SIReceiptItemsSectionCount = SIReceiptItemsSectionTotal + 1;
         }
 
         case SIReceiptItemsSectionSubtotal: {
-            UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"SIReceiptTableViewCell"];
+            UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"SIReceiptOverviewTableViewCell"];
             cell.textLabel.text = @"Subtotal";
             cell.detailTextLabel.text = [NSString stringWithFormat:@"$%.2f", [[self.receipt subtotal] doubleValue]];
             return cell;
         }
 
         case SIReceiptItemsSectionTax: {
-            UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"SIReceiptTableViewCell"];
-            cell.textLabel.text = [NSString stringWithFormat:@"Tax (%.0f%%)", [self.taxRate doubleValue] * 100];
-            cell.detailTextLabel.text = [NSString stringWithFormat:@"$%.2f", [[self.receipt taxWithTaxRate:self.taxRate] doubleValue]];
+            UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"SIReceiptOverviewTableViewCell"];
+            cell.textLabel.text = [NSString stringWithFormat:@"Tax (%.0f%%)", [self.receipt.taxRate doubleValue] * 100];
+            cell.detailTextLabel.text = [NSString stringWithFormat:@"$%.2f", [[self.receipt tax] doubleValue]];
             return cell;
         }
 
         case SIReceiptItemsSectionTotal: {
-            UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"SIReceiptTableViewCell"];
+            UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"SIReceiptOverviewTableViewCell"];
             cell.textLabel.text = @"Total";
-            cell.detailTextLabel.text = [NSString stringWithFormat:@"$%.2f", [[self.receipt totalWithTaxRate:self.taxRate] doubleValue]];
+            cell.detailTextLabel.text = [NSString stringWithFormat:@"$%.2f", [[self.receipt total] doubleValue]];
             return cell;
         }
     }
@@ -203,12 +199,7 @@ static NSInteger SIReceiptItemsSectionCount = SIReceiptItemsSectionTotal + 1;
     SIReceiptItem *item = [self receiptItemForIndexPath:indexPath];
     SIPerson *person = [self highlightedPerson];
 
-    // Toggle the association with the highlighted person.
-    if ([item.people containsObject:person]) {
-        [item removePeopleObject:person];
-    } else {
-        [item addPeopleObject:person];
-    }
+    [person toggleSelectionForReceiptEntry:item];
 
     // Reconfigure the cell to display the selection
     UITableViewCell *cell = [tableView cellForRowAtIndexPath:indexPath];

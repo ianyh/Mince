@@ -17,6 +17,6 @@
 - (void)removeAllEntries;
 
 - (NSNumber *)subtotal;
-- (NSNumber *)taxWithTaxRate:(NSNumber *)taxRate;
-- (NSNumber *)totalWithTaxRate:(NSNumber *)taxRate;
+- (NSNumber *)tax;
+- (NSNumber *)total;
 @end

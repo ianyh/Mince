@@ -8,6 +8,7 @@
 
 #import "SIPerson.h"
 
+#import "SIReceipt.h"
 #import "SIReceiptItem.h"
 
 @interface SIPerson ()
@@ -15,10 +16,18 @@
 
 @implementation SIPerson
 
-- (NSNumber *)totalOwed {
+- (NSNumber *)totalOwedWithReceipt:(SIReceipt *)receipt {
     double totalOwed = 0.0;
-    for (SIReceiptItem *item in self.items)
+
+    NSMutableSet *items = [NSMutableSet setWithSet:self.items];
+    [items intersectSet:receipt.items];
+
+    for (SIReceiptItem *item in items) {
         totalOwed += [item.cost doubleValue] / [item.people count];
+    }
+
+    totalOwed += [[receipt tax] doubleValue] / [receipt.people count];
+
     return @(totalOwed);
 }
 
@@ -28,6 +37,7 @@
     } else {
         [item addPeopleObject:self];
     }
+    [[NSManagedObjectContext defaultContext] saveToPersistentStoreWithCompletion:NULL];
 }
 
 @end

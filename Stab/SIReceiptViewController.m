@@ -9,11 +9,13 @@
 #import "SIReceiptViewController.h"
 
 #import "SIReceiptItemsViewController.h"
+#import "SIReceiptPeopleViewController.h"
 
 #import "SIReceipt.h"
 
-@interface SIReceiptViewController ()
-@property (nonatomic, retain) SIReceiptItemsViewController *itemsViewController;
+@interface SIReceiptViewController () <SIReceiptPeopleViewControllerDelegate>
+@property (strong, nonatomic) SIReceiptItemsViewController *itemsViewController;
+@property (strong, nonatomic) SIReceiptPeopleViewController *peopleViewController;
 @end
 
 @implementation SIReceiptViewController
@@ -28,6 +30,9 @@
     for (UIViewController *controller in self.viewControllers) {
         if ([controller isKindOfClass:[SIReceiptItemsViewController class]]) {
             self.itemsViewController = (SIReceiptItemsViewController *)controller;
+        } else if ([controller isKindOfClass:[SIReceiptPeopleViewController class]]) {
+            self.peopleViewController = (SIReceiptPeopleViewController *)controller;
+            self.peopleViewController.delegate = self;
         }
     }
 }
@@ -46,13 +51,19 @@
     _receipt = receipt;
 
     self.itemsViewController.receipt = _receipt;
+    self.peopleViewController.receipt = _receipt;
+}
+
+#pragma mark - SIReceiptPeopleViewControllerDelegate
+
+- (void)receiptPeopleViewController:(SIReceiptPeopleViewController *)controller didSelectPerson:(SIPerson *)person {
+    self.selectedViewController = self.peopleViewController;
 }
 
 #pragma mark - UITabBarDelegate
 
 - (void)tabBar:(UITabBar *)tabBar didSelectItem:(UITabBarItem *)item {
     [self setEditing:NO animated:NO];
-    [super tabBar:tabBar didSelectItem:item];
 }
 
 @end

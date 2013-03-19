@@ -6,6 +6,7 @@
 const struct SIReceiptAttributes SIReceiptAttributes = {
 	.createdDate = @"createdDate",
 	.name = @"name",
+	.taxRate = @"taxRate",
 };
 
 const struct SIReceiptRelationships SIReceiptRelationships = {
@@ -42,6 +43,11 @@ const struct SIReceiptFetchedProperties SIReceiptFetchedProperties = {
 + (NSSet*)keyPathsForValuesAffectingValueForKey:(NSString*)key {
 	NSSet *keyPaths = [super keyPathsForValuesAffectingValueForKey:key];
 	
+	if ([key isEqualToString:@"taxRateValue"]) {
+		NSSet *affectingKey = [NSSet setWithObject:@"taxRate"];
+		keyPaths = [keyPaths setByAddingObjectsFromSet:affectingKey];
+		return keyPaths;
+	}
 
 	return keyPaths;
 }
@@ -58,6 +64,32 @@ const struct SIReceiptFetchedProperties SIReceiptFetchedProperties = {
 
 @dynamic name;
 
+
+
+
+
+
+@dynamic taxRate;
+
+
+
+- (double)taxRateValue {
+	NSNumber *result = [self taxRate];
+	return [result doubleValue];
+}
+
+- (void)setTaxRateValue:(double)value_ {
+	[self setTaxRate:[NSNumber numberWithDouble:value_]];
+}
+
+- (double)primitiveTaxRateValue {
+	NSNumber *result = [self primitiveTaxRate];
+	return [result doubleValue];
+}
+
+- (void)setPrimitiveTaxRateValue:(double)value_ {
+	[self setPrimitiveTaxRate:[NSNumber numberWithDouble:value_]];
+}
 
 
 

@@ -8,9 +8,10 @@
 
 #import "_SIPerson.h"
 
+@class SIReceipt;
 @class SIReceiptItem;
 @interface SIPerson : _SIPerson
-- (NSNumber *)totalOwed;
+- (NSNumber *)totalOwedWithReceipt:(SIReceipt *)receipt;
 
 - (void)toggleSelectionForReceiptEntry:(SIReceiptItem *)item;
 @end

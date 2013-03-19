@@ -51,12 +51,12 @@
     return [self.items valueForKeyPath:@"@sum.cost"];
 }
 
-- (NSNumber *)taxWithTaxRate:(NSNumber *)taxRate {
-    return @([[self subtotal] doubleValue] * [taxRate doubleValue]);
+- (NSNumber *)tax {
+    return @([[self subtotal] doubleValue] * [self.taxRate doubleValue]);
 }
 
-- (NSNumber *)totalWithTaxRate:(NSNumber *)taxRate {
-    return @([[self subtotal] doubleValue] * (1 + [taxRate doubleValue]));
+- (NSNumber *)total {
+    return @([[self subtotal] doubleValue] * (1 + [self.taxRate doubleValue]));
 }
 
 @end
