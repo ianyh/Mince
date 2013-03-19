@@ -16,14 +16,19 @@
 #import "SIReceiptItem.h"
 
 typedef enum {
-    SIReceiptViewControllerSectionAdd,
-    SIReceiptViewControllerSectionReceipt,
-} SIReceiptViewControllerSection;
+    SIReceiptItemsSectionAdd,
+    SIReceiptItemsSectionReceipt,
+    SIReceiptItemsSectionSubtotal,
+    SIReceiptItemsSectionTax,
+    SIReceiptItemsSectionTotal,
+} SIReceiptItemsSection;
 
-static NSInteger SIReceiptViewControllerSectionCount = SIReceiptViewControllerSectionReceipt + 1;
+static NSInteger SIReceiptItemsSectionCount = SIReceiptItemsSectionTotal + 1;
 
 @interface SIReceiptItemsViewController () <UICollectionViewDataSource, UICollectionViewDelegate, UITableViewDataSource, UITableViewDelegate, UITextFieldDelegate>
 @property (strong, nonatomic) NSNumberFormatter *currencyFormatter;
+
+@property (strong, nonatomic) NSNumber *taxRate;
 
 @property (strong, nonatomic) IBOutlet UICollectionView *peopleCollectionView;
 @property (strong, nonatomic) IBOutlet UITableView *itemsTableView;
@@ -38,10 +43,11 @@ static NSInteger SIReceiptViewControllerSectionCount = SIReceiptViewControllerSe
 
 - (void)awakeFromNib {
     [super awakeFromNib];
-    self.navigationItem.rightBarButtonItem = [self editButtonItem];
 
     self.currencyFormatter = [[NSNumberFormatter alloc] init];
     [self.currencyFormatter setNumberStyle:NSNumberFormatterCurrencyStyle];
+
+    self.taxRate = @(0.15);
 }
 
 #pragma mark - UIViewController
@@ -56,7 +62,7 @@ static NSInteger SIReceiptViewControllerSectionCount = SIReceiptViewControllerSe
 - (void)setEditing:(BOOL)editing animated:(BOOL)animated {
     [super setEditing:editing animated:animated];
     [self.itemsTableView setEditing:editing animated:animated];
-    [self.itemsTableView reloadSections:[NSIndexSet indexSetWithIndex:SIReceiptViewControllerSectionAdd]
+    [self.itemsTableView reloadSections:[NSIndexSet indexSetWithIndex:SIReceiptItemsSectionAdd]
                        withRowAnimation:UITableViewRowAnimationBottom];
 }
 
@@ -88,27 +94,54 @@ static NSInteger SIReceiptViewControllerSectionCount = SIReceiptViewControllerSe
 #pragma mark - UITableViewDataSource
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-    return SIReceiptViewControllerSectionCount;
+    return SIReceiptItemsSectionCount;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    switch ((SIReceiptViewControllerSection)section) {
-        case SIReceiptViewControllerSectionAdd:
+    switch ((SIReceiptItemsSection)section) {
+        case SIReceiptItemsSectionAdd:
             return (self.itemsTableView.editing ? 1 : 0);
-        case SIReceiptViewControllerSectionReceipt:
+        case SIReceiptItemsSectionReceipt:
             return [self.receipt.items count];
+        case SIReceiptItemsSectionSubtotal:
+        case SIReceiptItemsSectionTax:
+        case SIReceiptItemsSectionTotal:
+            return 1;
     }
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    if (indexPath.section == SIReceiptViewControllerSectionAdd)
-        return self.addReceiptEntryCell;
+    switch ((SIReceiptItemsSection)indexPath.section) {
+        case SIReceiptItemsSectionAdd:
+            return self.addReceiptEntryCell;
 
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"SIReceiptTableViewCell"];
+        case SIReceiptItemsSectionReceipt: {
+            UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"SIReceiptTableViewCell"];
+            [self configureCell:cell forIndexPath:indexPath];
+            return cell;
+        }
 
-    [self configureCell:cell forIndexPath:indexPath];
+        case SIReceiptItemsSectionSubtotal: {
+            UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"SIReceiptTableViewCell"];
+            cell.textLabel.text = @"Subtotal";
+            cell.detailTextLabel.text = [NSString stringWithFormat:@"$%.2f", [[self.receipt subtotal] doubleValue]];
+            return cell;
+        }
 
-    return cell;
+        case SIReceiptItemsSectionTax: {
+            UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"SIReceiptTableViewCell"];
+            cell.textLabel.text = [NSString stringWithFormat:@"Tax (%.0f%%)", [self.taxRate doubleValue] * 100];
+            cell.detailTextLabel.text = [NSString stringWithFormat:@"$%.2f", [[self.receipt taxWithTaxRate:self.taxRate] doubleValue]];
+            return cell;
+        }
+
+        case SIReceiptItemsSectionTotal: {
+            UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"SIReceiptTableViewCell"];
+            cell.textLabel.text = @"Total";
+            cell.detailTextLabel.text = [NSString stringWithFormat:@"$%.2f", [[self.receipt totalWithTaxRate:self.taxRate] doubleValue]];
+            return cell;
+        }
+    }
 }
 
 - (void)configureCell:(UITableViewCell *)cell forIndexPath:(NSIndexPath *)indexPath {
@@ -127,19 +160,44 @@ static NSInteger SIReceiptViewControllerSectionCount = SIReceiptViewControllerSe
 }
 
 - (UITableViewCellEditingStyle)tableView:(UITableView *)tableView editingStyleForRowAtIndexPath:(NSIndexPath *)indexPath {
-    if (indexPath.section == SIReceiptViewControllerSectionAdd)
-        return UITableViewCellEditingStyleNone;
-
-    return UITableViewCellEditingStyleDelete;
+    switch ((SIReceiptItemsSection)indexPath.section) {
+        case SIReceiptItemsSectionAdd:
+        case SIReceiptItemsSectionSubtotal:
+        case SIReceiptItemsSectionTax:
+        case SIReceiptItemsSectionTotal:
+            return UITableViewCellEditingStyleNone;
+        case SIReceiptItemsSectionReceipt:
+            return UITableViewCellEditingStyleDelete;
+    }
 }
 
 - (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
-    SIReceiptItem *receiptItem = [self receiptItemForIndexPath:indexPath];
-    [receiptItem deleteEntity];
-    [[NSManagedObjectContext defaultContext] saveToPersistentStoreWithCompletion:NULL];
-}
+    switch ((SIReceiptItemsSection)indexPath.section) {
+        case SIReceiptItemsSectionAdd:
+        case SIReceiptItemsSectionSubtotal:
+        case SIReceiptItemsSectionTax:
+        case SIReceiptItemsSectionTotal:
+            break;
+        case SIReceiptItemsSectionReceipt: {
+            SIReceiptItem *receiptItem = [self receiptItemForIndexPath:indexPath];
+            [receiptItem deleteEntity];
+            [[NSManagedObjectContext defaultContext] saveToPersistentStoreWithCompletion:NULL];
+            break;
+        }
+    }}
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    switch ((SIReceiptItemsSection)indexPath.section) {
+        case SIReceiptItemsSectionAdd:
+        case SIReceiptItemsSectionSubtotal:
+        case SIReceiptItemsSectionTax:
+        case SIReceiptItemsSectionTotal:
+            [tableView deselectRowAtIndexPath:indexPath animated:NO]; 
+            return;
+        case SIReceiptItemsSectionReceipt:
+            break;
+    }
+    
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
 
     SIReceiptItem *item = [self receiptItemForIndexPath:indexPath];
@@ -187,7 +245,7 @@ static NSInteger SIReceiptViewControllerSectionCount = SIReceiptViewControllerSe
 
         // Insert a row in the table for the new receipt entry
         NSIndexPath *indexPath = [NSIndexPath indexPathForRow:0
-                                                    inSection:SIReceiptViewControllerSectionReceipt];
+                                                    inSection:SIReceiptItemsSectionReceipt];
         [self.itemsTableView insertRowsAtIndexPaths:@[ indexPath ]
                                    withRowAnimation:UITableViewRowAnimationTop];
         
@@ -222,8 +280,10 @@ static NSInteger SIReceiptViewControllerSectionCount = SIReceiptViewControllerSe
 
 - (void)updateTableCellCheckmarks {
     for (NSIndexPath *indexPath in [self.itemsTableView indexPathsForVisibleRows]) {
-        [self configureCell:[self.itemsTableView cellForRowAtIndexPath:indexPath]
-               forIndexPath:indexPath];
+        if (indexPath.section == SIReceiptItemsSectionReceipt) {
+            [self configureCell:[self.itemsTableView cellForRowAtIndexPath:indexPath]
+                   forIndexPath:indexPath];
+        }
     }
 }
 

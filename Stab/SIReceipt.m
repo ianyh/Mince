@@ -47,4 +47,16 @@
     self.items = [NSSet set];
 }
 
+- (NSNumber *)subtotal {
+    return [self.items valueForKeyPath:@"@sum.cost"];
+}
+
+- (NSNumber *)taxWithTaxRate:(NSNumber *)taxRate {
+    return @([[self subtotal] doubleValue] * [taxRate doubleValue]);
+}
+
+- (NSNumber *)totalWithTaxRate:(NSNumber *)taxRate {
+    return @([[self subtotal] doubleValue] * (1 + [taxRate doubleValue]));
+}
+
 @end

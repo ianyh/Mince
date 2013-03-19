@@ -15,4 +15,8 @@
 - (void)addEntriesFromImageParsedString:(NSString *)imageParsedString;
 
 - (void)removeAllEntries;
+
+- (NSNumber *)subtotal;
+- (NSNumber *)taxWithTaxRate:(NSNumber *)taxRate;
+- (NSNumber *)totalWithTaxRate:(NSNumber *)taxRate;
 @end
