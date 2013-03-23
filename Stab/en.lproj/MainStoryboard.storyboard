@@ -275,7 +275,7 @@
                     </view>
                 </tableViewCell>
             </objects>
-            <point key="canvasLocation" x="887" y="894"/>
+            <point key="canvasLocation" x="799" y="886"/>
         </scene>
         <!--Receipt Items View Controller - Items-->
         <scene sceneID="Umc-JS-tOU">
@@ -430,7 +430,7 @@
                     </view>
                 </tableViewCell>
             </objects>
-            <point key="canvasLocation" x="887" y="280"/>
+            <point key="canvasLocation" x="799" y="280"/>
         </scene>
     </scenes>
     <classes>
@@ -482,6 +482,9 @@
         </class>
         <class className="UICollectionViewFlowLayout" superclassName="UICollectionViewLayout">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/UICollectionViewFlowLayout.h"/>
+        </class>
+        <class className="UICollectionViewLayout" superclassName="NSObject">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/UICollectionViewLayout.h"/>
         </class>
         <class className="UIStoryboardSegue" superclassName="NSObject">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/UIStoryboardSegue.h"/>
