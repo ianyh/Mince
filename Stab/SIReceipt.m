@@ -16,12 +16,10 @@
 @implementation SIReceipt
 
 - (void)addEntryWithName:(NSString *)name cost:(NSNumber *)cost {
-    SIReceiptItem *receiptEntry = [SIReceiptItem createEntity];
+    SIReceiptItem *receiptEntry = [[SIReceiptItem alloc] init];
     receiptEntry.name = name;
     receiptEntry.cost = cost;
-    receiptEntry.createdDate = [NSDate date];
     receiptEntry.receipt = self;
-    [[NSManagedObjectContext defaultContext] saveToPersistentStoreWithCompletion:NULL];
 }
 
 - (void)addEntriesFromImageParsedString:(NSString *)imageParsedString {

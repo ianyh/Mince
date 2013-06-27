@@ -34,11 +34,10 @@
 
 - (void)toggleSelectionForReceiptEntry:(SIReceiptItem *)item {
     if ([self.items containsObject:item]) {
-        [item removePeopleObject:self];
+        [item removePerson:self];
     } else {
-        [item addPeopleObject:self];
+        [item addPerson:self];
     }
-    [[NSManagedObjectContext defaultContext] saveToPersistentStoreWithCompletion:NULL];
 }
 
 @end

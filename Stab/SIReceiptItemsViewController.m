@@ -187,8 +187,7 @@ static NSInteger SIReceiptItemsSectionCount = SIReceiptItemsSectionTotal + 1;
             break;
         case SIReceiptItemsSectionReceipt: {
             SIReceiptItem *receiptItem = [self receiptItemForIndexPath:indexPath];
-            [receiptItem deleteEntity];
-            [[NSManagedObjectContext defaultContext] saveToPersistentStoreWithCompletion:NULL];
+            [self.receipt removeItem:receiptItem];
             break;
         }
     }}

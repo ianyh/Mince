@@ -6,9 +6,22 @@
 //  Copyright (c) 2012 __MyCompanyName__. All rights reserved.
 //
 
-#import "_SIReceipt.h"
+#import <Mantle/Mantle.h>
 
-@interface SIReceipt : _SIReceipt
+@class SIPerson;
+@class SIReceiptItem;
+
+@interface SIReceipt : MTLModel
+@property (nonatomic, strong) NSSet *items;
+@property (nonatomic, strong) NSSet *people;
+@property (nonatomic, strong) NSNumber *taxRate;
+@property (nonatomic, strong) NSNumber *tipRate;
+
+- (void)addPerson:(SIPerson *)person;
+- (void)removePerson:(SIPerson *)person;
+
+- (void)removeItem:(SIReceiptItem *)receiptItem;
+
 // Always inserts at index 0
 - (void)addEntryWithName:(NSString *)name cost:(NSNumber *)cost;
 // Inserts entries at the beginning of the list

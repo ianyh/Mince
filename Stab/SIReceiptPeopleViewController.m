@@ -104,8 +104,7 @@ static NSInteger SIReceiptPeopleSectionCount = SIReceiptPeopleSectionPeople + 1;
             break;
         case SIReceiptPeopleSectionPeople: {
             SIPerson *person = [self personForIndexPath:indexPath];
-            [person deleteEntity];
-            [[NSManagedObjectContext defaultContext] saveToPersistentStoreWithCompletion:NULL];
+            [self.receipt removePerson:person];
             break;
         }
     }

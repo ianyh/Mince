@@ -6,11 +6,14 @@
 //  Copyright (c) 2012 __MyCompanyName__. All rights reserved.
 //
 
-#import "_SIPerson.h"
+#import <Mantle/Mantle.h>
 
 @class SIReceipt;
 @class SIReceiptItem;
-@interface SIPerson : _SIPerson
+@interface SIPerson : MTLModel
+@property (nonatomic, strong) NSString *name;
+@property (nonatomic, strong) NSSet *items;
+
 - (NSNumber *)totalOwedWithReceipt:(SIReceipt *)receipt;
 
 - (void)toggleSelectionForReceiptEntry:(SIReceiptItem *)item;
