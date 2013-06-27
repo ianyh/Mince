@@ -210,7 +210,7 @@ static NSInteger SIReceiptItemsSectionCount = SIReceiptItemsSectionTotal + 1;
     SIReceiptItem *item = [self receiptItemForIndexPath:indexPath];
     SIPerson *person = [self highlightedPerson];
 
-    [person toggleSelectionForReceiptEntry:item];
+    [person toggleSelectionForReceiptItem:item];
 
     // Reconfigure the cell to display the selection
     UITableViewCell *cell = [tableView cellForRowAtIndexPath:indexPath];

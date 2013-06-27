@@ -9,14 +9,15 @@
 #import <Mantle/Mantle.h>
 
 @class SIPerson;
-@class SIReceipt;
 
 @interface SIReceiptItem : MTLModel
+
 @property (nonatomic, strong) NSString *name;
 @property (nonatomic, strong) NSNumber *cost;
 
-@property (nonatomic, weak) SIReceipt *receipt;
-@property (nonatomic, strong) NSSet *people;
+#pragma mark People
+
+@property (nonatomic, strong, readonly) NSArray *people;
 
 - (void)addPerson:(SIPerson *)person;
 - (void)removePerson:(SIPerson *)person;

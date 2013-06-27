@@ -80,7 +80,7 @@ static NSInteger SIReceiptPeopleSectionCount = SIReceiptPeopleSectionPeople + 1;
     SIPerson *person = [self personForIndexPath:indexPath];
     
     cell.textLabel.text = person.name;
-    cell.detailTextLabel.text = [NSString stringWithFormat:@"$%.2f", [[person totalOwedWithReceipt:self.receipt] doubleValue]];
+    cell.detailTextLabel.text = [NSString stringWithFormat:@"$%.2f", [[self.receipt totalForPerson:person] doubleValue]];
 }
 
 #pragma mark - UITableViewDelegate

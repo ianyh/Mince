@@ -9,14 +9,35 @@
 #import "SIReceiptItem.h"
 
 @interface SIReceiptItem ()
-
-// Private interface goes here.
-
+@property (nonatomic, strong) NSArray *people;
 @end
-
 
 @implementation SIReceiptItem
 
-// Custom logic goes here.
+#pragma mark Lifecycle
+
+- (id)init {
+    self = [super init];
+    if (self) {
+        self.people = @[];
+    }
+    return self;
+}
+
+#pragma mark People
+
+- (void)addPerson:(SIPerson *)person {
+    if ([self.people containsObject:person]) return;
+
+    self.people = [self.people arrayByAddingObject:person];
+}
+
+- (void)removePerson:(SIPerson *)person {
+    if (![self.people containsObject:person]) return;
+
+    self.people = [self.people filteredArrayUsingPredicate:[NSPredicate predicateWithBlock:^BOOL(id evaluatedObject, NSDictionary *bindings) {
+        return ![evaluatedObject isEqual:person];
+    }]];
+}
 
 @end

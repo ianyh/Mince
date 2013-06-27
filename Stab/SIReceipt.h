@@ -13,28 +13,34 @@
 
 @interface SIReceipt : MTLModel
 
-+ (instancetype)sharedReceipt;
++ (SIReceipt *)sharedReceipt;
 
-@property (nonatomic, strong) NSSet *items;
-@property (nonatomic, strong) NSSet *people;
-@property (nonatomic, strong) NSNumber *taxRate;
-@property (nonatomic, strong) NSNumber *tipRate;
+#pragma mark People
+
+@property (nonatomic, strong, readonly) NSArray *people;
 
 - (void)addPerson:(SIPerson *)person;
 - (void)removePerson:(SIPerson *)person;
 
-- (void)addItem:(SIReceiptItem *)receiptItem;
-- (void)removeItem:(SIReceiptItem *)receiptItem;
+#pragma mark Items
 
-// Always inserts at index 0
+@property (nonatomic, strong, readonly) NSArray *items;
+
+- (void)addItem:(SIReceiptItem *)item;
+- (void)removeItem:(SIReceiptItem *)item;
+
 - (void)addEntryWithName:(NSString *)name cost:(NSNumber *)cost;
-// Inserts entries at the beginning of the list
-- (void)addEntriesFromImageParsedString:(NSString *)imageParsedString;
-
 - (void)removeAllEntries;
+
+#pragma mark Values
+
+@property (nonatomic, strong) NSNumber *taxRate;
+@property (nonatomic, strong) NSNumber *tipRate;
 
 - (NSNumber *)subtotal;
 - (NSNumber *)tax;
 - (NSNumber *)tip;
 - (NSNumber *)total;
+- (NSNumber *)totalForPerson:(SIPerson *)person;
+
 @end

@@ -10,11 +10,17 @@
 
 @class SIReceipt;
 @class SIReceiptItem;
+
 @interface SIPerson : MTLModel
 @property (nonatomic, strong) NSString *name;
-@property (nonatomic, strong) NSSet *items;
 
-- (NSNumber *)totalOwedWithReceipt:(SIReceipt *)receipt;
+#pragma mark Items
 
-- (void)toggleSelectionForReceiptEntry:(SIReceiptItem *)item;
+@property (nonatomic, strong, readonly) NSArray *items;
+
+- (void)addItem:(SIReceiptItem *)item;
+- (void)removeItem:(SIReceiptItem *)item;
+
+- (void)toggleSelectionForReceiptItem:(SIReceiptItem *)item;
+
 @end

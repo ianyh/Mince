@@ -8,31 +8,37 @@
 
 #import "SIPerson.h"
 
-#import "SIReceipt.h"
 #import "SIReceiptItem.h"
 
 @interface SIPerson ()
+@property (nonatomic, strong) NSArray *items;
 @end
 
 @implementation SIPerson
 
-- (NSNumber *)totalOwedWithReceipt:(SIReceipt *)receipt {
-    double totalOwed = 0.0;
-
-    NSMutableSet *items = [NSMutableSet setWithSet:self.items];
-    [items intersectSet:receipt.items];
-
-    for (SIReceiptItem *item in items) {
-        totalOwed += [item.cost doubleValue] / [item.people count];
+- (id)init {
+    self = [super init];
+    if (self) {
+        self.items = @[];
     }
-
-    totalOwed += [[receipt tax] doubleValue] / [receipt.people count];
-    totalOwed += [[receipt tip] doubleValue] / [receipt.people count];
-
-    return @(totalOwed);
+    return self;
 }
 
-- (void)toggleSelectionForReceiptEntry:(SIReceiptItem *)item {
+- (void)addItem:(SIReceiptItem *)item {
+    if ([self.items containsObject:item]) return;
+
+    self.items = [self.items arrayByAddingObject:item];
+}
+
+- (void)removeItem:(SIReceiptItem *)item {
+    if (![self.items containsObject:item]) return;
+
+    self.items = [self.items filteredArrayUsingPredicate:[NSPredicate predicateWithBlock:^BOOL(id evaluatedObject, NSDictionary *bindings) {
+        return ![evaluatedObject isEqual:item];
+    }]];
+}
+
+- (void)toggleSelectionForReceiptItem:(SIReceiptItem *)item {
     if ([self.items containsObject:item]) {
         [item removePerson:self];
     } else {
