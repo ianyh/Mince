@@ -20,7 +20,7 @@
 
 @implementation SIReceiptViewController
 
-#pragma mark - UIViewController
+#pragma mark UIViewController
 
 - (void)awakeFromNib {
     [super awakeFromNib];

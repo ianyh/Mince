@@ -14,7 +14,6 @@
 		40A6D4FA16D01FDC0019AC60 /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 40A6D4F916D01FDC0019AC60 /* Default-568h@2x.png */; };
 		40A6D4FD16D020160019AC60 /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 40A6D4FB16D0200E0019AC60 /* CoreData.framework */; };
 		40A6D51016D025520019AC60 /* SIReceiptItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 40A6D50F16D025520019AC60 /* SIReceiptItem.m */; };
-		40A6D51316D026C40019AC60 /* SIReceiptListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 40A6D51216D026C40019AC60 /* SIReceiptListViewController.m */; };
 		40A6D51616D02BD90019AC60 /* SIReceiptItemsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 40A6D51516D02BD90019AC60 /* SIReceiptItemsViewController.m */; };
 		40A905F416F692460039677F /* SIReceiptViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 40A905F316F692460039677F /* SIReceiptViewController.m */; };
 		40C4655D15B14A860047BB60 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 40C4655C15B14A860047BB60 /* UIKit.framework */; };
@@ -23,8 +22,8 @@
 		40C4656715B14A860047BB60 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 40C4656515B14A860047BB60 /* InfoPlist.strings */; };
 		40C4656915B14A860047BB60 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 40C4656815B14A860047BB60 /* main.m */; };
 		40C4656D15B14A860047BB60 /* SIAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 40C4656C15B14A860047BB60 /* SIAppDelegate.m */; };
-		40C4657015B14A860047BB60 /* MainStoryboard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 40C4656E15B14A860047BB60 /* MainStoryboard.storyboard */; };
 		40D7D93515B24F8D004978C7 /* NSString+SIAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = 40D7D93415B24F8D004978C7 /* NSString+SIAdditions.m */; };
+		40DEE95F177BD9F800DE3515 /* MainStoryboard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 40DEE95D177BD9F700DE3515 /* MainStoryboard.storyboard */; };
 		CA981AF818274AD1B8C0BDB8 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 9BA99C302FC849A3831190EE /* libPods.a */; };
 /* End PBXBuildFile section */
 
@@ -102,8 +101,6 @@
 		40A6D4FB16D0200E0019AC60 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
 		40A6D50E16D025520019AC60 /* SIReceiptItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SIReceiptItem.h; sourceTree = "<group>"; };
 		40A6D50F16D025520019AC60 /* SIReceiptItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SIReceiptItem.m; sourceTree = "<group>"; };
-		40A6D51116D026C40019AC60 /* SIReceiptListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SIReceiptListViewController.h; sourceTree = "<group>"; };
-		40A6D51216D026C40019AC60 /* SIReceiptListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SIReceiptListViewController.m; sourceTree = "<group>"; };
 		40A6D51416D02BD90019AC60 /* SIReceiptItemsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SIReceiptItemsViewController.h; sourceTree = "<group>"; };
 		40A6D51516D02BD90019AC60 /* SIReceiptItemsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SIReceiptItemsViewController.m; sourceTree = "<group>"; };
 		40A905F216F692460039677F /* SIReceiptViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SIReceiptViewController.h; sourceTree = "<group>"; };
@@ -118,9 +115,9 @@
 		40C4656A15B14A860047BB60 /* Mince-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Mince-Prefix.pch"; sourceTree = "<group>"; };
 		40C4656B15B14A860047BB60 /* SIAppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SIAppDelegate.h; sourceTree = "<group>"; };
 		40C4656C15B14A860047BB60 /* SIAppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SIAppDelegate.m; sourceTree = "<group>"; };
-		40C4656F15B14A860047BB60 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = en; path = en.lproj/MainStoryboard.storyboard; sourceTree = "<group>"; };
 		40D7D93315B24F8D004978C7 /* NSString+SIAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+SIAdditions.h"; sourceTree = "<group>"; };
 		40D7D93415B24F8D004978C7 /* NSString+SIAdditions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+SIAdditions.m"; sourceTree = "<group>"; };
+		40DEE95E177BD9F800DE3515 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = en; path = en.lproj/MainStoryboard.storyboard; sourceTree = "<group>"; };
 		810B94251A1A43C4B1316CEA /* Pods.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.xcconfig; path = Pods/Pods.xcconfig; sourceTree = SOURCE_ROOT; };
 		9BA99C302FC849A3831190EE /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -266,8 +263,6 @@
 		40A6D50016D021E90019AC60 /* Controller */ = {
 			isa = PBXGroup;
 			children = (
-				40A6D51116D026C40019AC60 /* SIReceiptListViewController.h */,
-				40A6D51216D026C40019AC60 /* SIReceiptListViewController.m */,
 				40A905F216F692460039677F /* SIReceiptViewController.h */,
 				40A905F316F692460039677F /* SIReceiptViewController.m */,
 				40A6D51416D02BD90019AC60 /* SIReceiptItemsViewController.h */,
@@ -313,6 +308,7 @@
 		40C4656215B14A860047BB60 /* Mince */ = {
 			isa = PBXGroup;
 			children = (
+				40DEE95D177BD9F700DE3515 /* MainStoryboard.storyboard */,
 				40A6D4FE16D021DF0019AC60 /* Model */,
 				40A6D4FF16D021E50019AC60 /* View */,
 				40A6D50016D021E90019AC60 /* Controller */,
@@ -320,7 +316,6 @@
 				40C4656C15B14A860047BB60 /* SIAppDelegate.m */,
 				40D7D93315B24F8D004978C7 /* NSString+SIAdditions.h */,
 				40D7D93415B24F8D004978C7 /* NSString+SIAdditions.m */,
-				40C4656E15B14A860047BB60 /* MainStoryboard.storyboard */,
 				40C4656315B14A860047BB60 /* Supporting Files */,
 			);
 			name = Mince;
@@ -392,8 +387,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				40C4656715B14A860047BB60 /* InfoPlist.strings in Resources */,
-				40C4657015B14A860047BB60 /* MainStoryboard.storyboard in Resources */,
 				40A6D4FA16D01FDC0019AC60 /* Default-568h@2x.png in Resources */,
+				40DEE95F177BD9F800DE3515 /* MainStoryboard.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -441,7 +436,6 @@
 				405AC1F915B2072E001BB625 /* SIPerson.m in Sources */,
 				40D7D93515B24F8D004978C7 /* NSString+SIAdditions.m in Sources */,
 				40A6D51016D025520019AC60 /* SIReceiptItem.m in Sources */,
-				40A6D51316D026C40019AC60 /* SIReceiptListViewController.m in Sources */,
 				40A6D51616D02BD90019AC60 /* SIReceiptItemsViewController.m in Sources */,
 				4066B90B16D190BA0082E878 /* SIReceiptPersonCollectionViewCell.m in Sources */,
 				40A905F416F692460039677F /* SIReceiptViewController.m in Sources */,
@@ -460,10 +454,10 @@
 			name = InfoPlist.strings;
 			sourceTree = "<group>";
 		};
-		40C4656E15B14A860047BB60 /* MainStoryboard.storyboard */ = {
+		40DEE95D177BD9F700DE3515 /* MainStoryboard.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
-				40C4656F15B14A860047BB60 /* en */,
+				40DEE95E177BD9F800DE3515 /* en */,
 			);
 			name = MainStoryboard.storyboard;
 			sourceTree = "<group>";

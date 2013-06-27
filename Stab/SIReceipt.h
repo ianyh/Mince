@@ -12,6 +12,9 @@
 @class SIReceiptItem;
 
 @interface SIReceipt : MTLModel
+
++ (instancetype)sharedReceipt;
+
 @property (nonatomic, strong) NSSet *items;
 @property (nonatomic, strong) NSSet *people;
 @property (nonatomic, strong) NSNumber *taxRate;
@@ -20,6 +23,7 @@
 - (void)addPerson:(SIPerson *)person;
 - (void)removePerson:(SIPerson *)person;
 
+- (void)addItem:(SIReceiptItem *)receiptItem;
 - (void)removeItem:(SIReceiptItem *)receiptItem;
 
 // Always inserts at index 0

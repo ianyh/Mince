@@ -15,30 +15,23 @@
 
 @implementation SIReceipt
 
++ (instancetype)sharedReceipt {
+    static SIReceipt *sharedReceipt;
+    @synchronized (SIReceipt.class) {
+        if (!sharedReceipt) sharedReceipt = [[SIReceipt alloc] init];
+        return sharedReceipt;
+    }
+}
+
+#pragma mark People
+
+#pragma mark Items
+
 - (void)addEntryWithName:(NSString *)name cost:(NSNumber *)cost {
     SIReceiptItem *receiptEntry = [[SIReceiptItem alloc] init];
     receiptEntry.name = name;
     receiptEntry.cost = cost;
     receiptEntry.receipt = self;
-}
-
-- (void)addEntriesFromImageParsedString:(NSString *)imageParsedString {
-    NSLog(@"string: %@", imageParsedString);
-    NSArray *parsedStringLines = [imageParsedString componentsSeparatedByCharactersInSet:[NSCharacterSet newlineCharacterSet]];
-    for (NSString *line in parsedStringLines) {
-        NSString *trimmedLine = [line stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
-        if ([trimmedLine length] == 0)
-            continue;
-
-        NSArray *splitLine = [trimmedLine componentsSeparatedByCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
-        NSLog(@"Split line: %@", splitLine);
-        NSString *costComponent = [splitLine lastObject];
-        NSInteger size = [splitLine count];
-        size -= 2;
-        NSString *nameComponent = [[splitLine subarrayWithRange:NSMakeRange(0, MAX(0, size))] componentsJoinedByString:@" "];
-
-        [self addEntryWithName:nameComponent cost:[NSNumber numberWithDouble:[costComponent doubleValue]]];
-    }
 }
 
 - (void)removeAllEntries {

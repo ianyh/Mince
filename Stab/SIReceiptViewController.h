@@ -10,5 +10,5 @@
 
 @class SIReceipt;
 @interface SIReceiptViewController : UITabBarController
-@property (strong, nonatomic) SIReceipt *receipt;
+@property (nonatomic, strong) SIReceipt *receipt;
 @end
