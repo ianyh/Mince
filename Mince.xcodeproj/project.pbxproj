@@ -23,7 +23,7 @@
 		40C4656915B14A860047BB60 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 40C4656815B14A860047BB60 /* main.m */; };
 		40C4656D15B14A860047BB60 /* SIAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 40C4656C15B14A860047BB60 /* SIAppDelegate.m */; };
 		40D7D93515B24F8D004978C7 /* NSString+SIAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = 40D7D93415B24F8D004978C7 /* NSString+SIAdditions.m */; };
-		40DEE95F177BD9F800DE3515 /* MainStoryboard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 40DEE95D177BD9F700DE3515 /* MainStoryboard.storyboard */; };
+		40DEE961177BE11D00DE3515 /* SIReceiptViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 40DEE960177BE11D00DE3515 /* SIReceiptViewController.xib */; };
 		CA981AF818274AD1B8C0BDB8 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 9BA99C302FC849A3831190EE /* libPods.a */; };
 /* End PBXBuildFile section */
 
@@ -117,7 +117,7 @@
 		40C4656C15B14A860047BB60 /* SIAppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SIAppDelegate.m; sourceTree = "<group>"; };
 		40D7D93315B24F8D004978C7 /* NSString+SIAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+SIAdditions.h"; sourceTree = "<group>"; };
 		40D7D93415B24F8D004978C7 /* NSString+SIAdditions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+SIAdditions.m"; sourceTree = "<group>"; };
-		40DEE95E177BD9F800DE3515 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = en; path = en.lproj/MainStoryboard.storyboard; sourceTree = "<group>"; };
+		40DEE960177BE11D00DE3515 /* SIReceiptViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SIReceiptViewController.xib; sourceTree = "<group>"; };
 		810B94251A1A43C4B1316CEA /* Pods.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.xcconfig; path = Pods/Pods.xcconfig; sourceTree = SOURCE_ROOT; };
 		9BA99C302FC849A3831190EE /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -269,6 +269,7 @@
 				40A6D51516D02BD90019AC60 /* SIReceiptItemsViewController.m */,
 				409A716816F7EF8B008D1DA0 /* SIReceiptPeopleViewController.h */,
 				409A716916F7EF8B008D1DA0 /* SIReceiptPeopleViewController.m */,
+				40DEE960177BE11D00DE3515 /* SIReceiptViewController.xib */,
 			);
 			name = Controller;
 			sourceTree = "<group>";
@@ -308,7 +309,6 @@
 		40C4656215B14A860047BB60 /* Mince */ = {
 			isa = PBXGroup;
 			children = (
-				40DEE95D177BD9F700DE3515 /* MainStoryboard.storyboard */,
 				40A6D4FE16D021DF0019AC60 /* Model */,
 				40A6D4FF16D021E50019AC60 /* View */,
 				40A6D50016D021E90019AC60 /* Controller */,
@@ -363,6 +363,7 @@
 			attributes = {
 				CLASSPREFIX = SI;
 				LastUpgradeCheck = 0460;
+				ORGANIZATIONNAME = "Ian Ynda-Hummel";
 			};
 			buildConfigurationList = 40C4655215B14A860047BB60 /* Build configuration list for PBXProject "Mince" */;
 			compatibilityVersion = "Xcode 3.2";
@@ -388,7 +389,7 @@
 			files = (
 				40C4656715B14A860047BB60 /* InfoPlist.strings in Resources */,
 				40A6D4FA16D01FDC0019AC60 /* Default-568h@2x.png in Resources */,
-				40DEE95F177BD9F800DE3515 /* MainStoryboard.storyboard in Resources */,
+				40DEE961177BE11D00DE3515 /* SIReceiptViewController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -452,14 +453,6 @@
 				40C4656615B14A860047BB60 /* en */,
 			);
 			name = InfoPlist.strings;
-			sourceTree = "<group>";
-		};
-		40DEE95D177BD9F700DE3515 /* MainStoryboard.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				40DEE95E177BD9F800DE3515 /* en */,
-			);
-			name = MainStoryboard.storyboard;
 			sourceTree = "<group>";
 		};
 /* End PBXVariantGroup section */
