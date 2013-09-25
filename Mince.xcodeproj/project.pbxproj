@@ -14,6 +14,7 @@
 		409D650D17F25ADE00217727 /* Main.xib in Resources */ = {isa = PBXBuildFile; fileRef = 409D650C17F25ADE00217727 /* Main.xib */; };
 		409D650F17F25E1900217727 /* SIReceiptItemsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 409D650E17F25E1900217727 /* SIReceiptItemsViewController.xib */; };
 		409D651117F25E2C00217727 /* SIReceiptPeopleViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 409D651017F25E2C00217727 /* SIReceiptPeopleViewController.xib */; };
+		409D651317F2796A00217727 /* SIReceiptPersonCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 409D651217F2796A00217727 /* SIReceiptPersonCollectionViewCell.xib */; };
 		40A6D4FA16D01FDC0019AC60 /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 40A6D4F916D01FDC0019AC60 /* Default-568h@2x.png */; };
 		40A6D51016D025520019AC60 /* SIReceiptItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 40A6D50F16D025520019AC60 /* SIReceiptItem.m */; };
 		40A6D51616D02BD90019AC60 /* SIReceiptItemsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 40A6D51516D02BD90019AC60 /* SIReceiptItemsViewController.m */; };
@@ -102,6 +103,7 @@
 		409D650C17F25ADE00217727 /* Main.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = Main.xib; sourceTree = "<group>"; };
 		409D650E17F25E1900217727 /* SIReceiptItemsViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SIReceiptItemsViewController.xib; sourceTree = "<group>"; };
 		409D651017F25E2C00217727 /* SIReceiptPeopleViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SIReceiptPeopleViewController.xib; sourceTree = "<group>"; };
+		409D651217F2796A00217727 /* SIReceiptPersonCollectionViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SIReceiptPersonCollectionViewCell.xib; sourceTree = "<group>"; };
 		40A6D4F916D01FDC0019AC60 /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = "<group>"; };
 		40A6D50E16D025520019AC60 /* SIReceiptItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SIReceiptItem.h; sourceTree = "<group>"; };
 		40A6D50F16D025520019AC60 /* SIReceiptItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SIReceiptItem.m; sourceTree = "<group>"; };
@@ -259,6 +261,7 @@
 			children = (
 				4066B90916D190BA0082E878 /* SIReceiptPersonCollectionViewCell.h */,
 				4066B90A16D190BA0082E878 /* SIReceiptPersonCollectionViewCell.m */,
+				409D651217F2796A00217727 /* SIReceiptPersonCollectionViewCell.xib */,
 			);
 			name = View;
 			sourceTree = "<group>";
@@ -403,6 +406,7 @@
 				40A6D4FA16D01FDC0019AC60 /* Default-568h@2x.png in Resources */,
 				409D650D17F25ADE00217727 /* Main.xib in Resources */,
 				40DEE961177BE11D00DE3515 /* SIReceiptViewController.xib in Resources */,
+				409D651317F2796A00217727 /* SIReceiptPersonCollectionViewCell.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

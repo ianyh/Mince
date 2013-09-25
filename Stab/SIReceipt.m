@@ -20,10 +20,11 @@
 
 + (instancetype)sharedReceipt {
     static SIReceipt *sharedReceipt;
-    @synchronized (SIReceipt.class) {
-        if (!sharedReceipt) sharedReceipt = [[SIReceipt alloc] init];
-        return sharedReceipt;
-    }
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        sharedReceipt = [[SIReceipt alloc] init];
+    });
+    return sharedReceipt;
 }
 
 - (id)init {

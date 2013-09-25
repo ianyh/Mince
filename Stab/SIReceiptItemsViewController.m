@@ -58,6 +58,12 @@ static NSInteger SIReceiptItemsSectionSummaryRowCount = SIReceiptItemSectionSumm
 
 #pragma mark UIViewController
 
+- (void)viewDidLoad {
+    [super viewDidLoad];
+
+    [self.peopleCollectionView registerNib:[UINib nibWithNibName:@"SIReceiptPersonCollectionViewCell" bundle:nil] forCellWithReuseIdentifier:@"SIReceiptCollectionViewCell"];
+}
+
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     [self.itemsTableView reloadData];
