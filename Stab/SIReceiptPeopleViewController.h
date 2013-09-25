@@ -14,8 +14,6 @@
 - (void)receiptPeopleViewController:(SIReceiptPeopleViewController *)controller didSelectPerson:(SIPerson *)person;
 @end
 
-@class SIReceipt;
 @interface SIReceiptPeopleViewController : UIViewController
 @property (weak, nonatomic) id <SIReceiptPeopleViewControllerDelegate> delegate;
-@property (strong, nonatomic) SIReceipt *receipt;
 @end

@@ -59,7 +59,7 @@ static NSInteger SIReceiptPeopleSectionCount = SIReceiptPeopleSectionPeople + 1;
         case SIReceiptPeopleSectionAdd:
             return (self.tableView.editing ? 1 : 0);
         case SIReceiptPeopleSectionPeople:
-            return [self.receipt.people count];
+            return [SIReceipt.sharedReceipt.people count];
     }
 }
 
@@ -80,7 +80,7 @@ static NSInteger SIReceiptPeopleSectionCount = SIReceiptPeopleSectionPeople + 1;
     SIPerson *person = [self personForIndexPath:indexPath];
     
     cell.textLabel.text = person.name;
-    cell.detailTextLabel.text = [NSString stringWithFormat:@"$%.2f", [[self.receipt totalForPerson:person] doubleValue]];
+    cell.detailTextLabel.text = [NSString stringWithFormat:@"$%.2f", [[SIReceipt.sharedReceipt totalForPerson:person] doubleValue]];
 }
 
 #pragma mark - UITableViewDelegate
@@ -104,7 +104,7 @@ static NSInteger SIReceiptPeopleSectionCount = SIReceiptPeopleSectionPeople + 1;
             break;
         case SIReceiptPeopleSectionPeople: {
             SIPerson *person = [self personForIndexPath:indexPath];
-            [self.receipt removePerson:person];
+            [SIReceipt.sharedReceipt removePerson:person];
             break;
         }
     }
@@ -129,7 +129,7 @@ static NSInteger SIReceiptPeopleSectionCount = SIReceiptPeopleSectionPeople + 1;
 
 - (SIPerson *)personForIndexPath:(NSIndexPath *)indexPath {
     NSArray *nameSortDescriptor = [NSSortDescriptor sortDescriptorWithKey:@"name" ascending:YES];
-    return [self.receipt.people sortedArrayUsingDescriptors:@[ nameSortDescriptor ]][indexPath.row];
+    return [SIReceipt.sharedReceipt.people sortedArrayUsingDescriptors:@[ nameSortDescriptor ]][indexPath.row];
 }
 
 @end

@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="4510" systemVersion="12F37" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES">
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="3742"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="SIReceiptItemsViewController">
+            <connections>
+                <outlet property="addReceiptEntryCell" destination="0T8-lD-Tb1" id="fPh-bR-sLo"/>
+                <outlet property="costTextField" destination="ZNf-Ok-4k5" id="kDN-JG-BZJ"/>
+                <outlet property="itemsTableView" destination="gvL-f4-MgO" id="qol-hl-gKt"/>
+                <outlet property="nameTextField" destination="ETW-WD-eqI" id="cCp-8C-kUO"/>
+                <outlet property="view" destination="1" id="008-Rz-Typ"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" id="1">
+            <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <tableView clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" alwaysBounceVertical="YES" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="gvL-f4-MgO">
+                    <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                    <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    <inset key="scrollIndicatorInsets" minX="0.0" minY="20" maxX="0.0" maxY="0.0"/>
+                    <connections>
+                        <outlet property="dataSource" destination="-1" id="Lzh-us-AWp"/>
+                        <outlet property="delegate" destination="-1" id="isG-JB-NKF"/>
+                    </connections>
+                </tableView>
+            </subviews>
+            <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+            <simulatedStatusBarMetrics key="simulatedStatusBarMetrics"/>
+            <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina4"/>
+        </view>
+        <tableViewCell contentMode="scaleToFill" selectionStyle="blue" indentationWidth="0.0" shouldIndentWhileEditing="NO" reuseIdentifier="SIAddReceiptEntryTableViewCell" id="0T8-lD-Tb1">
+            <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="0T8-lD-Tb1" id="lfl-dU-xks">
+                <rect key="frame" x="0.0" y="0.0" width="320" height="43"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="ETW-WD-eqI" userLabel="Name Text Field">
+                        <rect key="frame" x="15" y="6" width="196" height="31"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
+                        <constraints>
+                            <constraint firstAttribute="width" constant="196" id="3zh-cB-H8K"/>
+                            <constraint firstAttribute="height" constant="31" id="5pk-KZ-QQj"/>
+                        </constraints>
+                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                        <textInputTraits key="textInputTraits" autocapitalizationType="words" enablesReturnKeyAutomatically="YES"/>
+                        <connections>
+                            <outlet property="delegate" destination="-1" id="H66-3Y-iQZ"/>
+                        </connections>
+                    </textField>
+                    <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="ZNf-Ok-4k5" userLabel="Cost Text Field">
+                        <rect key="frame" x="219" y="6" width="81" height="31"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
+                        <constraints>
+                            <constraint firstAttribute="width" constant="81" id="yuv-Ww-35N"/>
+                        </constraints>
+                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                        <textInputTraits key="textInputTraits" keyboardType="numbersAndPunctuation" enablesReturnKeyAutomatically="YES"/>
+                        <connections>
+                            <outlet property="delegate" destination="-1" id="Rks-7V-3RQ"/>
+                        </connections>
+                    </textField>
+                </subviews>
+            </tableViewCellContentView>
+            <constraints>
+                <constraint firstItem="ETW-WD-eqI" firstAttribute="top" secondItem="0T8-lD-Tb1" secondAttribute="top" constant="6" id="YWx-0m-qRm"/>
+                <constraint firstItem="ZNf-Ok-4k5" firstAttribute="bottom" secondItem="ETW-WD-eqI" secondAttribute="bottom" id="dB7-WE-l4c"/>
+                <constraint firstAttribute="trailing" secondItem="ZNf-Ok-4k5" secondAttribute="trailing" constant="20" id="jfk-cv-hdA"/>
+                <constraint firstItem="ETW-WD-eqI" firstAttribute="top" secondItem="ZNf-Ok-4k5" secondAttribute="top" id="rvE-qU-tk7"/>
+                <constraint firstItem="ZNf-Ok-4k5" firstAttribute="leading" secondItem="ETW-WD-eqI" secondAttribute="trailing" constant="8" symbolic="YES" id="yVc-2G-RF5"/>
+                <constraint firstItem="ZNf-Ok-4k5" firstAttribute="baseline" secondItem="ETW-WD-eqI" secondAttribute="baseline" id="zL9-J5-W2m"/>
+            </constraints>
+        </tableViewCell>
+    </objects>
+</document>

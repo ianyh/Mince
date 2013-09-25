@@ -20,47 +20,36 @@
 
 @implementation SIReceiptViewController
 
-#pragma mark UIViewController
+- (id)init {
+    self = [super initWithNibName:@"SIReceiptViewController" bundle:nil];
+    if (self) {
+        SIReceiptItemsViewController *itemsViewController = [[SIReceiptItemsViewController alloc] init];
+        SIReceiptPeopleViewController *peopleViewController = [[SIReceiptPeopleViewController alloc] init];
 
-- (void)awakeFromNib {
-    [super awakeFromNib];
+        peopleViewController.delegate = self;
 
-    self.navigationItem.rightBarButtonItem = [self editButtonItem];
+        self.viewControllers = @[ itemsViewController, peopleViewController ];
 
-    for (UIViewController *controller in self.viewControllers) {
-        if ([controller isKindOfClass:[SIReceiptItemsViewController class]]) {
-            self.itemsViewController = (SIReceiptItemsViewController *)controller;
-        } else if ([controller isKindOfClass:[SIReceiptPeopleViewController class]]) {
-            self.peopleViewController = (SIReceiptPeopleViewController *)controller;
-            self.peopleViewController.delegate = self;
-        }
+        self.navigationItem.title = @"Mince";
+        self.navigationItem.rightBarButtonItem = [self editButtonItem];
     }
+    return self;
 }
+
+#pragma mark UIViewController
 
 - (void)setEditing:(BOOL)editing animated:(BOOL)animated {
     [super setEditing:editing animated:animated];
     [self.selectedViewController setEditing:editing animated:animated];
 }
 
-#pragma mark - Public Methods
-
-- (void)setReceipt:(SIReceipt *)receipt {
-    if ([_receipt isEqual:receipt])
-        return;
-
-    _receipt = receipt;
-
-    self.itemsViewController.receipt = _receipt;
-    self.peopleViewController.receipt = _receipt;
-}
-
-#pragma mark - SIReceiptPeopleViewControllerDelegate
+#pragma mark SIReceiptPeopleViewControllerDelegate
 
 - (void)receiptPeopleViewController:(SIReceiptPeopleViewController *)controller didSelectPerson:(SIPerson *)person {
     self.selectedViewController = self.peopleViewController;
 }
 
-#pragma mark - UITabBarDelegate
+#pragma mark UITabBarDelegate
 
 - (void)tabBar:(UITabBar *)tabBar didSelectItem:(UITabBarItem *)item {
     [self setEditing:NO animated:NO];

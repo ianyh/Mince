@@ -8,7 +8,5 @@
 
 #import <UIKit/UIKit.h>
 
-@class SIReceipt;
 @interface SIReceiptViewController : UITabBarController
-@property (nonatomic, strong) SIReceipt *receipt;
 @end

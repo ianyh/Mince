@@ -15,16 +15,21 @@
 #import "SIReceipt.h"
 #import "SIReceiptItem.h"
 
-typedef enum {
+typedef NS_ENUM(NSInteger, SIReceiptItemsSection) {
     SIReceiptItemsSectionAdd,
     SIReceiptItemsSectionReceipt,
-    SIReceiptItemsSectionSubtotal,
-    SIReceiptItemsSectionTax,
-    SIReceiptItemsSectionTip,
-    SIReceiptItemsSectionTotal,
-} SIReceiptItemsSection;
+    SIReceiptItemsSectionSummary,
+};
 
-static NSInteger SIReceiptItemsSectionCount = SIReceiptItemsSectionTotal + 1;
+typedef NS_ENUM(NSInteger, SIReceiptItemSectionSummaryRow) {
+    SIReceiptItemSectionSummaryRowSubtotal,
+    SIReceiptItemSectionSummaryRowTax,
+    SIReceiptItemSectionSummaryRowTip,
+    SIReceiptItemSectionSummaryRowTotal,
+};
+
+static NSInteger SIReceiptItemsSectionCount = SIReceiptItemsSectionSummary + 1;
+static NSInteger SIReceiptItemsSectionSummaryRowCount = SIReceiptItemSectionSummaryRowTotal + 1;
 
 @interface SIReceiptItemsViewController () <UICollectionViewDataSource, UICollectionViewDelegate, UITableViewDataSource, UITableViewDelegate, UITextFieldDelegate>
 @property (strong, nonatomic) NSNumberFormatter *currencyFormatter;
@@ -40,21 +45,23 @@ static NSInteger SIReceiptItemsSectionCount = SIReceiptItemsSectionTotal + 1;
 
 @implementation SIReceiptItemsViewController
 
-#pragma mark - UIViewController
-
-- (void)awakeFromNib {
-    [super awakeFromNib];
-
-    self.currencyFormatter = [[NSNumberFormatter alloc] init];
-    [self.currencyFormatter setNumberStyle:NSNumberFormatterCurrencyStyle];
+- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil {
+    self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
+    if (self) {
+        self.currencyFormatter = [[NSNumberFormatter alloc] init];
+        [self.currencyFormatter setNumberStyle:NSNumberFormatterCurrencyStyle];
+    }
+    return self;
 }
+
+#pragma mark UIViewController
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     [self.itemsTableView reloadData];
 }
 
-#pragma mark - Editing
+#pragma mark Editing
 
 - (void)setEditing:(BOOL)editing animated:(BOOL)animated {
     [super setEditing:editing animated:animated];
@@ -63,10 +70,10 @@ static NSInteger SIReceiptItemsSectionCount = SIReceiptItemsSectionTotal + 1;
                        withRowAnimation:UITableViewRowAnimationBottom];
 }
 
-#pragma mark - UICollectionViewDataSource
+#pragma mark UICollectionViewDataSource
 
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section {
-    return [self.receipt.people count];
+    return [SIReceipt.sharedReceipt.people count];
 }
 
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
@@ -78,7 +85,7 @@ static NSInteger SIReceiptItemsSectionCount = SIReceiptItemsSectionTotal + 1;
     return cell;
 }
 
-#pragma mark - UICollectionViewDelegate
+#pragma mark UICollectionViewDelegate
 
 - (void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView {
     [self updateTableCellCheckmarks];
@@ -88,7 +95,7 @@ static NSInteger SIReceiptItemsSectionCount = SIReceiptItemsSectionTotal + 1;
     [self updateTableCellCheckmarks];
 }
 
-#pragma mark - UITableViewDataSource
+#pragma mark UITableViewDataSource
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
     return SIReceiptItemsSectionCount;
@@ -99,12 +106,9 @@ static NSInteger SIReceiptItemsSectionCount = SIReceiptItemsSectionTotal + 1;
         case SIReceiptItemsSectionAdd:
             return (self.itemsTableView.editing ? 1 : 0);
         case SIReceiptItemsSectionReceipt:
-            return [self.receipt.items count];
-        case SIReceiptItemsSectionSubtotal:
-        case SIReceiptItemsSectionTax:
-        case SIReceiptItemsSectionTip:
-        case SIReceiptItemsSectionTotal:
-            return 1;
+            return SIReceipt.sharedReceipt.items.count;
+        case SIReceiptItemsSectionSummary:
+            return SIReceiptItemsSectionSummaryRowCount;
     }
 }
 
@@ -115,36 +119,45 @@ static NSInteger SIReceiptItemsSectionCount = SIReceiptItemsSectionTotal + 1;
 
         case SIReceiptItemsSectionReceipt: {
             UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"SIReceiptTableViewCell"];
+            if (!cell) {
+                cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue2 reuseIdentifier:@"SIReceiptTableViewCell"];
+            }
+
             [self configureCell:cell forIndexPath:indexPath];
             return cell;
         }
 
-        case SIReceiptItemsSectionSubtotal: {
+        case SIReceiptItemsSectionSummary: {
             UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"SIReceiptOverviewTableViewCell"];
-            cell.textLabel.text = @"Subtotal";
-            cell.detailTextLabel.text = [NSString stringWithFormat:@"$%.2f", [[self.receipt subtotal] doubleValue]];
-            return cell;
-        }
+            if (!cell) {
+                cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:@"SIReceiptOverviewTableViewCell"];
+            }
 
-        case SIReceiptItemsSectionTax: {
-            UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"SIReceiptOverviewTableViewCell"];
-            cell.textLabel.text = [NSString stringWithFormat:@"Tax (%.0f%%)", [self.receipt.taxRate doubleValue] * 100];
-            cell.detailTextLabel.text = [NSString stringWithFormat:@"$%.2f", [[self.receipt tax] doubleValue]];
-            return cell;
-        }
+            switch ((SIReceiptItemSectionSummaryRow)indexPath.row) {
+                case SIReceiptItemSectionSummaryRowSubtotal: {
+                    cell.textLabel.text = @"Subtotal";
+                    cell.detailTextLabel.text = [NSString stringWithFormat:@"$%.2f", [[SIReceipt.sharedReceipt subtotal] doubleValue]];
+                    return cell;
+                }
 
-        case SIReceiptItemsSectionTip: {
-            UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"SIReceiptOverviewTableViewCell"];
-            cell.textLabel.text = [NSString stringWithFormat:@"Tip (%.0f%%)", [self.receipt.tipRate doubleValue] * 100];
-            cell.detailTextLabel.text = [NSString stringWithFormat:@"$%.2f", [[self.receipt tip] doubleValue]];
-            return cell;
-        }
+                case SIReceiptItemSectionSummaryRowTax: {
+                    cell.textLabel.text = [NSString stringWithFormat:@"Tax (%.0f%%)", [SIReceipt.sharedReceipt.taxRate doubleValue] * 100];
+                    cell.detailTextLabel.text = [NSString stringWithFormat:@"$%.2f", [[SIReceipt.sharedReceipt tax] doubleValue]];
+                    return cell;
+                }
 
-        case SIReceiptItemsSectionTotal: {
-            UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"SIReceiptOverviewTableViewCell"];
-            cell.textLabel.text = @"Total";
-            cell.detailTextLabel.text = [NSString stringWithFormat:@"$%.2f", [[self.receipt total] doubleValue]];
-            return cell;
+                case SIReceiptItemSectionSummaryRowTip: {
+                    cell.textLabel.text = [NSString stringWithFormat:@"Tip (%.0f%%)", [SIReceipt.sharedReceipt.tipRate doubleValue] * 100];
+                    cell.detailTextLabel.text = [NSString stringWithFormat:@"$%.2f", [[SIReceipt.sharedReceipt tip] doubleValue]];
+                    return cell;
+                }
+
+                case SIReceiptItemSectionSummaryRowTotal: {
+                    cell.textLabel.text = @"Total";
+                    cell.detailTextLabel.text = [NSString stringWithFormat:@"$%.2f", [[SIReceipt.sharedReceipt total] doubleValue]];
+                    return cell;
+                }
+            }
         }
     }
 }
@@ -158,7 +171,7 @@ static NSInteger SIReceiptItemsSectionCount = SIReceiptItemsSectionTotal + 1;
     cell.accessoryType = (receiptItemIsSelected ? UITableViewCellAccessoryCheckmark : UITableViewCellAccessoryNone);
 }
 
-#pragma mark - UITableViewDelegate
+#pragma mark UITableViewDelegate
 
 - (BOOL)tableView:(UITableView *)tableView shouldIndentWhileEditingRowAtIndexPath:(NSIndexPath *)indexPath {
     return NO;
@@ -167,10 +180,7 @@ static NSInteger SIReceiptItemsSectionCount = SIReceiptItemsSectionTotal + 1;
 - (UITableViewCellEditingStyle)tableView:(UITableView *)tableView editingStyleForRowAtIndexPath:(NSIndexPath *)indexPath {
     switch ((SIReceiptItemsSection)indexPath.section) {
         case SIReceiptItemsSectionAdd:
-        case SIReceiptItemsSectionSubtotal:
-        case SIReceiptItemsSectionTax:
-        case SIReceiptItemsSectionTip:
-        case SIReceiptItemsSectionTotal:
+        case SIReceiptItemsSectionSummary:
             return UITableViewCellEditingStyleNone;
         case SIReceiptItemsSectionReceipt:
             return UITableViewCellEditingStyleDelete;
@@ -180,14 +190,11 @@ static NSInteger SIReceiptItemsSectionCount = SIReceiptItemsSectionTotal + 1;
 - (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
     switch ((SIReceiptItemsSection)indexPath.section) {
         case SIReceiptItemsSectionAdd:
-        case SIReceiptItemsSectionSubtotal:
-        case SIReceiptItemsSectionTax:
-        case SIReceiptItemsSectionTip:
-        case SIReceiptItemsSectionTotal:
+        case SIReceiptItemsSectionSummary:
             break;
         case SIReceiptItemsSectionReceipt: {
             SIReceiptItem *receiptItem = [self receiptItemForIndexPath:indexPath];
-            [self.receipt removeItem:receiptItem];
+            [SIReceipt.sharedReceipt removeItem:receiptItem];
             break;
         }
     }}
@@ -195,11 +202,8 @@ static NSInteger SIReceiptItemsSectionCount = SIReceiptItemsSectionTotal + 1;
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     switch ((SIReceiptItemsSection)indexPath.section) {
         case SIReceiptItemsSectionAdd:
-        case SIReceiptItemsSectionSubtotal:
-        case SIReceiptItemsSectionTax:
-        case SIReceiptItemsSectionTip:
-        case SIReceiptItemsSectionTotal:
-            [tableView deselectRowAtIndexPath:indexPath animated:NO]; 
+        case SIReceiptItemsSectionSummary:
+            [tableView deselectRowAtIndexPath:indexPath animated:NO];
             return;
         case SIReceiptItemsSectionReceipt:
             break;
@@ -217,7 +221,7 @@ static NSInteger SIReceiptItemsSectionCount = SIReceiptItemsSectionTotal + 1;
     [self configureCell:cell forIndexPath:indexPath];
 }
 
-#pragma mark - UITextFieldDelegate
+#pragma mark UITextFieldDelegate
 
 - (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string {
     if (textField == self.costTextField) {
@@ -242,7 +246,7 @@ static NSInteger SIReceiptItemsSectionCount = SIReceiptItemsSectionTotal + 1;
         [self.costTextField becomeFirstResponder];
     } else {
         // Create and insert a receipt entry with the appropriate name
-        [self.receipt addEntryWithName:self.nameTextField.text
+        [SIReceipt.sharedReceipt addEntryWithName:self.nameTextField.text
                                   cost:[self.currencyFormatter numberFromString:self.costTextField.text]];
 
         // Start a batch of updates
@@ -255,8 +259,7 @@ static NSInteger SIReceiptItemsSectionCount = SIReceiptItemsSectionTotal + 1;
                                    withRowAnimation:UITableViewRowAnimationTop];
 
         // Reload all of the overview sections
-        [self.itemsTableView reloadSections:[NSIndexSet indexSetWithIndexesInRange:NSMakeRange(SIReceiptItemsSectionSubtotal,
-                                                                                               SIReceiptItemsSectionTotal - SIReceiptItemsSectionSubtotal)]
+        [self.itemsTableView reloadSections:[NSIndexSet indexSetWithIndex:SIReceiptItemsSectionSummary]
                            withRowAnimation:UITableViewRowAnimationAutomatic];
 
         [self.itemsTableView endUpdates];
@@ -271,11 +274,11 @@ static NSInteger SIReceiptItemsSectionCount = SIReceiptItemsSectionTotal + 1;
     return NO;
 }
 
-#pragma mark - Private Methods
+#pragma mark Private Methods
 
 - (SIPerson *)personForIndexPath:(NSIndexPath *)indexPath {
     NSArray *nameSortDescriptor = [NSSortDescriptor sortDescriptorWithKey:@"name" ascending:YES];
-    return [self.receipt.people sortedArrayUsingDescriptors:@[ nameSortDescriptor ]][indexPath.row];
+    return [SIReceipt.sharedReceipt.people sortedArrayUsingDescriptors:@[ nameSortDescriptor ]][indexPath.row];
 }
 
 - (SIPerson *)highlightedPerson {
@@ -287,7 +290,7 @@ static NSInteger SIReceiptItemsSectionCount = SIReceiptItemsSectionTotal + 1;
 
 - (SIReceiptItem *)receiptItemForIndexPath:(NSIndexPath *)indexPath {
     NSArray *createdDateSortDescriptor = [NSSortDescriptor sortDescriptorWithKey:@"createdDate" ascending:NO];
-    return [self.receipt.items sortedArrayUsingDescriptors:@[ createdDateSortDescriptor ]][indexPath.row];
+    return [SIReceipt.sharedReceipt.items sortedArrayUsingDescriptors:@[ createdDateSortDescriptor ]][indexPath.row];
 }
 
 - (void)updateTableCellCheckmarks {

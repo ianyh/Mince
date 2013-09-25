@@ -8,9 +8,20 @@
 
 #import "SIAppDelegate.h"
 
+#import "SIReceiptViewController.h"
+
+@interface SIAppDelegate ()
+@end
+
 @implementation SIAppDelegate
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
+    UINavigationController *navigationController = [[UINavigationController alloc] initWithRootViewController:[[SIReceiptViewController alloc] init]];
+
+    self.window.rootViewController = navigationController;
+
+    [self.window makeKeyAndVisible];
+
     return YES;
 }
 							

@@ -8,7 +8,5 @@
 
 #import <UIKit/UIKit.h>
 
-@class SIReceipt;
 @interface SIReceiptItemsViewController : UIViewController
-@property (nonatomic, retain) SIReceipt *receipt;
 @end
