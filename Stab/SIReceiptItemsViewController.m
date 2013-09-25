@@ -69,7 +69,7 @@ static NSInteger SIReceiptItemsSectionSummaryRowCount = SIReceiptItemSectionSumm
     [super setEditing:editing animated:animated];
     [self.itemsTableView setEditing:editing animated:animated];
     [self.itemsTableView reloadSections:[NSIndexSet indexSetWithIndex:SIReceiptItemsSectionAdd]
-                       withRowAnimation:UITableViewRowAnimationBottom];
+                       withRowAnimation:UITableViewRowAnimationAutomatic];
 }
 
 #pragma mark UICollectionViewDataSource
