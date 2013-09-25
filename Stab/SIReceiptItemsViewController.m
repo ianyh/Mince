@@ -66,6 +66,7 @@ static NSInteger SIReceiptItemsSectionSummaryRowCount = SIReceiptItemSectionSumm
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
+    [self.peopleCollectionView reloadData];
     [self.itemsTableView reloadData];
 }
 

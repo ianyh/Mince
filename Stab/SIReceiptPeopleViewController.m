@@ -18,19 +18,21 @@ typedef NS_ENUM(NSInteger, SIReceiptPeopleSection) {
 
 static NSInteger SIReceiptPeopleSectionCount = SIReceiptPeopleSectionPeople + 1;
 
-@interface SIReceiptPeopleViewController () <UITableViewDataSource, UITableViewDelegate>
-@property (strong, nonatomic) NSNumberFormatter *currencyFormatter;
+@interface SIReceiptPeopleViewController () <UITableViewDataSource, UITableViewDelegate, UITextFieldDelegate>
+@property (nonatomic, strong) NSNumberFormatter *currencyFormatter;
 
-@property (strong, nonatomic) IBOutlet UITableView *tableView;
-@property (strong, nonatomic) IBOutlet UITableViewCell *addPersonCell;
+@property (nonatomic, weak) IBOutlet UITableView *tableView;
+
+@property (nonatomic, strong) IBOutlet UITableViewCell *addPersonCell;
+@property (nonatomic, weak) IBOutlet UITextField *nameTextField;
 @end
 
 @implementation SIReceiptPeopleViewController
 
-#pragma mark - UIViewController
+#pragma mark UIViewController
 
-- (void)awakeFromNib {
-    [super awakeFromNib];
+- (void)viewDidLoad {
+    [super viewDidLoad];
     
     self.currencyFormatter = [[NSNumberFormatter alloc] init];
     [self.currencyFormatter setNumberStyle:NSNumberFormatterCurrencyStyle];
@@ -48,7 +50,7 @@ static NSInteger SIReceiptPeopleSectionCount = SIReceiptPeopleSectionPeople + 1;
                        withRowAnimation:UITableViewRowAnimationBottom];
 }
 
-#pragma mark - UITableViewDataSource
+#pragma mark UITableViewDataSource
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
     return SIReceiptPeopleSectionCount;
@@ -70,6 +72,10 @@ static NSInteger SIReceiptPeopleSectionCount = SIReceiptPeopleSectionPeople + 1;
 
         case SIReceiptPeopleSectionPeople: {
             UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"SIReceiptPeopleTableViewCell"];
+            if (!cell) {
+                cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:@"SIReceiptPeopleTableViewCell"];
+            }
+
             [self configureCell:cell forIndexPath:indexPath];
             return cell;
         }
@@ -83,7 +89,7 @@ static NSInteger SIReceiptPeopleSectionCount = SIReceiptPeopleSectionPeople + 1;
     cell.detailTextLabel.text = [NSString stringWithFormat:@"$%.2f", [[SIReceipt.sharedReceipt totalForPerson:person] doubleValue]];
 }
 
-#pragma mark - UITableViewDelegate
+#pragma mark UITableViewDelegate
 
 - (BOOL)tableView:(UITableView *)tableView shouldIndentWhileEditingRowAtIndexPath:(NSIndexPath *)indexPath {
     return NO;
@@ -125,7 +131,32 @@ static NSInteger SIReceiptPeopleSectionCount = SIReceiptPeopleSectionPeople + 1;
     [self.delegate receiptPeopleViewController:self didSelectPerson:person];
 }
 
-#pragma mark - Private Methods
+#pragma mark UITextFieldDelegate
+
+- (BOOL)textFieldShouldReturn:(UITextField *)textField {
+    SIPerson *person = [[SIPerson alloc] init];
+    person.name = textField.text;
+
+    [SIReceipt.sharedReceipt addPerson:person];
+
+    // Start a batch of updates
+    [self.tableView beginUpdates];
+
+    // Insert a row in the table for the new receipt entry
+    NSIndexPath *indexPath = [NSIndexPath indexPathForRow:0
+                                                inSection:SIReceiptPeopleSectionPeople];
+    [self.tableView insertRowsAtIndexPaths:@[ indexPath ]
+                          withRowAnimation:UITableViewRowAnimationTop];
+
+    [self.tableView endUpdates];
+
+    // Clear the text in both text fields
+    self.nameTextField.text = @"";
+
+    return NO;
+}
+
+#pragma mark Private Methods
 
 - (SIPerson *)personForIndexPath:(NSIndexPath *)indexPath {
     NSArray *nameSortDescriptor = [NSSortDescriptor sortDescriptorWithKey:@"name" ascending:YES];
