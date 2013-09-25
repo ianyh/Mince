@@ -50,6 +50,8 @@ static NSInteger SIReceiptItemsSectionSummaryRowCount = SIReceiptItemSectionSumm
     if (self) {
         self.currencyFormatter = [[NSNumberFormatter alloc] init];
         [self.currencyFormatter setNumberStyle:NSNumberFormatterCurrencyStyle];
+
+        self.tabBarItem = [[UITabBarItem alloc] initWithTitle:@"Items" image:nil tag:0];
     }
     return self;
 }
