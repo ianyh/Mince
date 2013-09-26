@@ -9,6 +9,7 @@
 #import "SIReceiptItemsViewController.h"
 
 #import "SIReceiptPersonCollectionViewCell.h"
+#import "SITipRatePickerView.h"
 
 #import "NSString+SIAdditions.h"
 #import "SIPerson.h"
@@ -31,7 +32,7 @@ typedef NS_ENUM(NSInteger, SIReceiptItemSectionSummaryRow) {
 static NSInteger SIReceiptItemsSectionCount = SIReceiptItemsSectionSummary + 1;
 static NSInteger SIReceiptItemsSectionSummaryRowCount = SIReceiptItemSectionSummaryRowTotal + 1;
 
-@interface SIReceiptItemsViewController () <UICollectionViewDataSource, UICollectionViewDelegate, UITableViewDataSource, UITableViewDelegate, UITextFieldDelegate>
+@interface SIReceiptItemsViewController () <SITipRatePickerViewDelegate, UICollectionViewDataSource, UICollectionViewDelegate, UITableViewDataSource, UITableViewDelegate, UITextFieldDelegate>
 @property (strong, nonatomic) NSNumberFormatter *currencyFormatter;
 
 @property (strong, nonatomic) IBOutlet UICollectionView *peopleCollectionView;
@@ -77,6 +78,13 @@ static NSInteger SIReceiptItemsSectionSummaryRowCount = SIReceiptItemSectionSumm
     [self.itemsTableView setEditing:editing animated:animated];
     [self.itemsTableView reloadSections:[NSIndexSet indexSetWithIndex:SIReceiptItemsSectionAdd]
                        withRowAnimation:UITableViewRowAnimationAutomatic];
+}
+
+#pragma mark SITipRatePickerView
+
+- (void)tipRatePicker:(SITipRatePickerView *)picker didFinishWithTipRate:(NSNumber *)number {
+    SIReceipt.sharedReceipt.tipRate = number;
+    [self.itemsTableView reloadData];
 }
 
 #pragma mark UICollectionViewDataSource
@@ -209,25 +217,39 @@ static NSInteger SIReceiptItemsSectionSummaryRowCount = SIReceiptItemSectionSumm
     }}
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-    switch ((SIReceiptItemsSection)indexPath.section) {
-        case SIReceiptItemsSectionAdd:
-        case SIReceiptItemsSectionSummary:
-            [tableView deselectRowAtIndexPath:indexPath animated:NO];
-            return;
-        case SIReceiptItemsSectionReceipt:
-            break;
-    }
-    
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
 
-    SIReceiptItem *item = [self receiptItemForIndexPath:indexPath];
-    SIPerson *person = [self highlightedPerson];
+    switch ((SIReceiptItemsSection)indexPath.section) {
+        case SIReceiptItemsSectionAdd:
+            return;
+        case SIReceiptItemsSectionSummary: {
+            switch ((SIReceiptItemSectionSummaryRow)indexPath.row) {
+                case SIReceiptItemSectionSummaryRowSubtotal:
+                case SIReceiptItemSectionSummaryRowTotal:
+                    break;
+                case SIReceiptItemSectionSummaryRowTax:
+                    break;
+                case SIReceiptItemSectionSummaryRowTip: {
+                    SITipRatePickerView *pickerView = [[SITipRatePickerView alloc] init];
+                    pickerView.delegate = self;
+                    [pickerView display];
+                    break;
+                }
+            }
+            return;
+        }
+        case SIReceiptItemsSectionReceipt: {
+            SIReceiptItem *item = [self receiptItemForIndexPath:indexPath];
+            SIPerson *person = [self highlightedPerson];
 
-    [person toggleSelectionForReceiptItem:item];
+            [person toggleSelectionForReceiptItem:item];
 
-    // Reconfigure the cell to display the selection
-    UITableViewCell *cell = [tableView cellForRowAtIndexPath:indexPath];
-    [self configureCell:cell forIndexPath:indexPath];
+            // Reconfigure the cell to display the selection
+            UITableViewCell *cell = [tableView cellForRowAtIndexPath:indexPath];
+            [self configureCell:cell forIndexPath:indexPath];
+            break;
+        }
+    }
 }
 
 #pragma mark UITextFieldDelegate

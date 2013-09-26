@@ -19,6 +19,10 @@ static NSString *SIReceiptDefaultsKey = @"SIReceiptDefaultsKey";
 
 @implementation SIAppDelegate
 
++ (SIAppDelegate *)applicationDelegate {
+    return (SIAppDelegate *)[UIApplication sharedApplication].delegate;
+}
+
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     NSData *receiptData = [NSUserDefaults.standardUserDefaults objectForKey:SIReceiptDefaultsKey];
     if (receiptData) {
