@@ -20,11 +20,12 @@ static NSString *SIReceiptDefaultsKey = @"SIReceiptDefaultsKey";
 @implementation SIAppDelegate
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
-//    NSDictionary *receiptJSON = [NSUserDefaults.standardUserDefaults objectForKey:SIReceiptDefaultsKey];
-//    if (receiptJSON) {
-//        SIReceipt *receipt = [[SIReceipt alloc] initWithDictionary:receiptJSON error:nil];
-//        [SIReceipt setSharedReceipt:receipt];
-//    }
+    NSData *receiptData = [NSUserDefaults.standardUserDefaults objectForKey:SIReceiptDefaultsKey];
+    if (receiptData) {
+        SIReceipt *receipt = [NSKeyedUnarchiver unarchiveObjectWithData:receiptData];
+        [SIReceipt sharedReceipt];
+        [SIReceipt setSharedReceipt:receipt];
+    }
 
     UINavigationController *navigationController = [[UINavigationController alloc] initWithRootViewController:[[SIReceiptViewController alloc] init]];
 
@@ -35,8 +36,8 @@ static NSString *SIReceiptDefaultsKey = @"SIReceiptDefaultsKey";
 }
 							
 - (void)applicationWillResignActive:(UIApplication *)application {
-    NSDictionary *receiptJSON = [MTLJSONAdapter JSONDictionaryFromModel:[SIReceipt sharedReceipt]];
-    [NSUserDefaults.standardUserDefaults setObject:receiptJSON forKey:SIReceiptDefaultsKey];
+    NSData *data = [NSKeyedArchiver archivedDataWithRootObject:[SIReceipt sharedReceipt]];
+    [NSUserDefaults.standardUserDefaults setObject:data forKey:SIReceiptDefaultsKey];
 }
 
 @end
