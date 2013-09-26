@@ -29,14 +29,22 @@ static NSInteger SIReceiptPeopleSectionCount = SIReceiptPeopleSectionPeople + 1;
 
 @implementation SIReceiptPeopleViewController
 
+- (id)init {
+    self = [super init];
+    if (self) {
+        self.tabBarItem = [[UITabBarItem alloc] initWithTitle:@"People" image:nil tag:0];
+
+        self.currencyFormatter = [[NSNumberFormatter alloc] init];
+        [self.currencyFormatter setNumberStyle:NSNumberFormatterCurrencyStyle];
+    }
+    return self;
+}
+
 #pragma mark UIViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
-    self.currencyFormatter = [[NSNumberFormatter alloc] init];
-    [self.currencyFormatter setNumberStyle:NSNumberFormatterCurrencyStyle];
-}
+    }
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
