@@ -23,12 +23,12 @@
 - (id)init {
     self = [super initWithNibName:@"SIReceiptViewController" bundle:nil];
     if (self) {
-        SIReceiptItemsViewController *itemsViewController = [[SIReceiptItemsViewController alloc] init];
-        SIReceiptPeopleViewController *peopleViewController = [[SIReceiptPeopleViewController alloc] init];
+        self.itemsViewController = [[SIReceiptItemsViewController alloc] init];
+        self.peopleViewController = [[SIReceiptPeopleViewController alloc] init];
 
-        peopleViewController.delegate = self;
+        self.peopleViewController.delegate = self;
 
-        self.viewControllers = @[ itemsViewController, peopleViewController ];
+        self.viewControllers = @[ self.itemsViewController, self.peopleViewController ];
 
         self.navigationItem.title = @"Mince";
         self.navigationItem.rightBarButtonItem = [self editButtonItem];
@@ -40,6 +40,9 @@
 
 - (void)setEditing:(BOOL)editing animated:(BOOL)animated {
     [super setEditing:editing animated:animated];
+    if ([SIReceipt sharedReceipt].people.count == 0) {
+        self.selectedViewController = self.peopleViewController;
+    }
     [self.selectedViewController setEditing:editing animated:animated];
 }
 

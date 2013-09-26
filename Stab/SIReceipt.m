@@ -60,7 +60,7 @@ static SIReceipt *sharedReceipt;
 - (void)addPerson:(SIPerson *)person {
     if ([self.people containsObject:person]) return;
 
-    self.people = [self.people arrayByAddingObject:person];
+    self.people = [@[ person ] arrayByAddingObjectsFromArray:self.people];
 }
 
 - (void)removePerson:(SIPerson *)person {

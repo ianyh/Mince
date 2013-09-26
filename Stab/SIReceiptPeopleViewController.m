@@ -55,7 +55,7 @@ static NSInteger SIReceiptPeopleSectionCount = SIReceiptPeopleSectionPeople + 1;
     [super setEditing:editing animated:animated];
     [self.tableView setEditing:editing animated:animated];
     [self.tableView reloadSections:[NSIndexSet indexSetWithIndex:SIReceiptPeopleSectionAdd]
-                       withRowAnimation:UITableViewRowAnimationBottom];
+                       withRowAnimation:UITableViewRowAnimationAutomatic];
 }
 
 #pragma mark UITableViewDataSource
@@ -167,6 +167,7 @@ static NSInteger SIReceiptPeopleSectionCount = SIReceiptPeopleSectionPeople + 1;
 #pragma mark Private Methods
 
 - (SIPerson *)personForIndexPath:(NSIndexPath *)indexPath {
+    return SIReceipt.sharedReceipt.people[indexPath.row];
     NSArray *nameSortDescriptor = [NSSortDescriptor sortDescriptorWithKey:@"name" ascending:YES];
     return [SIReceipt.sharedReceipt.people sortedArrayUsingDescriptors:@[ nameSortDescriptor ]][indexPath.row];
 }
