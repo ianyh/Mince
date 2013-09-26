@@ -11,7 +11,9 @@
 #import "SIPerson.h"
 #import "SIReceiptItem.h"
 
-@interface SIReceipt ()
+static SIReceipt *sharedReceipt;
+
+@interface SIReceipt () <MTLJSONSerializing>
 @property (nonatomic, strong) NSArray *people;
 @property (nonatomic, strong) NSArray *items;
 @end
@@ -19,7 +21,6 @@
 @implementation SIReceipt
 
 + (instancetype)sharedReceipt {
-    static SIReceipt *sharedReceipt;
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
         sharedReceipt = [[SIReceipt alloc] init];
@@ -27,13 +28,31 @@
     return sharedReceipt;
 }
 
++ (void)setSharedReceipt:(SIReceipt *)receipt {
+    sharedReceipt = receipt;
+}
+
 - (id)init {
     self = [super init];
     if (self) {
         self.people = @[];
         self.items = @[];
+
+        self.taxRate = @0;
+        self.tipRate = @0;
     }
     return self;
+}
+
+#pragma mark MTLJSONSerializing
+
++ (NSDictionary *)JSONKeyPathsByPropertyKey {
+    return @{
+             @"taxRate": @"taxRate",
+             @"tipRate": @"tipRate",
+             @"people": @"people",
+             @"items": @"items",
+             };
 }
 
 #pragma mark People
@@ -61,7 +80,7 @@
 - (void)addItem:(SIReceiptItem *)item {
     if ([self.items containsObject:item]) return;
 
-    self.items = [self.items arrayByAddingObject:item];
+    self.items = [@[ item ] arrayByAddingObjectsFromArray:self.items];
 }
 
 - (void)removeItem:(SIReceiptItem *)item {

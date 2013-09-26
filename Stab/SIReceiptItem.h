@@ -10,7 +10,7 @@
 
 @class SIPerson;
 
-@interface SIReceiptItem : MTLModel
+@interface SIReceiptItem : MTLModel <MTLJSONSerializing>
 
 @property (nonatomic, strong) NSString *name;
 @property (nonatomic, strong) NSNumber *cost;

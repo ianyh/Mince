@@ -11,7 +11,7 @@
 @class SIReceipt;
 @class SIReceiptItem;
 
-@interface SIPerson : MTLModel
+@interface SIPerson : MTLModel <MTLJSONSerializing>
 @property (nonatomic, strong) NSString *name;
 
 #pragma mark Items

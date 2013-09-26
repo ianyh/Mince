@@ -256,7 +256,7 @@ static NSInteger SIReceiptItemsSectionSummaryRowCount = SIReceiptItemSectionSumm
     } else {
         // Create and insert a receipt entry with the appropriate name
         [SIReceipt.sharedReceipt addEntryWithName:self.nameTextField.text
-                                  cost:[self.currencyFormatter numberFromString:self.costTextField.text]];
+                                             cost:[self.currencyFormatter numberFromString:self.costTextField.text]];
 
         // Start a batch of updates
         [self.itemsTableView beginUpdates];
@@ -298,8 +298,7 @@ static NSInteger SIReceiptItemsSectionSummaryRowCount = SIReceiptItemSectionSumm
 }
 
 - (SIReceiptItem *)receiptItemForIndexPath:(NSIndexPath *)indexPath {
-    NSArray *createdDateSortDescriptor = [NSSortDescriptor sortDescriptorWithKey:@"createdDate" ascending:NO];
-    return [SIReceipt.sharedReceipt.items sortedArrayUsingDescriptors:@[ createdDateSortDescriptor ]][indexPath.row];
+    return SIReceipt.sharedReceipt.items[indexPath.row];
 }
 
 - (void)updateTableCellCheckmarks {

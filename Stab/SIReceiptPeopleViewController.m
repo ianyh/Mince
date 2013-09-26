@@ -61,7 +61,7 @@ static NSInteger SIReceiptPeopleSectionCount = SIReceiptPeopleSectionPeople + 1;
         case SIReceiptPeopleSectionAdd:
             return (self.tableView.editing ? 1 : 0);
         case SIReceiptPeopleSectionPeople:
-            return [SIReceipt.sharedReceipt.people count];
+            return SIReceipt.sharedReceipt.people.count;
     }
 }
 

@@ -11,9 +11,10 @@
 @class SIPerson;
 @class SIReceiptItem;
 
-@interface SIReceipt : MTLModel
+@interface SIReceipt : MTLModel <MTLJSONSerializing>
 
 + (SIReceipt *)sharedReceipt;
++ (void)setSharedReceipt:(SIReceipt *)receipt;
 
 #pragma mark People
 

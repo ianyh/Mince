@@ -7,6 +7,7 @@
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="SIReceiptPeopleViewController">
             <connections>
                 <outlet property="addPersonCell" destination="AB5-Vb-pHq" id="WSo-5e-g7s"/>
+                <outlet property="nameTextField" destination="UBf-1V-9i1" id="lj8-CP-cet"/>
                 <outlet property="tableView" destination="LBi-DZ-pxd" id="xVF-Lt-eUJ"/>
                 <outlet property="view" destination="1" id="ucK-0E-uCB"/>
             </connections>

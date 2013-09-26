@@ -10,7 +10,7 @@
 
 #import "SIReceiptItem.h"
 
-@interface SIPerson ()
+@interface SIPerson () <MTLJSONSerializing>
 @property (nonatomic, strong) NSArray *items;
 @end
 
@@ -22,6 +22,13 @@
         self.items = @[];
     }
     return self;
+}
+
++ (NSDictionary *)JSONKeyPathsByPropertyKey {
+    return @{
+             @"name": @"name",
+             @"items": @"items",
+             };
 }
 
 - (void)addItem:(SIReceiptItem *)item {

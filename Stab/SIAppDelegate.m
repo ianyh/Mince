@@ -10,23 +10,33 @@
 
 #import "SIReceiptViewController.h"
 
+#import "SIReceipt.h"
+
+static NSString *SIReceiptDefaultsKey = @"SIReceiptDefaultsKey";
+
 @interface SIAppDelegate ()
 @end
 
 @implementation SIAppDelegate
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
+//    NSDictionary *receiptJSON = [NSUserDefaults.standardUserDefaults objectForKey:SIReceiptDefaultsKey];
+//    if (receiptJSON) {
+//        SIReceipt *receipt = [[SIReceipt alloc] initWithDictionary:receiptJSON error:nil];
+//        [SIReceipt setSharedReceipt:receipt];
+//    }
+
     UINavigationController *navigationController = [[UINavigationController alloc] initWithRootViewController:[[SIReceiptViewController alloc] init]];
 
     self.window.rootViewController = navigationController;
-
     [self.window makeKeyAndVisible];
 
     return YES;
 }
 							
 - (void)applicationWillResignActive:(UIApplication *)application {
-    // TODO: write current receipt to user defaults.
+    NSDictionary *receiptJSON = [MTLJSONAdapter JSONDictionaryFromModel:[SIReceipt sharedReceipt]];
+    [NSUserDefaults.standardUserDefaults setObject:receiptJSON forKey:SIReceiptDefaultsKey];
 }
 
 @end
