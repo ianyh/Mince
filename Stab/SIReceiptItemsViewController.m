@@ -9,6 +9,7 @@
 #import "SIReceiptItemsViewController.h"
 
 #import "SIReceiptPersonCollectionViewCell.h"
+#import "SITaxRatePickerView.h"
 #import "SITipRatePickerView.h"
 
 #import "NSString+SIAdditions.h"
@@ -32,7 +33,7 @@ typedef NS_ENUM(NSInteger, SIReceiptItemSectionSummaryRow) {
 static NSInteger SIReceiptItemsSectionCount = SIReceiptItemsSectionSummary + 1;
 static NSInteger SIReceiptItemsSectionSummaryRowCount = SIReceiptItemSectionSummaryRowTotal + 1;
 
-@interface SIReceiptItemsViewController () <SITipRatePickerViewDelegate, UICollectionViewDataSource, UICollectionViewDelegate, UITableViewDataSource, UITableViewDelegate, UITextFieldDelegate>
+@interface SIReceiptItemsViewController () <SITaxRatePickerViewDelegate, SITipRatePickerViewDelegate, UICollectionViewDataSource, UICollectionViewDelegate, UITableViewDataSource, UITableViewDelegate, UITextFieldDelegate>
 @property (strong, nonatomic) NSNumberFormatter *currencyFormatter;
 
 @property (strong, nonatomic) IBOutlet UICollectionView *peopleCollectionView;
@@ -80,7 +81,14 @@ static NSInteger SIReceiptItemsSectionSummaryRowCount = SIReceiptItemSectionSumm
                        withRowAnimation:UITableViewRowAnimationAutomatic];
 }
 
-#pragma mark SITipRatePickerView
+#pragma mark SITaxRatePickerViewDelegate
+
+- (void)taxRatePicker:(SITaxRatePickerView *)picker didFinishWithTaxRate:(NSNumber *)number {
+    SIReceipt.sharedReceipt.taxRate = number;
+    [self.itemsTableView reloadData];
+}
+
+#pragma mark SITipRatePickerViewDelegate
 
 - (void)tipRatePicker:(SITipRatePickerView *)picker didFinishWithTipRate:(NSNumber *)number {
     SIReceipt.sharedReceipt.tipRate = number;
@@ -158,7 +166,7 @@ static NSInteger SIReceiptItemsSectionSummaryRowCount = SIReceiptItemSectionSumm
                 }
 
                 case SIReceiptItemSectionSummaryRowTax: {
-                    cell.textLabel.text = [NSString stringWithFormat:@"Tax (%.0f%%)", [SIReceipt.sharedReceipt.taxRate doubleValue] * 100];
+                    cell.textLabel.text = [NSString stringWithFormat:@"Tax (%.3f%%)", [SIReceipt.sharedReceipt.taxRate doubleValue] * 100];
                     cell.detailTextLabel.text = [NSString stringWithFormat:@"$%.2f", [[SIReceipt.sharedReceipt tax] doubleValue]];
                     return cell;
                 }
@@ -227,8 +235,12 @@ static NSInteger SIReceiptItemsSectionSummaryRowCount = SIReceiptItemSectionSumm
                 case SIReceiptItemSectionSummaryRowSubtotal:
                 case SIReceiptItemSectionSummaryRowTotal:
                     break;
-                case SIReceiptItemSectionSummaryRowTax:
+                case SIReceiptItemSectionSummaryRowTax: {
+                    SITaxRatePickerView *pickerView = [[SITaxRatePickerView alloc] init];
+                    pickerView.delegate = self;
+                    [pickerView display];
                     break;
+                }
                 case SIReceiptItemSectionSummaryRowTip: {
                     SITipRatePickerView *pickerView = [[SITipRatePickerView alloc] init];
                     pickerView.delegate = self;

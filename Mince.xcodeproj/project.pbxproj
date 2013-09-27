@@ -29,6 +29,8 @@
 		40DEE961177BE11D00DE3515 /* SIReceiptViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 40DEE960177BE11D00DE3515 /* SIReceiptViewController.xib */; };
 		40FC6A9617F4F71500856CE7 /* SITipRatePickerView.m in Sources */ = {isa = PBXBuildFile; fileRef = 40FC6A9517F4F71500856CE7 /* SITipRatePickerView.m */; };
 		40FC6A9817F4FBFD00856CE7 /* SITipRatePickerView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 40FC6A9717F4FBFD00856CE7 /* SITipRatePickerView.xib */; };
+		40FC6A9A17F5007200856CE7 /* SITaxRatePickerView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 40FC6A9917F5007200856CE7 /* SITaxRatePickerView.xib */; };
+		40FC6A9D17F5008000856CE7 /* SITaxRatePickerView.m in Sources */ = {isa = PBXBuildFile; fileRef = 40FC6A9C17F5008000856CE7 /* SITaxRatePickerView.m */; };
 		CA981AF818274AD1B8C0BDB8 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 9BA99C302FC849A3831190EE /* libPods.a */; };
 /* End PBXBuildFile section */
 
@@ -129,6 +131,9 @@
 		40FC6A9417F4F71500856CE7 /* SITipRatePickerView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SITipRatePickerView.h; sourceTree = "<group>"; };
 		40FC6A9517F4F71500856CE7 /* SITipRatePickerView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SITipRatePickerView.m; sourceTree = "<group>"; };
 		40FC6A9717F4FBFD00856CE7 /* SITipRatePickerView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SITipRatePickerView.xib; sourceTree = "<group>"; };
+		40FC6A9917F5007200856CE7 /* SITaxRatePickerView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SITaxRatePickerView.xib; sourceTree = "<group>"; };
+		40FC6A9B17F5008000856CE7 /* SITaxRatePickerView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SITaxRatePickerView.h; sourceTree = "<group>"; };
+		40FC6A9C17F5008000856CE7 /* SITaxRatePickerView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SITaxRatePickerView.m; sourceTree = "<group>"; };
 		810B94251A1A43C4B1316CEA /* Pods.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.xcconfig; path = Pods/Pods.xcconfig; sourceTree = SOURCE_ROOT; };
 		9BA99C302FC849A3831190EE /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -270,6 +275,9 @@
 				40FC6A9417F4F71500856CE7 /* SITipRatePickerView.h */,
 				40FC6A9517F4F71500856CE7 /* SITipRatePickerView.m */,
 				40FC6A9717F4FBFD00856CE7 /* SITipRatePickerView.xib */,
+				40FC6A9B17F5008000856CE7 /* SITaxRatePickerView.h */,
+				40FC6A9C17F5008000856CE7 /* SITaxRatePickerView.m */,
+				40FC6A9917F5007200856CE7 /* SITaxRatePickerView.xib */,
 			);
 			name = View;
 			sourceTree = "<group>";
@@ -408,6 +416,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				40FC6A9A17F5007200856CE7 /* SITaxRatePickerView.xib in Resources */,
 				40C4656715B14A860047BB60 /* InfoPlist.strings in Resources */,
 				409D650F17F25E1900217727 /* SIReceiptItemsViewController.xib in Resources */,
 				409D651117F25E2C00217727 /* SIReceiptPeopleViewController.xib in Resources */,
@@ -459,6 +468,7 @@
 			files = (
 				40C4656915B14A860047BB60 /* main.m in Sources */,
 				40C4656D15B14A860047BB60 /* SIAppDelegate.m in Sources */,
+				40FC6A9D17F5008000856CE7 /* SITaxRatePickerView.m in Sources */,
 				405AC1F215B202DE001BB625 /* SIReceipt.m in Sources */,
 				405AC1F915B2072E001BB625 /* SIPerson.m in Sources */,
 				40D7D93515B24F8D004978C7 /* NSString+SIAdditions.m in Sources */,
