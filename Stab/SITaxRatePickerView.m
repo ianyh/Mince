@@ -71,7 +71,7 @@ typedef NS_ENUM(NSInteger, SITaxRatePickerComponent) {
         case SITaxRatePickerComponentMajor:
             return [NSString stringWithFormat:@"%d", row];
         case SITaxRatePickerComponentMinor:
-            return [NSString stringWithFormat:@"%3.f", row * 100 / 40.0 * 10];
+            return [NSString stringWithFormat:@"%03.f", row * 100 / 40.0 * 10];
         case SITaxRatePickerComponentConnector:
             return @".";
         case SITaxRatePickerComponentPercentSign:
