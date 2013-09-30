@@ -69,7 +69,7 @@ typedef NS_ENUM(NSInteger, SITaxRatePickerComponent) {
 - (NSString *)pickerView:(UIPickerView *)pickerView titleForRow:(NSInteger)row forComponent:(NSInteger)component {
     switch ((SITaxRatePickerComponent)component) {
         case SITaxRatePickerComponentMajor:
-            return [NSString stringWithFormat:@"%d", row];
+            return [NSString stringWithFormat:@"%ld", (long)row];
         case SITaxRatePickerComponentMinor:
             return [NSString stringWithFormat:@"%03.f", row * 100 / 40.0 * 10];
         case SITaxRatePickerComponentConnector:

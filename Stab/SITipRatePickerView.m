@@ -48,7 +48,7 @@
 #pragma mark UIPickerViewDelegate
 
 - (NSString *)pickerView:(UIPickerView *)pickerView titleForRow:(NSInteger)row forComponent:(NSInteger)component {
-    return [NSString stringWithFormat:@"%d%%", row];
+    return [NSString stringWithFormat:@"%ld%%", (long)row];
 }
 
 @end
