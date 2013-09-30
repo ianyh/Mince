@@ -145,7 +145,8 @@ static NSInteger SIReceiptItemsSectionSummaryRowCount = SIReceiptItemSectionSumm
         case SIReceiptItemsSectionReceipt: {
             UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"SIReceiptTableViewCell"];
             if (!cell) {
-                cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue2 reuseIdentifier:@"SIReceiptTableViewCell"];
+                cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:@"SIReceiptTableViewCell"];
+                cell.detailTextLabel.textColor = cell.textLabel.textColor;
             }
 
             [self configureCell:cell forIndexPath:indexPath];
@@ -156,6 +157,7 @@ static NSInteger SIReceiptItemsSectionSummaryRowCount = SIReceiptItemSectionSumm
             UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"SIReceiptOverviewTableViewCell"];
             if (!cell) {
                 cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:@"SIReceiptOverviewTableViewCell"];
+                cell.textLabel.textColor = cell.detailTextLabel.textColor;
             }
 
             switch ((SIReceiptItemSectionSummaryRow)indexPath.row) {
