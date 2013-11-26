@@ -129,7 +129,7 @@ static NSInteger SIReceiptItemsSectionSummaryRowCount = SIReceiptItemSectionSumm
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     switch ((SIReceiptItemsSection)section) {
         case SIReceiptItemsSectionAdd:
-            return (self.itemsTableView.editing ? 1 : 0);
+            return (self.editing ? 1 : 0);
         case SIReceiptItemsSectionReceipt:
             return SIReceipt.sharedReceipt.items.count;
         case SIReceiptItemsSectionSummary:
@@ -222,6 +222,7 @@ static NSInteger SIReceiptItemsSectionSummaryRowCount = SIReceiptItemSectionSumm
         case SIReceiptItemsSectionReceipt: {
             SIReceiptItem *receiptItem = [self receiptItemForIndexPath:indexPath];
             [SIReceipt.sharedReceipt removeItem:receiptItem];
+            [self.itemsTableView deleteRowsAtIndexPaths:@[ indexPath ] withRowAnimation:UITableViewRowAnimationAutomatic];
             break;
         }
     }}
