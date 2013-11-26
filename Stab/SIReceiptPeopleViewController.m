@@ -67,7 +67,7 @@ static NSInteger SIReceiptPeopleSectionCount = SIReceiptPeopleSectionPeople + 1;
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     switch ((SIReceiptPeopleSection)section) {
         case SIReceiptPeopleSectionAdd:
-            return (self.tableView.editing ? 1 : 0);
+            return (self.editing ? 1 : 0);
         case SIReceiptPeopleSectionPeople:
             return SIReceipt.sharedReceipt.people.count;
     }
@@ -119,6 +119,7 @@ static NSInteger SIReceiptPeopleSectionCount = SIReceiptPeopleSectionPeople + 1;
         case SIReceiptPeopleSectionPeople: {
             SIPerson *person = [self personForIndexPath:indexPath];
             [SIReceipt.sharedReceipt removePerson:person];
+            [tableView deleteRowsAtIndexPaths:@[ indexPath ] withRowAnimation:UITableViewRowAnimationAutomatic];
             break;
         }
     }
