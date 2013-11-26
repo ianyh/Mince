@@ -16,6 +16,8 @@
 @interface SIReceiptViewController () <SIReceiptPeopleViewControllerDelegate>
 @property (strong, nonatomic) SIReceiptItemsViewController *itemsViewController;
 @property (strong, nonatomic) SIReceiptPeopleViewController *peopleViewController;
+
+- (IBAction)clearAllItems:(id)sender;
 @end
 
 @implementation SIReceiptViewController
@@ -32,6 +34,10 @@
 
         self.navigationItem.title = @"Mince";
         self.navigationItem.rightBarButtonItem = [self editButtonItem];
+        self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"Clear Items"
+                                                                                 style:UIBarButtonItemStylePlain
+                                                                                target:self
+                                                                                action:@checkselector(self, clearAllItems:)];
     }
     return self;
 }
@@ -44,6 +50,12 @@
         self.selectedViewController = self.peopleViewController;
     }
     [self.selectedViewController setEditing:editing animated:animated];
+}
+
+#pragma mark IBAction
+
+- (IBAction)clearAllItems:(id)sender {
+    [self.itemsViewController clearAllItems:sender];
 }
 
 #pragma mark SIReceiptPeopleViewControllerDelegate

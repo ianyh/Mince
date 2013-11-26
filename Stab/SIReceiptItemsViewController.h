@@ -9,4 +9,5 @@
 #import <UIKit/UIKit.h>
 
 @interface SIReceiptItemsViewController : UIViewController
+- (IBAction)clearAllItems:(id)sender;
 @end

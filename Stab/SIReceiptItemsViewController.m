@@ -72,6 +72,15 @@ static NSInteger SIReceiptItemsSectionSummaryRowCount = SIReceiptItemSectionSumm
     [self.itemsTableView reloadData];
 }
 
+#pragma mark IBAction
+
+- (IBAction)clearAllItems:(id)sender {
+    for (SIReceiptItem *item in [SIReceipt.sharedReceipt.items copy]) {
+        [SIReceipt.sharedReceipt removeItem:item];
+    }
+    [self.itemsTableView reloadSections:[NSIndexSet indexSetWithIndex:SIReceiptItemsSectionReceipt] withRowAnimation:UITableViewRowAnimationAutomatic];
+}
+
 #pragma mark Editing
 
 - (void)setEditing:(BOOL)editing animated:(BOOL)animated {
