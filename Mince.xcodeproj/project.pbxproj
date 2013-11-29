@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		4051BAAE18494B5D00B5387B /* Media.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4051BAAD18494B5D00B5387B /* Media.xcassets */; };
 		405AC1F215B202DE001BB625 /* SIReceipt.m in Sources */ = {isa = PBXBuildFile; fileRef = 405AC1F115B202DE001BB625 /* SIReceipt.m */; };
 		405AC1F915B2072E001BB625 /* SIPerson.m in Sources */ = {isa = PBXBuildFile; fileRef = 405AC1F815B2072E001BB625 /* SIPerson.m */; };
 		4066B90B16D190BA0082E878 /* SIReceiptPersonCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4066B90A16D190BA0082E878 /* SIReceiptPersonCollectionViewCell.m */; };
@@ -35,6 +36,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		4051BAAD18494B5D00B5387B /* Media.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Media.xcassets; sourceTree = "<group>"; };
 		405AC1F015B202DE001BB625 /* SIReceipt.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SIReceipt.h; sourceTree = "<group>"; };
 		405AC1F115B202DE001BB625 /* SIReceipt.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SIReceipt.m; sourceTree = "<group>"; };
 		405AC1F715B2072E001BB625 /* SIPerson.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SIPerson.h; sourceTree = "<group>"; };
@@ -353,6 +355,7 @@
 				40C4656515B14A860047BB60 /* InfoPlist.strings */,
 				40C4656815B14A860047BB60 /* main.m */,
 				40C4656A15B14A860047BB60 /* Mince-Prefix.pch */,
+				4051BAAD18494B5D00B5387B /* Media.xcassets */,
 			);
 			name = "Supporting Files";
 			sourceTree = "<group>";
@@ -416,6 +419,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4051BAAE18494B5D00B5387B /* Media.xcassets in Resources */,
 				40FC6A9A17F5007200856CE7 /* SITaxRatePickerView.xib in Resources */,
 				40C4656715B14A860047BB60 /* InfoPlist.strings in Resources */,
 				409D650F17F25E1900217727 /* SIReceiptItemsViewController.xib in Resources */,
@@ -556,6 +560,8 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 810B94251A1A43C4B1316CEA /* Pods.xcconfig */;
 			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = Icon;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
@@ -576,6 +582,8 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 810B94251A1A43C4B1316CEA /* Pods.xcconfig */;
 			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = Icon;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
