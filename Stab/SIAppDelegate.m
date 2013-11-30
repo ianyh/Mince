@@ -34,6 +34,8 @@ static NSString *SIReceiptDefaultsKey = @"SIReceiptDefaultsKey";
     UINavigationController *navigationController = [[UINavigationController alloc] initWithRootViewController:[[SIReceiptViewController alloc] init]];
 
     self.window.rootViewController = navigationController;
+    self.window.tintColor = [UIColor orangeColor];
+
     [self.window makeKeyAndVisible];
 
     return YES;
