@@ -8,16 +8,17 @@
 
 #import "SIReceiptItemsViewController.h"
 
-#import "SIReceiptPersonCollectionViewCell.h"
-#import "SITaxRatePickerView.h"
-#import "SITipRatePickerView.h"
-
 #import "NSString+SIAdditions.h"
 #import "SIPerson.h"
 #import "SIReceipt.h"
 #import "SIReceiptItem.h"
 
+#import "SIReceiptPersonCollectionViewCell.h"
+#import "SITaxRatePickerView.h"
+#import "SITipRatePickerView.h"
+
 typedef NS_ENUM(NSInteger, SIReceiptItemsSection) {
+    SIReceiptItemsSectionPhoto,
     SIReceiptItemsSectionAdd,
     SIReceiptItemsSectionReceipt,
     SIReceiptItemsSectionSummary,
@@ -33,7 +34,7 @@ typedef NS_ENUM(NSInteger, SIReceiptItemSectionSummaryRow) {
 static NSInteger SIReceiptItemsSectionCount = SIReceiptItemsSectionSummary + 1;
 static NSInteger SIReceiptItemsSectionSummaryRowCount = SIReceiptItemSectionSummaryRowTotal + 1;
 
-@interface SIReceiptItemsViewController () <SITaxRatePickerViewDelegate, SITipRatePickerViewDelegate, UICollectionViewDataSource, UICollectionViewDelegate, UITableViewDataSource, UITableViewDelegate, UITextFieldDelegate>
+@interface SIReceiptItemsViewController () <SITaxRatePickerViewDelegate, SITipRatePickerViewDelegate, UICollectionViewDataSource, UICollectionViewDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate, UITableViewDataSource, UITableViewDelegate, UITextFieldDelegate>
 @property (strong, nonatomic) NSNumberFormatter *currencyFormatter;
 
 @property (strong, nonatomic) IBOutlet UICollectionView *peopleCollectionView;
@@ -107,7 +108,7 @@ static NSInteger SIReceiptItemsSectionSummaryRowCount = SIReceiptItemSectionSumm
 #pragma mark UICollectionViewDataSource
 
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section {
-    return [SIReceipt.sharedReceipt.people count];
+    return SIReceipt.sharedReceipt.people.count;
 }
 
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
@@ -129,6 +130,20 @@ static NSInteger SIReceiptItemsSectionSummaryRowCount = SIReceiptItemSectionSumm
     [self updateTableCellCheckmarks];
 }
 
+#pragma mark UIImagePickerControllerDelegate
+
+- (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info {
+    UIImage *image = info[UIImagePickerControllerOriginalImage];
+    [SIReceipt.sharedReceipt addEntriesFromReceiptPhoto:image withCompletion:^{
+        [self.itemsTableView reloadData];
+    }];
+    [self dismissViewControllerAnimated:YES completion:nil];
+}
+
+- (void)imagePickerControllerDidCancel:(UIImagePickerController *)picker {
+    [self dismissViewControllerAnimated:YES completion:nil];
+}
+
 #pragma mark UITableViewDataSource
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
@@ -137,6 +152,8 @@ static NSInteger SIReceiptItemsSectionSummaryRowCount = SIReceiptItemSectionSumm
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     switch ((SIReceiptItemsSection)section) {
+        case SIReceiptItemsSectionPhoto:
+            return 1;
         case SIReceiptItemsSectionAdd:
             return (self.editing ? 1 : 0);
         case SIReceiptItemsSectionReceipt:
@@ -148,6 +165,17 @@ static NSInteger SIReceiptItemsSectionSummaryRowCount = SIReceiptItemSectionSumm
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     switch ((SIReceiptItemsSection)indexPath.section) {
+        case SIReceiptItemsSectionPhoto: {
+            UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"SIReceiptTableViewCell"];
+            if (!cell) {
+                cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"SIReceiptTableViewCell"];
+            }
+
+            cell.textLabel.text = @"Add from photo";
+
+            return cell;
+        }
+
         case SIReceiptItemsSectionAdd:
             return self.addReceiptEntryCell;
 
@@ -215,6 +243,7 @@ static NSInteger SIReceiptItemsSectionSummaryRowCount = SIReceiptItemSectionSumm
 
 - (UITableViewCellEditingStyle)tableView:(UITableView *)tableView editingStyleForRowAtIndexPath:(NSIndexPath *)indexPath {
     switch ((SIReceiptItemsSection)indexPath.section) {
+        case SIReceiptItemsSectionPhoto:
         case SIReceiptItemsSectionAdd:
         case SIReceiptItemsSectionSummary:
             return UITableViewCellEditingStyleNone;
@@ -225,6 +254,7 @@ static NSInteger SIReceiptItemsSectionSummaryRowCount = SIReceiptItemSectionSumm
 
 - (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
     switch ((SIReceiptItemsSection)indexPath.section) {
+        case SIReceiptItemsSectionPhoto:
         case SIReceiptItemsSectionAdd:
         case SIReceiptItemsSectionSummary:
             break;
@@ -240,6 +270,15 @@ static NSInteger SIReceiptItemsSectionSummaryRowCount = SIReceiptItemSectionSumm
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
 
     switch ((SIReceiptItemsSection)indexPath.section) {
+        case SIReceiptItemsSectionPhoto: {
+            UIImagePickerController *imagePickerController = [[UIImagePickerController alloc] init];
+            imagePickerController.sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
+            imagePickerController.delegate = self;
+
+            [self presentViewController:imagePickerController animated:YES completion:nil];
+            break;
+        }
+
         case SIReceiptItemsSectionAdd:
             return;
         case SIReceiptItemsSectionSummary: {

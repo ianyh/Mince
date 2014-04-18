@@ -30,6 +30,7 @@
 - (void)addItem:(SIReceiptItem *)item;
 - (void)removeItem:(SIReceiptItem *)item;
 
+- (void)addEntriesFromReceiptPhoto:(UIImage *)photo withCompletion:(dispatch_block_t)completion;
 - (void)addEntryWithName:(NSString *)name cost:(NSNumber *)cost;
 - (void)removeAllEntries;
 
