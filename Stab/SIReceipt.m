@@ -11,6 +11,7 @@
 #import "SIPerson.h"
 #import "SIReceiptItem.h"
 #import <TesseractOCR/TesseractOCR.h>
+#import "UIImage+Processing.h"
 
 static SIReceipt *sharedReceipt;
 
@@ -100,7 +101,7 @@ static SIReceipt *sharedReceipt;
 
 - (void)addEntriesFromReceiptPhoto:(UIImage *)photo withCompletion:(dispatch_block_t)completion {
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0), ^{
-        UIImage *scaledPhoto = gs_convert_image(photo);
+        UIImage *scaledPhoto = [photo processedForTesseract];
 //        CGSize newSize = (CGSize){ 
 //            .width = photo.size.width * 2.5,
 //            .height = photo.size.height * 2.5,
@@ -134,47 +135,47 @@ static SIReceipt *sharedReceipt;
     });
 }
 
-UIImage *gs_convert_image (UIImage *src_img) {
-    CGColorSpaceRef d_colorSpace = CGColorSpaceCreateDeviceRGB();
-    /*
-     * Note we specify 4 bytes per pixel here even though we ignore the
-     * alpha value; you can't specify 3 bytes per-pixel.
-     */
-    size_t d_bytesPerRow = src_img.size.width * 4;
-    unsigned char * imgData = (unsigned char*)malloc(src_img.size.height*d_bytesPerRow);
-    CGContextRef context =  CGBitmapContextCreate(imgData,
-                                                  src_img.size.width,
-                                                  src_img.size.height,
-                                                  8,
-                                                  d_bytesPerRow,
-                                                  d_colorSpace,
-                                                  kCGImageAlphaNoneSkipFirst);
-
-    UIGraphicsPushContext(context);
-    // These next two lines 'flip' the drawing so it doesn't appear upside-down.
-    CGContextTranslateCTM(context, 0.0, src_img.size.height);
-    CGContextScaleCTM(context, 1.0, -1.0);
-    // Use UIImage's drawInRect: instead of the CGContextDrawImage function, otherwise you'll have issues when the source image is in portrait orientation.
-    [src_img drawInRect:CGRectMake(0.0, 0.0, src_img.size.width, src_img.size.height)];
-    UIGraphicsPopContext();
-
-    /*
-     * At this point, we have the raw ARGB pixel data in the imgData buffer, so
-     * we can perform whatever image processing here.
-     */
-
-
-    // After we've processed the raw data, turn it back into a UIImage instance.
-    CGImageRef new_img = CGBitmapContextCreateImage(context);
-    UIImage *convertedImage = [[UIImage alloc] initWithCGImage:new_img];
-
-    CGImageRelease(new_img);
-    CGContextRelease(context);
-    CGColorSpaceRelease(d_colorSpace);
-    free(imgData);
-
-    return convertedImage;
-}
+//UIImage *gs_convert_image (UIImage *src_img) {
+//    CGColorSpaceRef d_colorSpace = CGColorSpaceCreateDeviceRGB();
+//    /*
+//     * Note we specify 4 bytes per pixel here even though we ignore the
+//     * alpha value; you can't specify 3 bytes per-pixel.
+//     */
+//    size_t d_bytesPerRow = src_img.size.width * 4;
+//    unsigned char * imgData = (unsigned char*)malloc(src_img.size.height*d_bytesPerRow);
+//    CGContextRef context =  CGBitmapContextCreate(imgData,
+//                                                  src_img.size.width,
+//                                                  src_img.size.height,
+//                                                  8,
+//                                                  d_bytesPerRow,
+//                                                  d_colorSpace,
+//                                                  kCGImageAlphaNoneSkipFirst);
+//
+//    UIGraphicsPushContext(context);
+//    // These next two lines 'flip' the drawing so it doesn't appear upside-down.
+//    CGContextTranslateCTM(context, 0.0, src_img.size.height);
+//    CGContextScaleCTM(context, 1.0, -1.0);
+//    // Use UIImage's drawInRect: instead of the CGContextDrawImage function, otherwise you'll have issues when the source image is in portrait orientation.
+//    [src_img drawInRect:CGRectMake(0.0, 0.0, src_img.size.width, src_img.size.height)];
+//    UIGraphicsPopContext();
+//
+//    /*
+//     * At this point, we have the raw ARGB pixel data in the imgData buffer, so
+//     * we can perform whatever image processing here.
+//     */
+//
+//
+//    // After we've processed the raw data, turn it back into a UIImage instance.
+//    CGImageRef new_img = CGBitmapContextCreateImage(context);
+//    UIImage *convertedImage = [[UIImage alloc] initWithCGImage:new_img];
+//
+//    CGImageRelease(new_img);
+//    CGContextRelease(context);
+//    CGColorSpaceRelease(d_colorSpace);
+//    free(imgData);
+//
+//    return convertedImage;
+//}
 
 - (void)addEntryWithName:(NSString *)name cost:(NSNumber *)cost {
     SIReceiptItem *item = [[SIReceiptItem alloc] init];

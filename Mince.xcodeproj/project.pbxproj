@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		4008E71A190B385C0049E2F6 /* UIImage+Processing.m in Sources */ = {isa = PBXBuildFile; fileRef = 4008E719190B385C0049E2F6 /* UIImage+Processing.m */; };
 		4051BAAE18494B5D00B5387B /* Media.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4051BAAD18494B5D00B5387B /* Media.xcassets */; };
 		405AC1F215B202DE001BB625 /* SIReceipt.m in Sources */ = {isa = PBXBuildFile; fileRef = 405AC1F115B202DE001BB625 /* SIReceipt.m */; };
 		405AC1F915B2072E001BB625 /* SIPerson.m in Sources */ = {isa = PBXBuildFile; fileRef = 405AC1F815B2072E001BB625 /* SIPerson.m */; };
@@ -37,6 +38,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		4008E718190B385C0049E2F6 /* UIImage+Processing.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+Processing.h"; sourceTree = "<group>"; };
+		4008E719190B385C0049E2F6 /* UIImage+Processing.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+Processing.m"; sourceTree = "<group>"; };
 		4051BAAD18494B5D00B5387B /* Media.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Media.xcassets; sourceTree = "<group>"; };
 		405AC1F015B202DE001BB625 /* SIReceipt.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SIReceipt.h; sourceTree = "<group>"; };
 		405AC1F115B202DE001BB625 /* SIReceipt.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SIReceipt.m; sourceTree = "<group>"; };
@@ -192,6 +195,8 @@
 				40D7D93415B24F8D004978C7 /* NSString+SIAdditions.m */,
 				40C4656315B14A860047BB60 /* Supporting Files */,
 				409D650C17F25ADE00217727 /* Main.xib */,
+				4008E718190B385C0049E2F6 /* UIImage+Processing.h */,
+				4008E719190B385C0049E2F6 /* UIImage+Processing.m */,
 			);
 			name = Mince;
 			path = Stab;
@@ -329,6 +334,7 @@
 				40A6D51016D025520019AC60 /* SIReceiptItem.m in Sources */,
 				40A6D51616D02BD90019AC60 /* SIReceiptItemsViewController.m in Sources */,
 				4066B90B16D190BA0082E878 /* SIReceiptPersonCollectionViewCell.m in Sources */,
+				4008E71A190B385C0049E2F6 /* UIImage+Processing.m in Sources */,
 				40A905F416F692460039677F /* SIReceiptViewController.m in Sources */,
 				40FC6A9617F4F71500856CE7 /* SITipRatePickerView.m in Sources */,
 				409A716A16F7EF8B008D1DA0 /* SIReceiptPeopleViewController.m in Sources */,
