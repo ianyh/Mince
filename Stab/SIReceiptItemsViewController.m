@@ -264,7 +264,8 @@ static NSInteger SIReceiptItemsSectionSummaryRowCount = SIReceiptItemSectionSumm
             [self.itemsTableView deleteRowsAtIndexPaths:@[ indexPath ] withRowAnimation:UITableViewRowAnimationAutomatic];
             break;
         }
-    }}
+    }
+}
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
@@ -272,7 +273,10 @@ static NSInteger SIReceiptItemsSectionSummaryRowCount = SIReceiptItemSectionSumm
     switch ((SIReceiptItemsSection)indexPath.section) {
         case SIReceiptItemsSectionPhoto: {
             UIImagePickerController *imagePickerController = [[UIImagePickerController alloc] init];
-            imagePickerController.sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
+
+            imagePickerController.sourceType = UIImagePickerControllerSourceTypeCamera;
+            imagePickerController.cameraDevice = UIImagePickerControllerCameraDeviceRear;
+            imagePickerController.allowsEditing = NO;
             imagePickerController.delegate = self;
 
             [self presentViewController:imagePickerController animated:YES completion:nil];
