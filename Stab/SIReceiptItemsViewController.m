@@ -272,14 +272,33 @@ static NSInteger SIReceiptItemsSectionSummaryRowCount = SIReceiptItemSectionSumm
 
     switch ((SIReceiptItemsSection)indexPath.section) {
         case SIReceiptItemsSectionPhoto: {
-            UIImagePickerController *imagePickerController = [[UIImagePickerController alloc] init];
+            UIActionSheet *actionSheet = [UIActionSheet bk_actionSheetWithTitle:@""];
 
-            imagePickerController.sourceType = UIImagePickerControllerSourceTypeCamera;
-            imagePickerController.cameraDevice = UIImagePickerControllerCameraDeviceRear;
-            imagePickerController.allowsEditing = NO;
-            imagePickerController.delegate = self;
+            [actionSheet bk_addButtonWithTitle:@"Take Photo" handler:^{
+                UIImagePickerController *imagePickerController = [[UIImagePickerController alloc] init];
 
-            [self presentViewController:imagePickerController animated:YES completion:nil];
+                imagePickerController.sourceType = UIImagePickerControllerSourceTypeCamera;
+                imagePickerController.cameraDevice = UIImagePickerControllerCameraDeviceRear;
+                imagePickerController.allowsEditing = NO;
+                imagePickerController.delegate = self;
+
+                [self presentViewController:imagePickerController animated:YES completion:nil];
+            }];
+
+            [actionSheet bk_addButtonWithTitle:@"Choose Photo" handler:^{
+                UIImagePickerController *imagePickerController = [[UIImagePickerController alloc] init];
+
+                imagePickerController.sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
+                imagePickerController.allowsEditing = NO;
+                imagePickerController.delegate = self;
+
+                [self presentViewController:imagePickerController animated:YES completion:nil];
+            }];
+
+            [actionSheet bk_setCancelButtonWithTitle:@"Cancel" handler:^{}];
+
+            [actionSheet showInView:self.view];
+
             break;
         }
 

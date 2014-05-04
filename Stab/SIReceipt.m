@@ -102,14 +102,6 @@ static SIReceipt *sharedReceipt;
 - (void)addEntriesFromReceiptPhoto:(UIImage *)photo withCompletion:(dispatch_block_t)completion {
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0), ^{
         UIImage *scaledPhoto = [photo processedForTesseract];
-//        CGSize newSize = (CGSize){ 
-//            .width = photo.size.width * 2.5,
-//            .height = photo.size.height * 2.5,
-//        };
-//        UIGraphicsBeginImageContext(newSize);
-//        [photo drawInRect:CGRectMake(0, 0, newSize.width, newSize.height)];
-//        scaledPhoto = UIGraphicsGetImageFromCurrentImageContext();
-//        UIGraphicsEndImageContext();
 
         Tesseract *tesseract = [[Tesseract alloc] initWithLanguage:@"eng"];
 
@@ -120,7 +112,7 @@ static SIReceipt *sharedReceipt;
         NSString *recognizedText = tesseract.recognizedText;
 
         dispatch_async(dispatch_get_main_queue(), ^{
-            NSRegularExpression *regularExpression = [[NSRegularExpression alloc] initWithPattern:@"^(.+)(\\d+\\.\\d+).*$" options:0 error:nil];
+            NSRegularExpression *regularExpression = [[NSRegularExpression alloc] initWithPattern:@"^(.+?)(\\d+\\.\\d+).*$" options:0 error:nil];
             for (NSString *line in [recognizedText componentsSeparatedByString:@"\n"]) {
                 NSLog(@"%@", line);
                 NSTextCheckingResult *result = [regularExpression firstMatchInString:line options:0 range:NSMakeRange(0, line.length)];
