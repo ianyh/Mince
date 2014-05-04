@@ -30,6 +30,8 @@
 		40C7970F18FB20C20065F4A3 /* tessdata in Resources */ = {isa = PBXBuildFile; fileRef = 407E99ED15B1E9D300B930EE /* tessdata */; };
 		40D7D93515B24F8D004978C7 /* NSString+SIAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = 40D7D93415B24F8D004978C7 /* NSString+SIAdditions.m */; };
 		40DEE961177BE11D00DE3515 /* SIReceiptViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 40DEE960177BE11D00DE3515 /* SIReceiptViewController.xib */; };
+		40F1FFF21916AA67004A675E /* TesseractOCR.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 40F1FFF11916AA67004A675E /* TesseractOCR.framework */; };
+		40F1FFF41916AAA9004A675E /* libstdc++.6.0.9.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 40F1FFF31916AAA9004A675E /* libstdc++.6.0.9.dylib */; };
 		40FC6A9617F4F71500856CE7 /* SITipRatePickerView.m in Sources */ = {isa = PBXBuildFile; fileRef = 40FC6A9517F4F71500856CE7 /* SITipRatePickerView.m */; };
 		40FC6A9817F4FBFD00856CE7 /* SITipRatePickerView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 40FC6A9717F4FBFD00856CE7 /* SITipRatePickerView.xib */; };
 		40FC6A9A17F5007200856CE7 /* SITaxRatePickerView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 40FC6A9917F5007200856CE7 /* SITaxRatePickerView.xib */; };
@@ -74,6 +76,8 @@
 		40D7D93315B24F8D004978C7 /* NSString+SIAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+SIAdditions.h"; sourceTree = "<group>"; };
 		40D7D93415B24F8D004978C7 /* NSString+SIAdditions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+SIAdditions.m"; sourceTree = "<group>"; };
 		40DEE960177BE11D00DE3515 /* SIReceiptViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SIReceiptViewController.xib; sourceTree = "<group>"; };
+		40F1FFF11916AA67004A675E /* TesseractOCR.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = TesseractOCR.framework; sourceTree = "<group>"; };
+		40F1FFF31916AAA9004A675E /* libstdc++.6.0.9.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = "libstdc++.6.0.9.dylib"; path = "usr/lib/libstdc++.6.0.9.dylib"; sourceTree = SDKROOT; };
 		40FC6A9417F4F71500856CE7 /* SITipRatePickerView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SITipRatePickerView.h; sourceTree = "<group>"; };
 		40FC6A9517F4F71500856CE7 /* SITipRatePickerView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SITipRatePickerView.m; sourceTree = "<group>"; };
 		40FC6A9717F4FBFD00856CE7 /* SITipRatePickerView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SITipRatePickerView.xib; sourceTree = "<group>"; };
@@ -89,6 +93,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				40F1FFF41916AAA9004A675E /* libstdc++.6.0.9.dylib in Frameworks */,
+				40F1FFF21916AA67004A675E /* TesseractOCR.framework in Frameworks */,
 				40C4655D15B14A860047BB60 /* UIKit.framework in Frameworks */,
 				40C4655F15B14A860047BB60 /* Foundation.framework in Frameworks */,
 				40C4656115B14A860047BB60 /* CoreGraphics.framework in Frameworks */,
@@ -175,6 +181,8 @@
 		40C4655B15B14A860047BB60 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				40F1FFF31916AAA9004A675E /* libstdc++.6.0.9.dylib */,
+				40F1FFF11916AA67004A675E /* TesseractOCR.framework */,
 				40C4655C15B14A860047BB60 /* UIKit.framework */,
 				40C4655E15B14A860047BB60 /* Foundation.framework */,
 				40C4656015B14A860047BB60 /* CoreGraphics.framework */,
@@ -359,7 +367,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
-				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
+				ARCHS = "$(ARCHS_STANDARD)";
 				CLANG_ENABLE_OBJC_ARC = YES;
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
 				CLANG_WARN_ENUM_CONVERSION = YES;
@@ -380,7 +388,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
-				ONLY_ACTIVE_ARCH = NO;
+				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
 				VALID_ARCHS = "armv7s armv7 arm64";
 			};
@@ -390,7 +398,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
-				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
+				ARCHS = "$(ARCHS_STANDARD)";
 				CLANG_ENABLE_OBJC_ARC = YES;
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
 				CLANG_WARN_ENUM_CONVERSION = YES;
@@ -420,13 +428,22 @@
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)",
+				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Stab/Mince-Prefix.pch";
 				INFOPLIST_FILE = "Stab/Mince-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
-				LIBRARY_SEARCH_PATHS = (
-					"$(inherited)",
-					"\"$(SRCROOT)/Tesseract/lib\"",
+				LIBRARY_SEARCH_PATHS = "$(inherited)";
+				OTHER_LDFLAGS = (
+					"-ObjC",
+					"-framework",
+					Foundation,
+					"-framework",
+					MessageUI,
+					"-lstdc++",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
@@ -442,13 +459,22 @@
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)",
+				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Stab/Mince-Prefix.pch";
 				INFOPLIST_FILE = "Stab/Mince-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
-				LIBRARY_SEARCH_PATHS = (
-					"$(inherited)",
-					"\"$(SRCROOT)/Tesseract/lib\"",
+				LIBRARY_SEARCH_PATHS = "$(inherited)";
+				OTHER_LDFLAGS = (
+					"-ObjC",
+					"-framework",
+					Foundation,
+					"-framework",
+					MessageUI,
+					"-lstdc++",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";

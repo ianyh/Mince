@@ -52,22 +52,15 @@ PODS:
   - Mantle (1.4.1):
     - Mantle/extobjc
   - Mantle/extobjc (1.4.1)
-  - TesseractOCRiOS (2.22)
 
 DEPENDENCIES:
   - BlocksKit
   - libextobjc
   - Mantle
-  - TesseractOCRiOS (from `https://github.com/gali8/Tesseract-OCR-iOS.git`)
-
-EXTERNAL SOURCES:
-  TesseractOCRiOS:
-    :git: https://github.com/gali8/Tesseract-OCR-iOS.git
 
 SPEC CHECKSUMS:
   BlocksKit: 125e4e69a62e3b85bacc5175737dae000b00b9fb
   libextobjc: 2c9fc8226f0f38e562587f65172f93f0c9b4a47a
   Mantle: 0714cdb2b8559d9e6c2410d6a8529e3307bff189
-  TesseractOCRiOS: e7915e8f4d34b81fc099980d654cb1cc3a05e51b
 
 COCOAPODS: 0.32.1
