@@ -13,4 +13,6 @@
     #import <Foundation/Foundation.h>
     #import <Mantle/Mantle.h>
     #import <libextobjc/EXTSelectorChecking.h>
+    #import <BlocksKit/BlocksKit.h>
+    #import <BlocksKit/BlocksKit+UIKit.h>
 #endif

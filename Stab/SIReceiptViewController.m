@@ -13,7 +13,7 @@
 
 #import "SIReceipt.h"
 
-@interface SIReceiptViewController () <SIReceiptPeopleViewControllerDelegate>
+@interface SIReceiptViewController () <SIReceiptPeopleViewControllerDelegate, UINavigationControllerDelegate, UIImagePickerControllerDelegate>
 @property (strong, nonatomic) SIReceiptItemsViewController *itemsViewController;
 @property (strong, nonatomic) SIReceiptPeopleViewController *peopleViewController;
 

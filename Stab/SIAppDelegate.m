@@ -27,7 +27,6 @@ static NSString *SIReceiptDefaultsKey = @"SIReceiptDefaultsKey";
     NSData *receiptData = [NSUserDefaults.standardUserDefaults objectForKey:SIReceiptDefaultsKey];
     if (receiptData) {
         SIReceipt *receipt = [NSKeyedUnarchiver unarchiveObjectWithData:receiptData];
-        [SIReceipt sharedReceipt];
         [SIReceipt setSharedReceipt:receipt];
     }
 

@@ -10,6 +10,8 @@
 
 #import "SIPerson.h"
 #import "SIReceiptItem.h"
+#import <TesseractOCR/TesseractOCR.h>
+#import "UIImage+Processing.h"
 
 static SIReceipt *sharedReceipt;
 
@@ -23,7 +25,9 @@ static SIReceipt *sharedReceipt;
 + (instancetype)sharedReceipt {
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
-        sharedReceipt = [[SIReceipt alloc] init];
+        if (!sharedReceipt) {
+            sharedReceipt = [[SIReceipt alloc] init];
+        }
     });
     return sharedReceipt;
 }
@@ -93,6 +97,34 @@ static SIReceipt *sharedReceipt;
     self.items = [self.items filteredArrayUsingPredicate:[NSPredicate predicateWithBlock:^BOOL(id evaluatedObject, NSDictionary *bindings) {
         return ![evaluatedObject isEqual:item];
     }]];
+}
+
+- (void)addEntriesFromReceiptPhoto:(UIImage *)photo withCompletion:(dispatch_block_t)completion {
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0), ^{
+        UIImage *scaledPhoto = [photo processedForTesseract];
+
+        Tesseract *tesseract = [[Tesseract alloc] initWithLanguage:@"eng"];
+
+        [tesseract setVariableValue:@"$.abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789" forKey:@"tessedit_char_whitelist"];
+        [tesseract setImage:scaledPhoto];
+        [tesseract recognize];
+
+        NSString *recognizedText = tesseract.recognizedText;
+
+        dispatch_async(dispatch_get_main_queue(), ^{
+            NSRegularExpression *regularExpression = [[NSRegularExpression alloc] initWithPattern:@"^(.+?)(\\d+\\.\\d+).*$" options:0 error:nil];
+            for (NSString *line in [recognizedText componentsSeparatedByString:@"\n"]) {
+                NSLog(@"%@", line);
+                NSTextCheckingResult *result = [regularExpression firstMatchInString:line options:0 range:NSMakeRange(0, line.length)];
+                if (result) {
+                    [self addEntryWithName:[line substringWithRange:[result rangeAtIndex:1]]
+                                      cost:@([[line substringWithRange:[result rangeAtIndex:2]] floatValue])];
+                }
+            }
+
+            dispatch_async(dispatch_get_main_queue(), completion);
+        });
+    });
 }
 
 - (void)addEntryWithName:(NSString *)name cost:(NSNumber *)cost {

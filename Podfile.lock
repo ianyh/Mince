@@ -1,100 +1,73 @@
 PODS:
-  - libextobjc (0.3):
+  - BlocksKit (2.2.2):
+    - BlocksKit/All
+  - BlocksKit/All (2.2.2):
+    - BlocksKit/Core
+    - BlocksKit/DynamicDelegate
+    - BlocksKit/MessageUI
+    - BlocksKit/UIKit
+  - BlocksKit/Core (2.2.2)
+  - BlocksKit/DynamicDelegate (2.2.2)
+  - BlocksKit/MessageUI (2.2.2):
+    - BlocksKit/Core
+    - BlocksKit/DynamicDelegate
+  - BlocksKit/UIKit (2.2.2):
+    - BlocksKit/Core
+    - BlocksKit/DynamicDelegate
+  - libextobjc (0.4):
     - libextobjc/EXTADT
-    - libextobjc/EXTAnnotation
-    - libextobjc/EXTAspect
-    - libextobjc/EXTBlockMethod
-    - libextobjc/EXTBlockTarget
     - libextobjc/EXTConcreteProtocol
-    - libextobjc/EXTDispatchObject
-    - libextobjc/EXTFinalMethod
     - libextobjc/EXTKeyPathCoding
-    - libextobjc/EXTMaybe
-    - libextobjc/EXTMixin
-    - libextobjc/EXTMultimethod
-    - libextobjc/EXTMultiObject
     - libextobjc/EXTNil
-    - libextobjc/EXTPassthrough
-    - libextobjc/EXTPrivateMethod
-    - libextobjc/EXTProtocolCategory
     - libextobjc/EXTSafeCategory
     - libextobjc/EXTScope
     - libextobjc/EXTSelectorChecking
-    - libextobjc/EXTSwizzle
     - libextobjc/EXTSynthesize
-    - libextobjc/EXTTuple
-    - libextobjc/EXTVarargs
     - libextobjc/NSInvocation+EXT
     - libextobjc/NSMethodSignature+EXT
     - libextobjc/RuntimeExtensions
     - libextobjc/UmbrellaHeader
-  - libextobjc/EXTADT (0.3):
+  - libextobjc/EXTADT (0.4):
     - libextobjc/RuntimeExtensions
-  - libextobjc/EXTAnnotation (0.3):
+  - libextobjc/EXTConcreteProtocol (0.4):
     - libextobjc/RuntimeExtensions
-  - libextobjc/EXTAspect (0.3):
+  - libextobjc/EXTKeyPathCoding (0.4):
     - libextobjc/RuntimeExtensions
-    - libffi
-  - libextobjc/EXTBlockMethod (0.3):
+  - libextobjc/EXTNil (0.4):
     - libextobjc/RuntimeExtensions
-  - libextobjc/EXTBlockTarget (0.3):
+  - libextobjc/EXTSafeCategory (0.4):
     - libextobjc/RuntimeExtensions
-  - libextobjc/EXTConcreteProtocol (0.3):
+  - libextobjc/EXTScope (0.4):
     - libextobjc/RuntimeExtensions
-  - libextobjc/EXTDispatchObject (0.3):
+  - libextobjc/EXTSelectorChecking (0.4):
     - libextobjc/RuntimeExtensions
-  - libextobjc/EXTFinalMethod (0.3):
+  - libextobjc/EXTSynthesize (0.4):
     - libextobjc/RuntimeExtensions
-  - libextobjc/EXTKeyPathCoding (0.3):
+  - libextobjc/NSInvocation+EXT (0.4):
     - libextobjc/RuntimeExtensions
-  - libextobjc/EXTMaybe (0.3):
+  - libextobjc/NSMethodSignature+EXT (0.4):
     - libextobjc/RuntimeExtensions
-  - libextobjc/EXTMixin (0.3):
-    - libextobjc/RuntimeExtensions
-  - libextobjc/EXTMultimethod (0.3):
-    - libextobjc/RuntimeExtensions
-  - libextobjc/EXTMultiObject (0.3):
-    - libextobjc/RuntimeExtensions
-  - libextobjc/EXTNil (0.3):
-    - libextobjc/RuntimeExtensions
-  - libextobjc/EXTPassthrough (0.3):
-    - libextobjc/RuntimeExtensions
-  - libextobjc/EXTPrivateMethod (0.3):
-    - libextobjc/RuntimeExtensions
-  - libextobjc/EXTProtocolCategory (0.3):
-    - libextobjc/RuntimeExtensions
-  - libextobjc/EXTSafeCategory (0.3):
-    - libextobjc/RuntimeExtensions
-  - libextobjc/EXTScope (0.3):
-    - libextobjc/RuntimeExtensions
-  - libextobjc/EXTSelectorChecking (0.3):
-    - libextobjc/RuntimeExtensions
-  - libextobjc/EXTSwizzle (0.3):
-    - libextobjc/RuntimeExtensions
-  - libextobjc/EXTSynthesize (0.3):
-    - libextobjc/RuntimeExtensions
-  - libextobjc/EXTTuple (0.3):
-    - libextobjc/RuntimeExtensions
-  - libextobjc/EXTVarargs (0.3):
-    - libextobjc/RuntimeExtensions
-  - libextobjc/NSInvocation+EXT (0.3):
-    - libextobjc/RuntimeExtensions
-  - libextobjc/NSMethodSignature+EXT (0.3):
-    - libextobjc/RuntimeExtensions
-  - libextobjc/RuntimeExtensions (0.3)
-  - libextobjc/UmbrellaHeader (0.3)
-  - libffi (3.0.13)
-  - Mantle (1.3):
+  - libextobjc/RuntimeExtensions (0.4)
+  - libextobjc/UmbrellaHeader (0.4)
+  - Mantle (1.4.1):
     - Mantle/extobjc
-  - Mantle/extobjc (1.3)
+  - Mantle/extobjc (1.4.1)
+  - TesseractOCRiOS (2.21)
 
 DEPENDENCIES:
+  - BlocksKit
   - libextobjc
   - Mantle
+  - TesseractOCRiOS (from `https://github.com/gali8/Tesseract-OCR-iOS.git`)
+
+EXTERNAL SOURCES:
+  TesseractOCRiOS:
+    :git: https://github.com/gali8/Tesseract-OCR-iOS.git
 
 SPEC CHECKSUMS:
-  libextobjc: 820a79dbbbc498611e04fffd07d2d52a5588e7ac
-  libffi: 64ef39353e747bb2b25e1026afd96a157bf9231c
-  Mantle: c3e963daaad6f1418feacce974d789b2d0465539
+  BlocksKit: 125e4e69a62e3b85bacc5175737dae000b00b9fb
+  libextobjc: 2c9fc8226f0f38e562587f65172f93f0c9b4a47a
+  Mantle: 0714cdb2b8559d9e6c2410d6a8529e3307bff189
+  TesseractOCRiOS: 6d071ab51dd3424e892b1deb64d097d861c6ea80
 
-COCOAPODS: 0.26.2
+COCOAPODS: 0.32.1
